@@ -17,9 +17,9 @@ import {
   StdFee,
 } from "@cosmjs/stargate";
 
-import { QueryClient } from "./out/cosmos/bank/v1beta1/QueryServiceClientPb";
-import { MsgSend } from "./out/cosmos/bank/v1beta1/tx_pb";
-import { SimulateRequest } from "./out/cosmos/tx/v1beta1/service_pb";
+import { QueryClient } from "./cosmosProtoTypes/cosmos/bank/v1beta1/QueryServiceClientPb";
+import { MsgSend } from "./cosmosProtoTypes/cosmos/bank/v1beta1/tx_pb";
+import { SimulateRequest } from "./cosmosProtoTypes/cosmos/tx/v1beta1/service_pb";
 import keplrClient from "./keplrClient";
 
 export default function App() {
