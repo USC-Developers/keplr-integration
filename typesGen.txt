@@ -1,0 +1,1 @@
+protoc -I=third_party/proto  third_party/proto/**/*.proto  --js_out=import_style=commonjs,binary:src/out --grpc-web_out=import_style=typescript,mode=grpcwebtext:src/out

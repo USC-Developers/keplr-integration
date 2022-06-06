@@ -1,0 +1,39 @@
+import * as jspb from 'google-protobuf'
+
+import * as gogoproto_gogo_pb from '../../../gogoproto/gogo_pb';
+import * as cosmos_proto_cosmos_pb from '../../../cosmos_proto/cosmos_pb';
+import * as cosmos_msg_v1_msg_pb from '../../../cosmos/msg/v1/msg_pb';
+
+
+export class MsgUnjail extends jspb.Message {
+  getValidatorAddr(): string;
+  setValidatorAddr(value: string): MsgUnjail;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): MsgUnjail.AsObject;
+  static toObject(includeInstance: boolean, msg: MsgUnjail): MsgUnjail.AsObject;
+  static serializeBinaryToWriter(message: MsgUnjail, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): MsgUnjail;
+  static deserializeBinaryFromReader(message: MsgUnjail, reader: jspb.BinaryReader): MsgUnjail;
+}
+
+export namespace MsgUnjail {
+  export type AsObject = {
+    validatorAddr: string,
+  }
+}
+
+export class MsgUnjailResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): MsgUnjailResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: MsgUnjailResponse): MsgUnjailResponse.AsObject;
+  static serializeBinaryToWriter(message: MsgUnjailResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): MsgUnjailResponse;
+  static deserializeBinaryFromReader(message: MsgUnjailResponse, reader: jspb.BinaryReader): MsgUnjailResponse;
+}
+
+export namespace MsgUnjailResponse {
+  export type AsObject = {
+  }
+}
+

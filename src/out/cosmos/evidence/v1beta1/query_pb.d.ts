@@ -1,0 +1,94 @@
+import * as jspb from 'google-protobuf'
+
+import * as cosmos_base_query_v1beta1_pagination_pb from '../../../cosmos/base/query/v1beta1/pagination_pb';
+import * as gogoproto_gogo_pb from '../../../gogoproto/gogo_pb';
+import * as google_protobuf_any_pb from 'google-protobuf/google/protobuf/any_pb';
+import * as google_api_annotations_pb from '../../../google/api/annotations_pb';
+
+
+export class QueryEvidenceRequest extends jspb.Message {
+  getEvidenceHash(): Uint8Array | string;
+  getEvidenceHash_asU8(): Uint8Array;
+  getEvidenceHash_asB64(): string;
+  setEvidenceHash(value: Uint8Array | string): QueryEvidenceRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): QueryEvidenceRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: QueryEvidenceRequest): QueryEvidenceRequest.AsObject;
+  static serializeBinaryToWriter(message: QueryEvidenceRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): QueryEvidenceRequest;
+  static deserializeBinaryFromReader(message: QueryEvidenceRequest, reader: jspb.BinaryReader): QueryEvidenceRequest;
+}
+
+export namespace QueryEvidenceRequest {
+  export type AsObject = {
+    evidenceHash: Uint8Array | string,
+  }
+}
+
+export class QueryEvidenceResponse extends jspb.Message {
+  getEvidence(): google_protobuf_any_pb.Any | undefined;
+  setEvidence(value?: google_protobuf_any_pb.Any): QueryEvidenceResponse;
+  hasEvidence(): boolean;
+  clearEvidence(): QueryEvidenceResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): QueryEvidenceResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: QueryEvidenceResponse): QueryEvidenceResponse.AsObject;
+  static serializeBinaryToWriter(message: QueryEvidenceResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): QueryEvidenceResponse;
+  static deserializeBinaryFromReader(message: QueryEvidenceResponse, reader: jspb.BinaryReader): QueryEvidenceResponse;
+}
+
+export namespace QueryEvidenceResponse {
+  export type AsObject = {
+    evidence?: google_protobuf_any_pb.Any.AsObject,
+  }
+}
+
+export class QueryAllEvidenceRequest extends jspb.Message {
+  getPagination(): cosmos_base_query_v1beta1_pagination_pb.PageRequest | undefined;
+  setPagination(value?: cosmos_base_query_v1beta1_pagination_pb.PageRequest): QueryAllEvidenceRequest;
+  hasPagination(): boolean;
+  clearPagination(): QueryAllEvidenceRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): QueryAllEvidenceRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: QueryAllEvidenceRequest): QueryAllEvidenceRequest.AsObject;
+  static serializeBinaryToWriter(message: QueryAllEvidenceRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): QueryAllEvidenceRequest;
+  static deserializeBinaryFromReader(message: QueryAllEvidenceRequest, reader: jspb.BinaryReader): QueryAllEvidenceRequest;
+}
+
+export namespace QueryAllEvidenceRequest {
+  export type AsObject = {
+    pagination?: cosmos_base_query_v1beta1_pagination_pb.PageRequest.AsObject,
+  }
+}
+
+export class QueryAllEvidenceResponse extends jspb.Message {
+  getEvidenceList(): Array<google_protobuf_any_pb.Any>;
+  setEvidenceList(value: Array<google_protobuf_any_pb.Any>): QueryAllEvidenceResponse;
+  clearEvidenceList(): QueryAllEvidenceResponse;
+  addEvidence(value?: google_protobuf_any_pb.Any, index?: number): google_protobuf_any_pb.Any;
+
+  getPagination(): cosmos_base_query_v1beta1_pagination_pb.PageResponse | undefined;
+  setPagination(value?: cosmos_base_query_v1beta1_pagination_pb.PageResponse): QueryAllEvidenceResponse;
+  hasPagination(): boolean;
+  clearPagination(): QueryAllEvidenceResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): QueryAllEvidenceResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: QueryAllEvidenceResponse): QueryAllEvidenceResponse.AsObject;
+  static serializeBinaryToWriter(message: QueryAllEvidenceResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): QueryAllEvidenceResponse;
+  static deserializeBinaryFromReader(message: QueryAllEvidenceResponse, reader: jspb.BinaryReader): QueryAllEvidenceResponse;
+}
+
+export namespace QueryAllEvidenceResponse {
+  export type AsObject = {
+    evidenceList: Array<google_protobuf_any_pb.Any.AsObject>,
+    pagination?: cosmos_base_query_v1beta1_pagination_pb.PageResponse.AsObject,
+  }
+}
+
