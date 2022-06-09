@@ -1,0 +1,77 @@
+syntax = "proto3";
+package gaia.usc.v1beta1;
+
+option go_package = "github.com/USC-Developers/gaia/x/usc/types";
+option (gogoproto.goproto_getters_all) = false;
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/duration.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+// Params defines the parameters for the x/usc module.
+message Params {
+  option (gogoproto.equal) = true;
+  option (gogoproto.goproto_stringer) = false;
+
+  // redeem_dur defines USC -> collateral redeem duration (how long does it takes to convert).
+  google.protobuf.Duration redeem_dur = 1 [
+    (gogoproto.moretags) = "yaml:\"redeem_dur\"",
+    (gogoproto.nullable) = false,
+    (gogoproto.stdduration) = true
+  ];
+
+  // collateral_metas defines a set of collateral token metas that are supported by the module.
+  repeated TokenMeta collateral_metas = 2 [
+    (gogoproto.moretags) = "yaml:\"collateral_metas\"",
+    (gogoproto.nullable) = false
+  ];
+
+  // usc_meta defines the USC token meta.
+  // USC token must has a higher precision (number of decimals) than other collaterals.
+  TokenMeta usc_meta = 3 [
+    (gogoproto.moretags) = "yaml:\"usc_meta\"",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// TokenMeta defines USC / collateral token metadata.
+message TokenMeta {
+  option (gogoproto.equal) = true;
+  option (gogoproto.goproto_stringer) = false;
+
+  // denom is the sdk.Coin denomination (ibc / native tokens).
+  string denom = 1 [
+    (gogoproto.moretags) = "yaml:\"denom\""
+  ];
+
+  // decimals is a number of decimals for the sdk.Coin amount value.
+  // Example: coin amount of 1.0usdt with 3 decimals -> 1000.
+  uint32 decimals = 2 [
+    (gogoproto.moretags) = "yaml:\"decimals\""
+  ];
+
+  // description is an optional token description (IBC source info for example).
+  string description = 3 [
+    (gogoproto.moretags) = "yaml:\"description\""
+  ];
+}
+
+// RedeemEntry defines the redeeming queue entry.
+message RedeemEntry {
+  option (gogoproto.equal) = true;
+  option (gogoproto.goproto_stringer) = true;
+
+  string address = 1;
+  repeated cosmos.base.v1beta1.Coin collateral_amount = 2 [
+    (gogoproto.nullable) = false
+  ];
+}
+
+message RedeemEntries {
+  option (gogoproto.equal) = true;
+  option (gogoproto.goproto_stringer) = true;
+
+  repeated RedeemEntry entries = 1 [
+    (gogoproto.nullable) = false
+  ];
+}

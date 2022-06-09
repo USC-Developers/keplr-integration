@@ -22,8 +22,3 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-
-/**
- * 
- * tornado vehicle tuna fetch define liquid space fiction gold rhythm capital master
- */

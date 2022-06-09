@@ -1,0 +1,1 @@
+rm -r src/grpc \ mkdir src/grpc \ protoc -I=third_party/proto/confio  -I=third_party/proto -I=proto  third_party/proto/**/*.proto proto/**/*.proto  --js_out=import_style=commonjs,binary:out --grpc-web_out=import_style=typescript,mode=grpcwebtext:./out
