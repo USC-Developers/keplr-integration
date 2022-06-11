@@ -1,52 +1,49 @@
+import { SigningStargateClient, SearchByHeightQuery } from "@cosmjs/stargate";
 
+import { encodePubkey } from "@cosmjs/proto-signing";
 
-import {
-  SigningStargateClient,SearchByHeightQuery
-    
-} from "@cosmjs/stargate";
+import { coin as coinInstance } from "@cosmjs/launchpad";
 
-import {
-
-  encodePubkey,
-
-} from "@cosmjs/proto-signing";
-
-import {
-
-  coin as coinInstance,
-} from "@cosmjs/launchpad";
-
-
-import {
-  encodeSecp256k1Pubkey,
-
-} from "@cosmjs/amino";
-import { BaseAccount, ModuleAccount } from "./grpc/cosmos/auth/v1beta1/auth_pb"
-import Long from 'long'
-import { fromBase64  } from "@cosmjs/encoding";
+import { encodeSecp256k1Pubkey } from "@cosmjs/amino";
+import { BaseAccount, ModuleAccount } from "./grpc/cosmos/auth/v1beta1/auth_pb";
+import Long from "long";
+import { fromBase64 } from "@cosmjs/encoding";
 
 import { Secp256k1 } from "@cosmjs/crypto";
-import { QueryClient as BaknQuery } from "./grpc/cosmos/bank/v1beta1/QueryServiceClientPb" ;
+import { QueryClient as BaknQuery } from "./grpc/cosmos/bank/v1beta1/QueryServiceClientPb";
 //import {  QueryDenomMetadataRequest, QueryDenomsMetadataRequest, QueryBalanceRequest}  from "./cosmosProtoTypes/cosmos/bank/v1beta1/query_pb" ;
-import {   QueryAllBalancesRequest}  from "./grpc/cosmos/bank/v1beta1/query_pb" ;
-import {   MsgClient as TxBankClien}  from "./grpc/cosmos/bank/v1beta1/TxServiceClientPb" ;
-import {  MsgSend}  from "./grpc/cosmos/bank/v1beta1/tx_pb" ;
-import {  MsgMintUSC}  from "./grpc/gaia/usc/v1beta1/tx_pb";
+import { QueryAllBalancesRequest } from "./grpc/cosmos/bank/v1beta1/query_pb";
+import { MsgClient as TxBankClien } from "./grpc/cosmos/bank/v1beta1/TxServiceClientPb";
+import { MsgSend } from "./grpc/cosmos/bank/v1beta1/tx_pb";
+import { MsgMintUSC } from "./grpc/gaia/usc/v1beta1/tx_pb";
 //import {  }  from "./grpc/gaia/usc/v1beta1/TxServiceClientPb";
 import { SignMode } from "./grpc/cosmos/tx/signing/v1beta1/signing_pb";
 import { Any } from "./grpc/google/protobuf/any_pb";
 import { PubKey } from "./grpc/cosmos/crypto/secp256k1/keys_pb";
-import {  ServiceClient  }  from "./grpc/cosmos/tx/v1beta1/ServiceServiceClientPb" 
-import { TxBody, Tx, TxRaw, Fee, AuthInfo, SignerInfo, ModeInfo, SignDoc } from './grpc/cosmos/tx/v1beta1/tx_pb'
-import { Coin } from './grpc/cosmos/base/v1beta1/coin_pb'
+import { ServiceClient } from "./grpc/cosmos/tx/v1beta1/ServiceServiceClientPb";
+import {
+  TxBody,
+  Tx,
+  TxRaw,
+  Fee,
+  AuthInfo,
+  SignerInfo,
+  ModeInfo,
+  SignDoc,
+} from "./grpc/cosmos/tx/v1beta1/tx_pb";
+import { Coin } from "./grpc/cosmos/base/v1beta1/coin_pb";
 
-import { SimulateRequest, BroadcastTxRequest, BroadcastMode} from "./grpc/cosmos/tx/v1beta1/service_pb";
-import { QueryAccountRequest} from "./grpc/cosmos/auth/v1beta1/query_pb";
+import {
+  SimulateRequest,
+  BroadcastTxRequest,
+  BroadcastMode,
+} from "./grpc/cosmos/tx/v1beta1/service_pb";
+import { QueryAccountRequest } from "./grpc/cosmos/auth/v1beta1/query_pb";
 
-import { QueryClient as AuthClient} from "./grpc/cosmos/auth/v1beta1/QueryServiceClientPb";
+import { QueryClient as AuthClient } from "./grpc/cosmos/auth/v1beta1/QueryServiceClientPb";
 
-import {getCoinList} from './helpers'
-import {MsgType} from './global'
+import { getCoinList } from "./helpers";
+import { MsgType } from "./global";
 
 interface OfflineSigner {
   chainId?: string;
@@ -57,335 +54,425 @@ const w: any = window;
 
 class KeplrClient {
   signer: any;
-  account: string = "";
+  account: {
+    address: string;
+    pubKey: Uint8Array;
+    sequence: number;
+    accountNumber: number
+  } = {
+    address: "",
+    pubKey: Uint8Array.from([]),
+    sequence: 0,
+    accountNumber: 0
+  };
   stargate: SigningStargateClient | undefined;
+  chain: string = "";
+  rpc: string = "";
+  rest: string = "";
+  feesDenom:string = 'stake'
+  proxy = "http://localhost:8080";
+  txService: ServiceClient;
 
-  chain:string = ''
-  rpc: string = ''
-  rest: string = ''
-  proxy = 'http://localhost:8080'
-  txService: ServiceClient 
 
-
-  constructor(chain: string, rpc: string, rest:string) {
-
-    this.chain = chain
-    this.rpc = rpc
-    this.rest = rest
-    this.txService = new ServiceClient(this.proxy)
-    return this
- 
-    
+  constructor(chain: string, rpc: string, rest: string) {
+    this.chain = chain;
+    this.rpc = rpc;
+    this.rest = rest;
+    this.txService = new ServiceClient(this.proxy);
+    return this;
   }
 
   public async connect() {
     try {
-
       try {
-        await w.keplr.enable(this.chain)
-    
+        await w.keplr.enable(this.chain);
       } catch (e) {
-        await w.keplr.experimentalSuggestChain(setChain(this.chain, this.rpc, this.rest));
-        await w.keplr.enable(this.chain)
+        await w.keplr.experimentalSuggestChain(
+          setChain(this.chain, this.rpc, this.rest)
+        );
+        await w.keplr.enable(this.chain);
       }
-
-      
 
       this.signer = w.getOfflineSigner(this.chain);
 
-      this.account = (await this.signer?.getAccounts())[0].address;
+      this.account.address = (await this.signer?.getAccounts())[0].address;
+
+      const account = await this.getAccount();
+      this.account = {
+        ...this.account,
+        ...account,
+      };
 
       console.log(this.account);
 
-      this.stargate = await SigningStargateClient.connectWithSigner(
-        this.rpc,
-        this.signer!
-       // {
-          // gasPrice: GasPrice.fromString(`0.1uosmo`),
-        //}
-      );
-
-
-      return this
+      return this;
     } catch (e) {
       throw e;
     }
   }
 
   public async getBalance() {
-    const client = new BaknQuery(this.proxy)
+    const client = new BaknQuery(this.proxy);
 
-    const req = new QueryAllBalancesRequest().setAddress(this.account);
+    const req = new QueryAllBalancesRequest().setAddress(this.account.address);
 
     client.allBalances(req, {}, (err, res) => {
       console.log(err);
       console.log(res);
-    })
-
-
+    });
   }
 
-  public async sendWithCosmo(
-    msg: any[],
-    memo: string
-  ) {
-   
+  public async sendWithCosmo(msg: any[], memo: string) {
     if (this.stargate) {
+      const gas = await this.stargate.simulate(this.account.address, msg, memo);
 
-     const gas = await this.stargate.simulate(this.account, msg, memo)
+      console.log(gas);
 
-     console.log(gas);
+      const res = await this.stargate.signAndBroadcast(
+        this.account.address,
+        msg,
+        {
+          gas: (gas * 1.4).toFixed(0),
+          amount: [coinInstance(1, "stake")],
+        },
+        memo
+      );
 
-     const res = await this.stargate.signAndBroadcast(this.account, msg, {
-      gas: (gas * 1.4).toFixed(0),
-      amount: [coinInstance(1, "stake")],
-    } , memo) 
-
-
-     console.log(res);
-
+      console.log(res);
     }
   }
 
-
-  public async getTrx(hash:string) {
+  public async getTrx(hash: string) {
     return await this.stargate?.getTx(hash);
   }
 
   private async getAccount() {
-    const client = new AuthClient(this.proxy)
-    const req = new QueryAccountRequest().setAddress(this.account)
+    const client = new AuthClient(this.proxy);
+    const req = new QueryAccountRequest().setAddress(this.account.address);
 
     try {
-      const res = await client.account(req, null)
-     
-      const {accountNumber, sequence} = BaseAccount.deserializeBinary(res.toObject()?.account.value).toObject()
+      const res = await client.account(req, null);
 
-      return {accountNumber, sequence}
+      const { accountNumber, sequence } = BaseAccount.deserializeBinary(
+        res.toObject()?.account.value
+      ).toObject();
+
+      return { accountNumber, sequence };
     } catch (e) {
-      console.log(e)
-      return null
+      console.log(e);
+      return null;
     }
   }
 
-  private buildTxBody(msg:MsgType, typeUrl: string, memo: string) {
-   
-    const wrappedMsg = new Any().setTypeUrl(typeUrl).setValue(msg.serializeBinary())
-    const txBody = new TxBody().setMessagesList([wrappedMsg]).setTimeoutHeight(0).setExtensionOptionsList([]).setMemo(memo)
-    
+  private buildTxBody(msg: MsgType, typeUrl: string, memo: string) {
+    const wrappedMsg = new Any()
+      .setTypeUrl(typeUrl)
+      .setValue(msg.serializeBinary());
+    const txBody = new TxBody()
+      .setMessagesList([wrappedMsg])
+      .setTimeoutHeight(0)
+      .setExtensionOptionsList([])
+      .setMemo(memo);
+
     return txBody.serializeBinary();
   }
 
   private async setPubKey() {
     try {
-      const key = await this.signer.keplr.getKey(this.chain)
+      const key = await w.keplr.getKey(this.chain);
+      console.log(key)
+      const pubKey = encodePubkey(encodeSecp256k1Pubkey(key.pubKey));
+
+      this.account.pubKey = pubKey.value;
+      return this.account.pubKey;
     } catch (e) {
-      
+      return Uint8Array.from([]);
     }
- 
   }
 
-  private setTxAuthInfo() {
+  private setSignDoc(bodyBytes: Uint8Array, authInfoBytes: Uint8Array) {
+    const signDoc = new SignDoc();
+    signDoc.setBodyBytes(bodyBytes);
+    signDoc.setAuthInfoBytes(authInfoBytes);
+    signDoc.setChainId(this.chain);
+    signDoc.setAccountNumber(this.account.accountNumber);
+
+    return signDoc.serializeBinary();
+  }
+
+  private async setTxAuthInfo(fees?: number) {
+    console.log(this.account.pubKey.byteLength)
+    const pubKey = this.account.pubKey.byteLength > 0 ? this.account.pubKey : (await this.setPubKey());
+
+    console.log(pubKey)
+
     const pubKeyAny = new Any();
 
+    pubKeyAny.setTypeUrl("/cosmos.crypto.secp256k1.PubKey");
+    pubKeyAny.setValue(pubKey);
 
+    const authInfo = new AuthInfo();
+
+    const signerInfo = new SignerInfo();
+    const modeInfo = new ModeInfo();
+    const singleModeInfo = new ModeInfo.Single();
+    singleModeInfo.setMode(SignMode.SIGN_MODE_DIRECT);
+    modeInfo.setSingle(singleModeInfo);
+
+    signerInfo.setPublicKey(pubKeyAny);
+    signerInfo.setModeInfo(modeInfo);
+
+    signerInfo.setSequence(this.account.sequence);
+
+    authInfo
+      .setSignerInfosList([signerInfo])
+      .setFee(
+        new Fee()
+          .setGasLimit(100000)
+          .setAmountList([new Coin().setAmount(fees? String(fees) : '0').setDenom(this.feesDenom)])
+      );
+
+      return authInfo.serializeBinary()
   }
-
 
   private async Simulate(tx: Uint8Array) {
-    const req = new SimulateRequest().setTxBytes(tx)
-   
+    const req = new SimulateRequest().setTxBytes(tx);
+
     try {
-      const {gasInfo} = (await this.txService.simulate(req ,null))?.toObject()
-      return gasInfo?.gasUsed
+      const { gasInfo } = (
+        await this.txService.simulate(req, null)
+      )?.toObject();
+      return gasInfo?.gasUsed;
     } catch (e) {
-        console.log(e, 'in Simulate')
-        return null
+      console.log(e, "in Simulate");
+      return undefined;
     }
-
   }
-//'/cosmos.bank.v1beta1.MsgSend'
+  //'/cosmos.bank.v1beta1.MsgSend'
 
+  private async Broadcast(signDoc: SignDoc, gas: number) {
   
 
-  private async Broadcast(tx: Uint8Array, gas: number) {
-    const req = new BroadcastTxRequest().setTxBytes(tx).setMode(BroadcastMode.BROADCAST_MODE_BLOCK)
-
     try {
-      const res = await this.txService.broadcastTx(req, null)
-    } catch (e) {
 
+
+      return w.keplr.signDirect(this.chain, this.account.address, signDoc.toObject()).then(async (sig:any) => {
+
+        console.log(sig)
+
+        const authInfoBytes = await this.setTxAuthInfo(gas)
+
+        const tx = new TxRaw()
+          .setBodyBytes(sig.signed.bodyBytes)
+          .setAuthInfoBytes(authInfoBytes)
+          .setSignaturesList([sig.signature.signature])
+          .serializeBinary();
+
+          const req = new BroadcastTxRequest()
+          .setTxBytes(tx)
+          .setMode(BroadcastMode.BROADCAST_MODE_BLOCK);
+
+        return await this.txService.broadcastTx(req, null);
+      }).catch((err:any) => console.log(err))
+      
+  
+    } catch (e) {
+      console.log(e)
+      return undefined
     }
   }
 
+  public async mintUSC() {}
 
-  public async mintUSC() {
+  public async transferCoins(toAddress:string, amount: number) {
 
-  }
+    const msg = new MsgSend()
+    .setToAddress(toAddress)
+    .setAmountList(getCoinList(amount, 'stake'))
+    .setFromAddress(this.account.address);
+
+    const bodyBytes = this.buildTxBody(msg, '/cosmos.bank.v1beta1.MsgSend', `Send Coins to ${toAddress}`)
+    let authInfoBytes = await this.setTxAuthInfo();
+    const signDocBytes = this.setSignDoc(bodyBytes, authInfoBytes);
+
+    const tx = new TxRaw()
+      .setBodyBytes(bodyBytes)
+      .setAuthInfoBytes(authInfoBytes)
+      .setSignaturesList([signDocBytes])
+      .serializeBinary();
 
 
+    const gas = await this.Simulate(tx)
+    console.log(gas)
+    
 
-  public async transferCoins() {
+    const res = await this.Broadcast(SignDoc.deserializeBinary(signDocBytes), 2500)
 
+    console.log(res)
+    
+
+    /*
     const client = new ServiceClient(this.proxy);
-    const key = await this.signer.keplr.getKey(this.chain)
+    const key = await this.signer.keplr.getKey(this.chain);
     const pubkey = encodePubkey(encodeSecp256k1Pubkey(key.pubKey));
-   
 
+    const coin = new Coin();
 
-    
+    coin.setAmount("1");
+    coin.setDenom("stake");
 
-    const coin = new Coin()
-
-    coin.setAmount('1')
-    coin.setDenom('stake')
-
-   
     //const msg = new MsgSend().setAddress('cosmos15zwjg6q62lcejtz4fauq5ltm0zlrwam8003lyz').setCollateralAmountList([coin])
-    const msg = new MsgSend().setToAddress('cosmos15zwjg6q62lcejtz4fauq5ltm0zlrwam8003lyz').setAmountList([coin]).setFromAddress(this.account)
+    const msg = new MsgSend()
+      .setToAddress("cosmos15zwjg6q62lcejtz4fauq5ltm0zlrwam8003lyz")
+      .setAmountList([coin])
+      .setFromAddress(this.account.address);
 
-    const wrappedMsg = new Any().setTypeUrl('/cosmos.bank.v1beta1.MsgSend').setValue(msg.serializeBinary())
+    const wrappedMsg = new Any()
+      .setTypeUrl("/cosmos.bank.v1beta1.MsgSend")
+      .setValue(msg.serializeBinary());
 
-    const txBody = new TxBody().setMessagesList([wrappedMsg]).setTimeoutHeight(0).setExtensionOptionsList([]).setMemo('test MEMO')
-    
+    const txBody = new TxBody()
+      .setMessagesList([wrappedMsg])
+      .setTimeoutHeight(0)
+      .setExtensionOptionsList([])
+      .setMemo("test MEMO");
 
-    const bodyBytes  = txBody.serializeBinary();
+    const bodyBytes = txBody.serializeBinary();
 
+    const pubKeyAny = new Any();
 
-   const pubKeyAny = new Any();
-
-
-
-    pubKeyAny.setTypeUrl('/cosmos.crypto.secp256k1.PubKey');
+    pubKeyAny.setTypeUrl("/cosmos.crypto.secp256k1.PubKey");
     pubKeyAny.setValue(pubkey.value);
 
-   const authInfo = new AuthInfo();
+    const authInfo = new AuthInfo();
 
+    const signerInfo = new SignerInfo();
+    const modeInfo = new ModeInfo();
+    const singleModeInfo = new ModeInfo.Single();
+    singleModeInfo.setMode(SignMode.SIGN_MODE_DIRECT);
+    modeInfo.setSingle(singleModeInfo);
 
-   const signerInfo = new SignerInfo();
-   const modeInfo = new ModeInfo();
-   const singleModeInfo = new ModeInfo.Single();
-   singleModeInfo.setMode(SignMode.SIGN_MODE_DIRECT);
-   modeInfo.setSingle(singleModeInfo);
+    signerInfo.setPublicKey(pubKeyAny);
+    signerInfo.setModeInfo(modeInfo);
 
+    signerInfo.setSequence(3);
 
-   signerInfo.setPublicKey(pubKeyAny);
-   signerInfo.setModeInfo(modeInfo);
+    authInfo
+      .setSignerInfosList([signerInfo])
+      .setFee(
+        new Fee()
+          .setGasLimit(100000)
+          .setAmountList([new Coin().setAmount("2500").setDenom("stake")])
+      );
+    const authInfoBytes = authInfo.serializeBinary();
 
-   signerInfo.setSequence(3);
+    const signDoc = new SignDoc();
+    signDoc.setBodyBytes(bodyBytes);
+    signDoc.setAuthInfoBytes(authInfoBytes);
+    signDoc.setChainId(this.chain);
+    signDoc.setAccountNumber(8);
 
+    const signMessage = signDoc.serializeBinary();
 
+    //console.log(await w.keplr.getKey(this.chain))
 
-   authInfo.setSignerInfosList([signerInfo]).setFee(new Fee().setGasLimit(100000).setAmountList([new Coin().setAmount('2500').setDenom('stake')]));
-   const authInfoBytes = authInfo.serializeBinary();
+    //console.log(await w.keplr.getKey(this.chain))
+    const tx = new TxRaw()
+      .setBodyBytes(bodyBytes)
+      .setAuthInfoBytes(authInfoBytes)
+      .setSignaturesList([signMessage])
+      .serializeBinary(); //.setSignaturesList([signature.signature.signature]).serializeBinary()
+    const sim = new SimulateRequest().setTxBytes(tx);
 
+    const { gasInfo } = (await client.simulate(sim, null))?.toObject();
 
+    authInfo.setFee(
+      new Fee()
+        .setGasLimit(100000)
+        .setAmountList([
+          new Coin()
+            .setAmount(String(gasInfo?.gasUsed || (10000 / 10) * 1.3))
+            .setDenom("stake"),
+        ])
+    );
 
-   const signDoc = new SignDoc();
-   signDoc.setBodyBytes(bodyBytes);
-   signDoc.setAuthInfoBytes(authInfoBytes);
-   signDoc.setChainId(this.chain);
-   signDoc.setAccountNumber(8);
+    w.keplr
+      .signDirect(this.chain, this.account, signDoc.toObject())
+      .then(async (signature: any) => {
+        const tx = new TxRaw()
+          .setBodyBytes(signature.signed.bodyBytes)
+          .setAuthInfoBytes(signature.signed.authInfoBytes)
+          .setSignaturesList([signature.signature.signature])
+          .serializeBinary();
 
+        console.log(signature, "sig");
+        const req = new BroadcastTxRequest()
+          .setTxBytes(tx)
+          .setMode(BroadcastMode.BROADCAST_MODE_BLOCK);
+        console.log("kara");
 
-   const signMessage = signDoc.serializeBinary();
+        client.broadcastTx(req, null, async (err, res: any) => {
+          console.log(err);
 
-  
-   //console.log(await w.keplr.getKey(this.chain))
-
-   //console.log(await w.keplr.getKey(this.chain))
-   const tx = new TxRaw().setBodyBytes(bodyBytes).setAuthInfoBytes(authInfoBytes).setSignaturesList([signMessage]).serializeBinary()//.setSignaturesList([signature.signature.signature]).serializeBinary()
-    const sim = new SimulateRequest().setTxBytes(tx)
-
-   const {gasInfo} = (await client.simulate(sim,null))?.toObject()
-
-   authInfo.setFee(new Fee().setGasLimit(100000).setAmountList([new Coin().setAmount(String(gasInfo?.gasUsed || 10000 /10 * 1.3)).setDenom('stake')]))
-
-
-
-   w.keplr.signDirect(this.chain, this.account, signDoc.toObject()).then(async (signature:any) => {
-
-    const tx = new TxRaw().setBodyBytes(signature.signed.bodyBytes).setAuthInfoBytes(signature.signed.authInfoBytes).setSignaturesList([signature.signature.signature]).serializeBinary()
-
-    console.log(signature, 'sig')
-    const req = new BroadcastTxRequest().setTxBytes(tx).setMode(BroadcastMode.BROADCAST_MODE_BLOCK)
-     console.log('kara')
-
-
-
-   client.broadcastTx(req, null, async (err, res:any) => {
-      console.log(err);
-     
-      console.log(res)
-     // const tx = await this.stargate?.getTx(res.array[1])
-      //console.log(tx)
-    })
-      
-   }).catch((err:any) => {
-     console.log(err)
-   })
-
-
-
-    
+          console.log(res);
+          // const tx = await this.stargate?.getTx(res.array[1])
+          //console.log(tx)
+        });
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });*/
   }
-
-
 }
 
-export default (chain: string, rpc: string, rest: string): KeplrClient => new KeplrClient(chain, rpc, rest)
-  
+export default (chain: string, rpc: string, rest: string): KeplrClient =>
+  new KeplrClient(chain, rpc, rest);
 
-
-const setChain = (chain:string, rpc:string, rest:string) => ({
+const setChain = (chain: string, rpc: string, rest: string) => ({
   chainId: chain,
   chainName: "USC_GAIA",
   rpc: `https://${rpc}`,
   rest: `http://${rest}`,
   bip44: {
-      coinType: 118,
+    coinType: 118,
   },
   bech32Config: {
-      bech32PrefixAccAddr: "cosmos",
-      bech32PrefixAccPub: "cosmos"   + "pub",
-      bech32PrefixValAddr: "cosmos"  + "valoper",
-      bech32PrefixValPub: "cosmos"   + "valoperpub",
-      bech32PrefixConsAddr: "cosmos" + "valcons",
-      bech32PrefixConsPub: "cosmos"  + "valconspub",
+    bech32PrefixAccAddr: "cosmos",
+    bech32PrefixAccPub: "cosmos" + "pub",
+    bech32PrefixValAddr: "cosmos" + "valoper",
+    bech32PrefixValPub: "cosmos" + "valoperpub",
+    bech32PrefixConsAddr: "cosmos" + "valcons",
+    bech32PrefixConsPub: "cosmos" + "valconspub",
   },
-  currencies: [ 
+  currencies: [
     {
       coinDenom: "stake",
       coinMinimalDenom: "stake",
-      coinDecimals: 0
+      coinDecimals: 0,
     },
     {
       coinDenom: "usdt",
       coinMinimalDenom: "uusdt",
-      coinDecimals: 6
-    }
+      coinDecimals: 6,
+    },
   ],
   feeCurrencies: [
     {
       coinDenom: "stake",
       coinMinimalDenom: "stake",
-      coinDecimals: 0
-    }
+      coinDecimals: 0,
+    },
   ],
   stakeCurrency: {
     coinDenom: "stake",
     coinMinimalDenom: "stake",
-    coinDecimals: 0
+    coinDecimals: 0,
   },
   coinType: 118,
   gasPriceStep: {
-      low: 0.01,
-      average: 0.025,
-      high: 0.03,
+    low: 0.01,
+    average: 0.025,
+    high: 0.03,
   },
-  features: [ 
-    "cosmwasm", "ibc-transfer", "ibc-go", "wasmd_0.24+"
-],
-})
-
-
+  features: ["cosmwasm", "ibc-transfer", "ibc-go", "wasmd_0.24+"],
+});

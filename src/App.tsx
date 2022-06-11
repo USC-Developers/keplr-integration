@@ -21,7 +21,7 @@ export default function App() {
       const client = await keplrClient("usc-gaia-2", "167.172.180.70:26657", "167.172.180.70:1317").connect()
 
 
-      //await client.getAccount()
+      await client.transferCoins("cosmos15zwjg6q62lcejtz4fauq5ltm0zlrwam8003lyz", 1)
 
    
       false && await client.sendWithCosmo(
