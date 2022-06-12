@@ -15,7 +15,7 @@ import { QueryClient as BaknQuery } from "./grpc/cosmos/bank/v1beta1/QueryServic
 import { QueryAllBalancesRequest } from "./grpc/cosmos/bank/v1beta1/query_pb";
 import { MsgClient as TxBankClien } from "./grpc/cosmos/bank/v1beta1/TxServiceClientPb";
 import { MsgSend } from "./grpc/cosmos/bank/v1beta1/tx_pb";
-import { MsgMintUSC } from "./grpc/gaia/usc/v1beta1/tx_pb";
+import { MsgMintUSC, MsgRedeemCollateral } from "./grpc/gaia/usc/v1beta1/tx_pb";
 //import {  }  from "./grpc/gaia/usc/v1beta1/TxServiceClientPb";
 import { SignMode } from "./grpc/cosmos/tx/signing/v1beta1/signing_pb";
 import { Any } from "./grpc/google/protobuf/any_pb";
@@ -180,8 +180,10 @@ class KeplrClient {
   private async setPubKey() {
     try {
       const key = await w.keplr.getKey(this.chain);
-      console.log(key)
+      console.log(key, 'key')
       const pubKey = encodePubkey(encodeSecp256k1Pubkey(key.pubKey));
+
+      console.log(pubKey);
 
       this.account.pubKey = pubKey.value;
       return this.account.pubKey;
@@ -201,11 +203,10 @@ class KeplrClient {
   }
 
   private async setTxAuthInfo(fees?: number) {
-    console.log(this.account.pubKey.byteLength)
+
     const pubKey = this.account.pubKey.byteLength > 0 ? this.account.pubKey : (await this.setPubKey());
 
-    console.log(pubKey)
-
+  
     const pubKeyAny = new Any();
 
     pubKeyAny.setTypeUrl("/cosmos.crypto.secp256k1.PubKey");
@@ -235,6 +236,19 @@ class KeplrClient {
       return authInfo.serializeBinary()
   }
 
+  private async buildTx  (bodyBytes:Uint8Array) {
+    const authInfoBytes = await this.setTxAuthInfo();
+    const signDocBytes = this.setSignDoc(bodyBytes, authInfoBytes);
+
+    const tx = new TxRaw()
+    .setBodyBytes(bodyBytes)
+    .setAuthInfoBytes(authInfoBytes)
+    .setSignaturesList([signDocBytes])
+    .serializeBinary();
+
+    return  [tx, signDocBytes]
+  }
+
   private async Simulate(tx: Uint8Array) {
     const req = new SimulateRequest().setTxBytes(tx);
 
@@ -250,10 +264,17 @@ class KeplrClient {
   }
   //'/cosmos.bank.v1beta1.MsgSend'
 
-  private async Broadcast(signDoc: SignDoc, gas: number) {
-  
+  private async Broadcast(signDoc: SignDoc, gas: number, bodyBytes:Uint8Array) {
+
+    
 
     try {
+
+      const account = await this.getAccount();
+      this.account = {
+        ...this.account,
+        ...account,
+      };
 
 
       return w.keplr.signDirect(this.chain, this.account.address, signDoc.toObject()).then(async (sig:any) => {
@@ -263,7 +284,7 @@ class KeplrClient {
         const authInfoBytes = await this.setTxAuthInfo(gas)
 
         const tx = new TxRaw()
-          .setBodyBytes(sig.signed.bodyBytes)
+          .setBodyBytes(bodyBytes)
           .setAuthInfoBytes(authInfoBytes)
           .setSignaturesList([sig.signature.signature])
           .serializeBinary();
@@ -282,7 +303,41 @@ class KeplrClient {
     }
   }
 
-  public async mintUSC() {}
+  public async mintUSC() {
+    const msg = new MsgMintUSC()
+    .setAddress(this.account.address)
+    .setCollateralAmountList(getCoinList(1000, 'uusdt'))
+
+    const bodyBytes = this.buildTxBody(msg, '/gaia.usc.v1beta1.MsgMintUSC', 'Mining USC tokens')
+
+    const [tx, signDocBytes] = await this.buildTx(bodyBytes)
+
+    const gas = await this.Simulate(tx)
+
+    const res = await this.Broadcast(SignDoc.deserializeBinary(signDocBytes), 2500 , bodyBytes)
+
+    console.log(res)
+  }
+
+  public async burnUSC() {
+    const msg = new MsgRedeemCollateral()
+    .setAddress(this.account.address)
+    .setUscAmount(getCoinList(555555, "ausc")[0])
+
+    const bodyBytes = this.buildTxBody(msg, '/gaia.usc.v1beta1.MsgRedeemCollateral', 'Burn USC tokens')
+
+    const [tx, signDocBytes] = await this.buildTx(bodyBytes)
+    
+    //const gas = await this.Simulate(tx)
+    
+    //.console.log(gas)
+
+    const res = await this.Broadcast(SignDoc.deserializeBinary(signDocBytes), 2500, bodyBytes)
+
+    console.log(res)
+   
+  }
+
 
   public async transferCoins(toAddress:string, amount: number) {
 
@@ -292,136 +347,17 @@ class KeplrClient {
     .setFromAddress(this.account.address);
 
     const bodyBytes = this.buildTxBody(msg, '/cosmos.bank.v1beta1.MsgSend', `Send Coins to ${toAddress}`)
-    let authInfoBytes = await this.setTxAuthInfo();
-    const signDocBytes = this.setSignDoc(bodyBytes, authInfoBytes);
-
-    const tx = new TxRaw()
-      .setBodyBytes(bodyBytes)
-      .setAuthInfoBytes(authInfoBytes)
-      .setSignaturesList([signDocBytes])
-      .serializeBinary();
+   
+    const [tx, signDocBytes] = await this.buildTx(bodyBytes)
 
 
     const gas = await this.Simulate(tx)
-    console.log(gas)
-    
+   
 
-    const res = await this.Broadcast(SignDoc.deserializeBinary(signDocBytes), 2500)
+    const res = await this.Broadcast(SignDoc.deserializeBinary(signDocBytes), 2500, bodyBytes)
 
     console.log(res)
     
-
-    /*
-    const client = new ServiceClient(this.proxy);
-    const key = await this.signer.keplr.getKey(this.chain);
-    const pubkey = encodePubkey(encodeSecp256k1Pubkey(key.pubKey));
-
-    const coin = new Coin();
-
-    coin.setAmount("1");
-    coin.setDenom("stake");
-
-    //const msg = new MsgSend().setAddress('cosmos15zwjg6q62lcejtz4fauq5ltm0zlrwam8003lyz').setCollateralAmountList([coin])
-    const msg = new MsgSend()
-      .setToAddress("cosmos15zwjg6q62lcejtz4fauq5ltm0zlrwam8003lyz")
-      .setAmountList([coin])
-      .setFromAddress(this.account.address);
-
-    const wrappedMsg = new Any()
-      .setTypeUrl("/cosmos.bank.v1beta1.MsgSend")
-      .setValue(msg.serializeBinary());
-
-    const txBody = new TxBody()
-      .setMessagesList([wrappedMsg])
-      .setTimeoutHeight(0)
-      .setExtensionOptionsList([])
-      .setMemo("test MEMO");
-
-    const bodyBytes = txBody.serializeBinary();
-
-    const pubKeyAny = new Any();
-
-    pubKeyAny.setTypeUrl("/cosmos.crypto.secp256k1.PubKey");
-    pubKeyAny.setValue(pubkey.value);
-
-    const authInfo = new AuthInfo();
-
-    const signerInfo = new SignerInfo();
-    const modeInfo = new ModeInfo();
-    const singleModeInfo = new ModeInfo.Single();
-    singleModeInfo.setMode(SignMode.SIGN_MODE_DIRECT);
-    modeInfo.setSingle(singleModeInfo);
-
-    signerInfo.setPublicKey(pubKeyAny);
-    signerInfo.setModeInfo(modeInfo);
-
-    signerInfo.setSequence(3);
-
-    authInfo
-      .setSignerInfosList([signerInfo])
-      .setFee(
-        new Fee()
-          .setGasLimit(100000)
-          .setAmountList([new Coin().setAmount("2500").setDenom("stake")])
-      );
-    const authInfoBytes = authInfo.serializeBinary();
-
-    const signDoc = new SignDoc();
-    signDoc.setBodyBytes(bodyBytes);
-    signDoc.setAuthInfoBytes(authInfoBytes);
-    signDoc.setChainId(this.chain);
-    signDoc.setAccountNumber(8);
-
-    const signMessage = signDoc.serializeBinary();
-
-    //console.log(await w.keplr.getKey(this.chain))
-
-    //console.log(await w.keplr.getKey(this.chain))
-    const tx = new TxRaw()
-      .setBodyBytes(bodyBytes)
-      .setAuthInfoBytes(authInfoBytes)
-      .setSignaturesList([signMessage])
-      .serializeBinary(); //.setSignaturesList([signature.signature.signature]).serializeBinary()
-    const sim = new SimulateRequest().setTxBytes(tx);
-
-    const { gasInfo } = (await client.simulate(sim, null))?.toObject();
-
-    authInfo.setFee(
-      new Fee()
-        .setGasLimit(100000)
-        .setAmountList([
-          new Coin()
-            .setAmount(String(gasInfo?.gasUsed || (10000 / 10) * 1.3))
-            .setDenom("stake"),
-        ])
-    );
-
-    w.keplr
-      .signDirect(this.chain, this.account, signDoc.toObject())
-      .then(async (signature: any) => {
-        const tx = new TxRaw()
-          .setBodyBytes(signature.signed.bodyBytes)
-          .setAuthInfoBytes(signature.signed.authInfoBytes)
-          .setSignaturesList([signature.signature.signature])
-          .serializeBinary();
-
-        console.log(signature, "sig");
-        const req = new BroadcastTxRequest()
-          .setTxBytes(tx)
-          .setMode(BroadcastMode.BROADCAST_MODE_BLOCK);
-        console.log("kara");
-
-        client.broadcastTx(req, null, async (err, res: any) => {
-          console.log(err);
-
-          console.log(res);
-          // const tx = await this.stargate?.getTx(res.array[1])
-          //console.log(tx)
-        });
-      })
-      .catch((err: any) => {
-        console.log(err);
-      });*/
   }
 }
 
