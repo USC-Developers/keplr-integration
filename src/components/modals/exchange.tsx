@@ -1,9 +1,8 @@
 import React, { PureComponent, useState } from "react";
 
-import keplr from "../../assets/img/kpl.png";
 
 import { withServices } from "../hocs/withServices";
-import keplrClient, { KeplrClient } from "../../services/keplrClient";
+
 import { ServiceContainer, withServiceContainer } from "../../global";
 import bignumber from "bignumber.js";
 import usdt from "../../assets/img/usdt.svg";
@@ -12,12 +11,10 @@ import usc from "../../assets/img/usc.jpeg";
 import { Status } from "../popups/Status";
 import { useDispatch, useSelector } from "react-redux";
 import { setTxStatus, Global, setTab } from "../../state";
-import { Dispatch, AnyAction } from "redux";
-import { status } from "@grpc/grpc-js";
 
 interface ExchangeProps extends withServiceContainer {}
 
-const Exchange = ({ container, setContainer }: ExchangeProps) => {
+const Exchange = ({ container}: ExchangeProps) => {
   //todo types
 
   const dispatch = useDispatch();
