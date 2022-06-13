@@ -7,13 +7,15 @@ import keplrClient, {KeplrClient} from '../../services/keplrClient';
 import {ServiceContainer, withServiceContainer} from '../../global'
 
 
+import {CONFIG} from '../../config'
+
 interface ConnectWalletProps extends withServiceContainer {
     onClose: () => void
 }
 
  const ConnectWallet = ({container, setContainer, onClose}:ConnectWalletProps) => { //todo types
 
-    console.log(container, 'cm')
+  
 
     const [connection, setConnection] = useState(false)
 
@@ -22,7 +24,7 @@ interface ConnectWalletProps extends withServiceContainer {
         let client:KeplrClient | null;
         setConnection(true)
         try {
-            client = await keplrClient("usc-gaia-3", "167.172.180.70:26657", "167.172.180.70:1317").connect()
+            client = await keplrClient(CONFIG.chain, `${CONFIG.chainIp}:${CONFIG.rpcPort}`, `${CONFIG.chainIp}:${CONFIG.restPort}`).connect()
         } catch (e) {
             client = null
             console.log(e)

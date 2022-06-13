@@ -39,7 +39,8 @@ import { Window as KeplrWindow } from "@keplr-wallet/types";
 import TxBuilder, {TxBuilder as TxBuilderType} from './txBuilder'
 
 import {setChain} from '../helpers'
-import { type } from "os";
+import {CONFIG} from '../config'
+
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -69,8 +70,8 @@ class KeplrClient {
   chain: string = "";
   rpc: string = "";
   rest: string = "";
-  feesDenom:string = 'stake'
-  proxy = "http://localhost:8080";
+
+  proxy = CONFIG.proxyUrl;
   txService: ServiceClient;
   txBuilder: TxBuilderType
 
@@ -80,7 +81,7 @@ class KeplrClient {
     this.rpc = rpc;
     this.rest = rest;
     this.txService = new ServiceClient(this.proxy);
-    this.txBuilder = TxBuilder(chain, 'stake')
+    this.txBuilder = TxBuilder(chain, CONFIG.feesDenom)
     return this;
   }
 
@@ -230,7 +231,7 @@ class KeplrClient {
   }
 
 
-  private async Broadcast(signDoc: SignDoc, gas: number, bodyBytes:Uint8Array) {
+  private async Broadcast(signDoc: SignDoc, gas: number | undefined, bodyBytes:Uint8Array) {
 
     await this.getAccount()
 
@@ -263,13 +264,13 @@ class KeplrClient {
     }
   }
 
-  public async mintUSC(amount: string) {
+  public async mintUSC(amount: string, denom: string) {
 
 
 
     const msg = new MsgMintUSC()
     .setAddress(this.account.address)
-    .setCollateralAmountList(getCoinList(amount, 'uusdt'))
+    .setCollateralAmountList(getCoinList(amount, denom))
 
     const bodyBytes = this.txBuilder.buildTxBody(msg, '/gaia.usc.v1beta1.MsgMintUSC', 'Mining USC tokens')
 
@@ -277,7 +278,7 @@ class KeplrClient {
 
     //const gas = await this.Simulate(tx)
 
-    return await this.Broadcast(SignDoc.deserializeBinary(signDocBytes), 2500 , bodyBytes)
+    return await this.Broadcast(SignDoc.deserializeBinary(signDocBytes), undefined , bodyBytes)
 
   }
 
@@ -292,7 +293,7 @@ class KeplrClient {
     
     //const gas = await this.Simulate(tx)
     
-    return await this.Broadcast(SignDoc.deserializeBinary(signDocBytes), 2500, bodyBytes)
+    return await this.Broadcast(SignDoc.deserializeBinary(signDocBytes), undefined, bodyBytes)
 
    
   }

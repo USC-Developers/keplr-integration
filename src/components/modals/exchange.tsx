@@ -13,6 +13,7 @@ import { Status } from "../popups/Status";
 import { useDispatch, useSelector } from "react-redux";
 import { setTxStatus, Global, setTab } from "../../state";
 import { Dispatch, AnyAction } from "redux";
+import { status } from "@grpc/grpc-js";
 
 interface ExchangeProps extends withServiceContainer {}
 
@@ -33,7 +34,7 @@ const Exchange = ({ container, setContainer }: ExchangeProps) => {
   const [mint, setMint] = useState("");
   const [burn, setBurn] = useState("");
 
-  const onMint = async () => {
+  const onMint = async (denom: string = 'uusdt') => {
     if (!mint) return;
 
     const converted = new bignumber(mint).shiftedBy(6);
@@ -47,7 +48,7 @@ const Exchange = ({ container, setContainer }: ExchangeProps) => {
 
       const balance = await cosmos?.getBalance()
 
-      const amount = balance?.balancesList.find(token => token.denom === "uusdt")?.amount
+      const amount = balance?.balancesList.find(token => token.denom === denom)?.amount
 
       if (amount && new bignumber(amount) < converted) {
           return dispatch(
@@ -58,9 +59,11 @@ const Exchange = ({ container, setContainer }: ExchangeProps) => {
           );
       }
 
-      const res = (await cosmos?.mintUSC(converted.toString()))?.toObject().txResponse;
+      const res = (await cosmos?.mintUSC(String(converted), denom))?.toObject().txResponse;
 
       if (res && res.code === 0) {
+        cosmos?.connect()
+
         return dispatch(
           setTxStatus({
             type: "success",
@@ -117,15 +120,17 @@ const Exchange = ({ container, setContainer }: ExchangeProps) => {
 
 
 
-      const res = (await cosmos?.burnUSC(converted.toString()))?.toObject().txResponse;
+      const res = (await cosmos?.burnUSC(String(converted)))?.toObject().txResponse;
 
       if (res && res.code === 0) {
+        cosmos?.connect()
         return dispatch(
           setTxStatus({
             type: "success",
           })
         );
       }
+
 
       dispatch(
         setTxStatus({
@@ -150,6 +155,7 @@ const Exchange = ({ container, setContainer }: ExchangeProps) => {
 
   const renderTabs = ["Mint", "Redeem"].map((tab, i) => (
     <li
+        key={i + 'tab'}
       onClick={() => dispatch(setTab(tab))}
       className={`${tab === selectedTab ? "selected" : ""}`}
     >
@@ -179,7 +185,7 @@ const Exchange = ({ container, setContainer }: ExchangeProps) => {
           />
           <span>usdt</span>
         </div>
-        <button className="btn" onClick={onMint}>
+        <button className="btn" onClick={() => onMint('uusdt')}>
           Mint
         </button>
       </li>

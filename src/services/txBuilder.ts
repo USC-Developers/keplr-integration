@@ -21,6 +21,7 @@ import { MsgType, CosmosAcc } from "../global";
 
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 
+import {CONFIG} from '../config'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -106,8 +107,8 @@ class TxBuilder {
           .setSignerInfosList([signerInfo])
           .setFee(
             new Fee()
-              .setGasLimit(120000)
-              .setAmountList([new Coin().setAmount(fees? String(fees) : '3000').setDenom(this.feesDenom)])
+              .setGasLimit(CONFIG.defaultFee)
+              .setAmountList([new Coin().setAmount(fees? String(fees) : String(CONFIG.defaultFee/40)).setDenom(this.feesDenom)])
           );
     
           return authInfo.serializeBinary()
