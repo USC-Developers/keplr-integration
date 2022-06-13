@@ -1,6 +1,7 @@
 import * as jspb from 'google-protobuf'
 
 import * as gogoproto_gogo_pb from '../../../gogoproto/gogo_pb';
+import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
 import * as cosmos_base_v1beta1_coin_pb from '../../../cosmos/base/v1beta1/coin_pb';
 
 
@@ -73,10 +74,20 @@ export namespace MsgRedeemCollateral {
 }
 
 export class MsgRedeemCollateralResponse extends jspb.Message {
+  getBurnedAmount(): cosmos_base_v1beta1_coin_pb.Coin | undefined;
+  setBurnedAmount(value?: cosmos_base_v1beta1_coin_pb.Coin): MsgRedeemCollateralResponse;
+  hasBurnedAmount(): boolean;
+  clearBurnedAmount(): MsgRedeemCollateralResponse;
+
   getRedeemedAmountList(): Array<cosmos_base_v1beta1_coin_pb.Coin>;
   setRedeemedAmountList(value: Array<cosmos_base_v1beta1_coin_pb.Coin>): MsgRedeemCollateralResponse;
   clearRedeemedAmountList(): MsgRedeemCollateralResponse;
   addRedeemedAmount(value?: cosmos_base_v1beta1_coin_pb.Coin, index?: number): cosmos_base_v1beta1_coin_pb.Coin;
+
+  getCompletionTime(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setCompletionTime(value?: google_protobuf_timestamp_pb.Timestamp): MsgRedeemCollateralResponse;
+  hasCompletionTime(): boolean;
+  clearCompletionTime(): MsgRedeemCollateralResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): MsgRedeemCollateralResponse.AsObject;
@@ -88,7 +99,9 @@ export class MsgRedeemCollateralResponse extends jspb.Message {
 
 export namespace MsgRedeemCollateralResponse {
   export type AsObject = {
+    burnedAmount?: cosmos_base_v1beta1_coin_pb.Coin.AsObject,
     redeemedAmountList: Array<cosmos_base_v1beta1_coin_pb.Coin.AsObject>,
+    completionTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
   }
 }
 

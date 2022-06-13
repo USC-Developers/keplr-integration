@@ -1,0 +1,24 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2048px" height="2048px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2048 2048"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil4 {fill:none}
+    .fil1 {fill:#FFFFFF}
+    .fil0 {fill:#FFFFFF}
+    .fil3 {fill:#FFFFFF;fill-rule:nonzero}
+    .fil2 {fill:#FFFFFF;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <path class="fil0" d="M510 1568l770 0c102,0 199,-41 271,-113 72,-72 113,-169 113,-271 0,-102 -41,-199 -113,-271 -72,-72 -169,-113 -271,-113l-829 0 0 -128 829 0c136,0 265,54 362,150 96,96 150,226 150,362 0,136 -54,265 -150,362 -96,96 -226,150 -362,150l-770 0 0 -128z"/>
+  <path class="fil1" d="M510 1568l770 0c102,0 199,-41 271,-113 72,-72 113,-169 113,-271 0,-102 -41,-199 -113,-271 -72,-72 -169,-113 -271,-113l-829 0 0 -67 813 0c123,0 240,51 327,135 87,84 136,197 136,316 0,119 -49,232 -136,316 -87,84 -204,132 -327,132l-755 0 0 -64z"/>
+  <polygon class="fil2" points="595,1072 279,755 256,733 279,710 595,393 "/>
+  <polygon class="fil3" points="595,1072 279,755 256,733 256,733 595,733 "/>
+  <rect class="fil4" width="2048" height="2048"/>
+ </g>
+</svg>

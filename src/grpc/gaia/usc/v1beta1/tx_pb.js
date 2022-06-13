@@ -23,6 +23,8 @@ var global = (function() {
 
 var gogoproto_gogo_pb = require('../../../gogoproto/gogo_pb.js');
 goog.object.extend(proto, gogoproto_gogo_pb);
+var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
+goog.object.extend(proto, google_protobuf_timestamp_pb);
 var cosmos_base_v1beta1_coin_pb = require('../../../cosmos/base/v1beta1/coin_pb.js');
 goog.object.extend(proto, cosmos_base_v1beta1_coin_pb);
 goog.exportSymbol('proto.gaia.usc.v1beta1.MsgMintUSC', null, global);
@@ -641,7 +643,7 @@ proto.gaia.usc.v1beta1.MsgRedeemCollateral.prototype.hasUscAmount = function() {
  * @private {!Array<number>}
  * @const
  */
-proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.repeatedFields_ = [1];
+proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.repeatedFields_ = [2];
 
 
 
@@ -674,8 +676,10 @@ proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.toObject = function
  */
 proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
+    burnedAmount: (f = msg.getBurnedAmount()) && cosmos_base_v1beta1_coin_pb.Coin.toObject(includeInstance, f),
     redeemedAmountList: jspb.Message.toObjectList(msg.getRedeemedAmountList(),
-    cosmos_base_v1beta1_coin_pb.Coin.toObject, includeInstance)
+    cosmos_base_v1beta1_coin_pb.Coin.toObject, includeInstance),
+    completionTime: (f = msg.getCompletionTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -715,7 +719,17 @@ proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.deserializeBinaryFromReader =
     case 1:
       var value = new cosmos_base_v1beta1_coin_pb.Coin;
       reader.readMessage(value,cosmos_base_v1beta1_coin_pb.Coin.deserializeBinaryFromReader);
+      msg.setBurnedAmount(value);
+      break;
+    case 2:
+      var value = new cosmos_base_v1beta1_coin_pb.Coin;
+      reader.readMessage(value,cosmos_base_v1beta1_coin_pb.Coin.deserializeBinaryFromReader);
       msg.addRedeemedAmount(value);
+      break;
+    case 3:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCompletionTime(value);
       break;
     default:
       reader.skipField();
@@ -746,24 +760,77 @@ proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.serializeBinary = f
  */
 proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getRedeemedAmountList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
+  f = message.getBurnedAmount();
+  if (f != null) {
+    writer.writeMessage(
       1,
       f,
       cosmos_base_v1beta1_coin_pb.Coin.serializeBinaryToWriter
+    );
+  }
+  f = message.getRedeemedAmountList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      2,
+      f,
+      cosmos_base_v1beta1_coin_pb.Coin.serializeBinaryToWriter
+    );
+  }
+  f = message.getCompletionTime();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * repeated cosmos.base.v1beta1.Coin redeemed_amount = 1;
+ * optional cosmos.base.v1beta1.Coin burned_amount = 1;
+ * @return {?proto.cosmos.base.v1beta1.Coin}
+ */
+proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.getBurnedAmount = function() {
+  return /** @type{?proto.cosmos.base.v1beta1.Coin} */ (
+    jspb.Message.getWrapperField(this, cosmos_base_v1beta1_coin_pb.Coin, 1));
+};
+
+
+/**
+ * @param {?proto.cosmos.base.v1beta1.Coin|undefined} value
+ * @return {!proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse} returns this
+*/
+proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.setBurnedAmount = function(value) {
+  return jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse} returns this
+ */
+proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.clearBurnedAmount = function() {
+  return this.setBurnedAmount(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.hasBurnedAmount = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * repeated cosmos.base.v1beta1.Coin redeemed_amount = 2;
  * @return {!Array<!proto.cosmos.base.v1beta1.Coin>}
  */
 proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.getRedeemedAmountList = function() {
   return /** @type{!Array<!proto.cosmos.base.v1beta1.Coin>} */ (
-    jspb.Message.getRepeatedWrapperField(this, cosmos_base_v1beta1_coin_pb.Coin, 1));
+    jspb.Message.getRepeatedWrapperField(this, cosmos_base_v1beta1_coin_pb.Coin, 2));
 };
 
 
@@ -772,7 +839,7 @@ proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.getRedeemedAmountLi
  * @return {!proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse} returns this
 */
 proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.setRedeemedAmountList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+  return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
@@ -782,7 +849,7 @@ proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.setRedeemedAmountLi
  * @return {!proto.cosmos.base.v1beta1.Coin}
  */
 proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.addRedeemedAmount = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.cosmos.base.v1beta1.Coin, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.cosmos.base.v1beta1.Coin, opt_index);
 };
 
 
@@ -792,6 +859,43 @@ proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.addRedeemedAmount =
  */
 proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.clearRedeemedAmountList = function() {
   return this.setRedeemedAmountList([]);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp completion_time = 3;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.getCompletionTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse} returns this
+*/
+proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.setCompletionTime = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse} returns this
+ */
+proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.clearCompletionTime = function() {
+  return this.setCompletionTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.gaia.usc.v1beta1.MsgRedeemCollateralResponse.prototype.hasCompletionTime = function() {
+  return jspb.Message.getField(this, 3) != null;
 };
 
 
