@@ -34,8 +34,8 @@ export const withMethods = (Wrapped: FC<Next>) =>
       mintInput: "",
       minthUsingDenom: "",
       burnInput: "",
-      transferFrom: "",
-      transferTo: "",
+      transferFrom: "osmo1sfdhe0yx7vhlx00hvws3pxwct8snzw6d0q743l",
+      transferTo: "cosmos1sfdhe0yx7vhlx00hvws3pxwct8snzw6d8md98d",
       transferAmount: "",
       transferDenom: "",
     });

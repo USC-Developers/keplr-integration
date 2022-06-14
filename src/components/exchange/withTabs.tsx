@@ -1,11 +1,6 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 
-import { withServices } from "../hocs/withServices";
 
-import {
-  withServiceContainer, 
-} from "../../global";
-import bignumber from "bignumber.js";
 import usdt from "../../assets/img/usdt.svg";
 import usc from "../../assets/img/usc.jpeg";
 
@@ -20,10 +15,11 @@ import {Next as Previous} from './withMethods'
 export interface Next extends Previous {
     TabElements: {
         "Transfer from  Osmosis": JSX.Element;
-        Mint: JSX.Element;
-        Redeem: JSX.Element;
+        "Mint": JSX.Element;
+        "Redeem": JSX.Element;
     },
     renderTabs: JSX.Element[],
+    selectedTab: string
 
 }
 
@@ -85,7 +81,7 @@ export const withTabs = (Wrapped: FC<Next>) =>
             </li>
             </>
         ), 
-        Mint: (
+        "Mint": (
           <li>
             <div className="coinWrap">
               <img src={usdt} alt="" width={30} />
@@ -111,7 +107,7 @@ export const withTabs = (Wrapped: FC<Next>) =>
             </button>
           </li>
         ),
-        Redeem: (
+        "Redeem": (
           <li className="lefty">
             <div className="coinWrap">
               <img src={usc} alt="" width={30} />
@@ -136,5 +132,5 @@ export const withTabs = (Wrapped: FC<Next>) =>
      
 
 
-    return <Wrapped TabElements={TabElements} renderTabs={renderTabs} {...props}/>;
+    return <Wrapped selectedTab={selectedTab} TabElements={TabElements} renderTabs={renderTabs} {...props}/>;
   }
