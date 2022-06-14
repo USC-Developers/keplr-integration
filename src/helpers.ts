@@ -4,21 +4,21 @@ import { Coin } from './grpc/cosmos/base/v1beta1/coin_pb'
 export const getCoinList = (amount: string, denom:string) => [new Coin().setAmount(amount).setDenom(denom)]
 
 
-export const setChain = (chain: string, rpc: string, rest: string) => ({
+export const setChain = (chain: string, rpc: string, rest: string, prefix?:string, name?:string) => ({
     chainId: chain,
-    chainName: "USC_GAIA",
+    chainName: name || 'USC_GAIA',
     rpc: `https://${rpc}`,
     rest: `http://${rest}`,
     bip44: {
       coinType: 118,
     },
     bech32Config: {
-      bech32PrefixAccAddr: "cosmos",
-      bech32PrefixAccPub: "cosmos" + "pub",
-      bech32PrefixValAddr: "cosmos" + "valoper",
-      bech32PrefixValPub: "cosmos" + "valoperpub",
-      bech32PrefixConsAddr: "cosmos" + "valcons",
-      bech32PrefixConsPub: "cosmos" + "valconspub",
+      bech32PrefixAccAddr: prefix || 'cosmos',
+      bech32PrefixAccPub: prefix || 'cosmos' + "pub",
+      bech32PrefixValAddr: prefix || 'cosmos' + "valoper",
+      bech32PrefixValPub: prefix || 'cosmos' + "valoperpub",
+      bech32PrefixConsAddr: prefix || 'cosmos' + "valcons",
+      bech32PrefixConsPub: prefix || 'cosmos' + "valconspub",
     },
     currencies: [
       {
@@ -36,6 +36,11 @@ export const setChain = (chain: string, rpc: string, rest: string) => ({
         coinMinimalDenom: "ausc",
         coinDecimals: 18,
       },
+      {
+        coinDenom: 'UST',
+        coinMinimalDenom: "ibc/312F13C9A9ECCE611FE8112B5ABCF0A14DE2C3937E38DEBF6B73F2534A83464E",
+        coinDecimals: 6,
+      }
   
     ],
     feeCurrencies: [

@@ -27,3 +27,23 @@ export interface withServiceContainer {
     container: ServiceContainer, 
     setContainer: React.Dispatch<React.SetStateAction<ServiceContainer>>
 }
+
+export interface IBCTransfer {
+    from: string,
+    to: string,
+    amount: string,
+    denom: string,  
+  }
+
+
+ export interface ExchangeState {
+
+        mintInput: string,
+        minthUsingDenom: string,
+        burnInput: string,
+        transferFrom: string,
+        transferTo: string,
+        transferAmount: string,
+        transferDenom: string,
+
+ } 

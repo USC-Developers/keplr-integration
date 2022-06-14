@@ -162,6 +162,17 @@ main {
     justify-content: center;
     align-items: center;
 
+
+
+
+    .transferRow{
+        width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+    
+
     .convertorWrap {
         margin: auto;
         text-align: center;
@@ -298,6 +309,7 @@ h2 {
             margin-right: 5px;
             margin-bottom: 0;
             border-bottom: 0;
+            cursor: pointer;
         }
 
         li.selected {

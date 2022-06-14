@@ -1,6 +1,6 @@
-import { SigningStargateClient } from "@cosmjs/stargate";
+import { SigningStargateClient, QueryClient, GasPrice, StdFee  } from "@cosmjs/stargate";
 
-import { coin as coinInstance } from "@cosmjs/launchpad";
+import { coin as coinInstance, BroadcastMode as BM} from "@cosmjs/launchpad";
 
 import { BaseAccount, ModuleAccount } from "../grpc/cosmos/auth/v1beta1/auth_pb";
 
@@ -10,6 +10,7 @@ import { QueryAllBalancesRequest } from "../grpc/cosmos/bank/v1beta1/query_pb";
 
 import { MsgSend } from "../grpc/cosmos/bank/v1beta1/tx_pb";
 import { MsgMintUSC, MsgRedeemCollateral } from "../grpc/gaia/usc/v1beta1/tx_pb";
+import {MsgTransfer} from '../grpc/ibc/applications/transfer/v1/tx_pb'
 import { QueryPoolRequest, QueryParamsRequest } from "../grpc/gaia/usc/v1beta1/query_pb";
 import { QueryClient as UscQueryClient } from "../grpc/gaia/usc/v1beta1/QueryServiceClientPb";
 
@@ -33,7 +34,7 @@ import { QueryClient as AuthClient } from "../grpc/cosmos/auth/v1beta1/QueryServ
 import { ServiceClient as TendermintService } from "../grpc/cosmos/base/tendermint/v1beta1/QueryServiceClientPb"
 
 import { getCoinList } from "../helpers";
-import {  CosmosAcc } from "../global";
+import {  CosmosAcc, IBCTransfer } from "../global";
 
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import TxBuilder, {TxBuilder as TxBuilderType} from './txBuilder'
@@ -85,20 +86,22 @@ class KeplrClient {
     return this;
   }
 
-  public async connect() {
+  public async connect(chain?:string, rpc?:string, rest?:string, prefix?: string , name?: string) {
     if (!window.keplr) {
       alert('Please install Keplr Browser Wallet')
       throw new Error('no browser ext')
     }
     try {
       try {
-        await window.keplr?.enable(this.chain);
+        await window.keplr?.enable(chain || this.chain);
       } catch (e) {
         await window.keplr?.experimentalSuggestChain(
-          setChain(this.chain, this.rpc, this.rest)
+          setChain(chain || this.chain, rpc || this.rpc, rest || this.rest, prefix, name)
         );
-        await window.keplr?.enable(this.chain);
+        await window.keplr?.enable(chain || this.chain);
       }
+
+      if (chain) return null
 
       this.signer = window.keplr?.getOfflineSigner(this.chain);
 
@@ -111,14 +114,24 @@ class KeplrClient {
 
      await this.getAccount();
 
-  
-
-      
-
       return this;
     } catch (e) {
       throw e;
     }
+  }
+
+  private async getStargate  (rpc: string, chain:string) {
+
+    const signer = window.keplr?.getOfflineSigner(chain);
+
+    return await SigningStargateClient.connectWithSigner(
+      rpc,
+      signer!,
+       {
+           gasPrice: GasPrice.fromString(`1000uosmo`),
+          
+          }
+    )
   }
 
   public async getBlock(block?:number) {
@@ -129,7 +142,7 @@ class KeplrClient {
 
           console.log(res.toObject())
 
-          return res.toObject().block?.header?.height
+          return res.toObject();
       }
   }
 
@@ -166,6 +179,8 @@ class KeplrClient {
   }
 
   private async getAccount() {
+
+    
     const client = new AuthClient(this.proxy);
     const req = new QueryAccountRequest().setAddress(this.account.address)
 
@@ -187,6 +202,8 @@ class KeplrClient {
         accountNumber, 
         sequence
       }
+
+      
 
     } catch (e) {
       console.log(e);
@@ -319,9 +336,99 @@ class KeplrClient {
     console.log(res)
     
   }
+
+  public async IBCtransfer({
+    from,
+    to,
+    amount,
+    denom,    
+  }: IBCTransfer) {
+      await this.connect('osmo-test-4', 'rpc-test.osmosis.zone', 'lcd-test.osmosis.zone', 'osmo' , 'Osmosis testnet')
+  
+
+     const [stargate, timestamp] = await Promise.all([
+       (async() => {
+          const a =  await this.getStargate('rpc-test.osmosis.zone', 'osmo-test-4')
+
+          return a
+       })(),
+       (async() => {
+          const block = await this.getBlock();
+          return block?.block?.header?.time.seconds
+      })(),
+     ])
+
+     const tx =  await stargate.sendIbcTokens(from, 
+     to, coinInstance(amount , denom), 'transfer', 'channel-296', undefined, timestamp + 20000, {
+       amount: [coinInstance('1000', 'usomo')],
+       gas: '1000000'
+     } )
+
+    return tx
+
+  
+  }
 }
 
 export default (chain: string, rpc: string, rest: string): KeplrClient =>
   new KeplrClient(chain, rpc, rest);
 
 export type {KeplrClient}
+
+/**
+ * 
+ * //ibc/BE1BB42D4BE3C30D50B68D7C41DB4DFCE9678E8EF8C539F6E6A9345048894FCC
+ * cosmo_tx ibc-transfer transfer transfer channel-296 $(cgaia_keys show -a tiky) 3000000ibc/BE1BB42D4BE3C30D50B68D7C41DB4DFCE9678E8EF8C539F6E6A9345048894FCC --from tiky -y
+ */
+
+
+/**
+ * {
+  "txBody": {
+    "messages": [
+      {
+        "type_url": "/ibc.applications.transfer.v1.MsgTransfer",
+        "value": "Cgh0cmFuc2ZlchILY2hhbm5lbC0yOTYaTQpEaWJjL0JFMUJCNDJENEJFM0MzMEQ1MEI2OEQ3QzQxREI0REZDRTk2NzhFOEVGOEM1MzlGNkU2QTkzNDUwNDg4OTRGQ0MSBTEwMDAwIitvc21vMXNmZGhlMHl4N3ZobHgwMGh2d3MzcHh3Y3Q4c256dzZkMHE3NDNsKi1jb3Ntb3Mxc2ZkaGUweXg3dmhseDAwaHZ3czNweHdjdDhzbnp3NmQ4bWQ5OGQ4gLjwrqPgyOOKAQ=="
+      }
+    ],
+    "memo": "",
+    "timeoutHeight": "0",
+    "extensionOptions": [],
+    "nonCriticalExtensionOptions": []
+  },
+  "authInfo": {
+    "signerInfos": [
+      {
+        "publicKey": {
+          "typeUrl": "/cosmos.crypto.secp256k1.PubKey",
+          "value": "CiECVvop74OWRkre6G+Qus95ghMGII+n2+/8yFZzq7guTx8="
+        },
+        "modeInfo": {
+          "single": {
+            "mode": "SIGN_MODE_DIRECT"
+          }
+        },
+        "sequence": "14"
+      }
+    ],
+    "fee": {
+      "amount": [
+        {
+          "denom": "uosmo",
+          "amount": "25000"
+        }
+      ],
+      "gasLimit": "1000000",
+      "payer": "",
+      "granter": ""
+    }
+  },
+  "chainId": "osmo-test-4",
+  "accountNumber": "253592"
+}
+
+ * 
+ * 
+ * 
+ * 
+ */

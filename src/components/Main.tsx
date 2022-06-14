@@ -40,7 +40,7 @@ const Main = ({container, onOpenModal}: MainProps) => {
 
     return <main>
         <div className="introContainer">
-            <h2>Lorem Lorem</h2>
+            <h2>USC Minter</h2>
             <p>Lorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem Lorem</p>
             <button className="btn mintBtn" onClick={onClickMint}>
                 <img src={usc} alt="mint" width="30"/>

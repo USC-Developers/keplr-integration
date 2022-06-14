@@ -3,14 +3,20 @@ import React, { PureComponent, useState } from "react";
 
 import { withServices } from "../hocs/withServices";
 
-import { ServiceContainer, withServiceContainer } from "../../global";
+import { ServiceContainer, withServiceContainer , IBCTransfer} from "../../global";
 import bignumber from "bignumber.js";
 import usdt from "../../assets/img/usdt.svg";
 import usc from "../../assets/img/usc.jpeg";
 
 import { Status } from "../popups/Status";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector,  } from "react-redux";
 import { setTxStatus, Global, setTab } from "../../state";
+import { CONFIG } from "../../config";
+
+import {compose} from 'redux'
+
+
+import {Next as Previous} from '../exchange/withTabs'
 
 interface ExchangeProps extends withServiceContainer {}
 
@@ -30,9 +36,23 @@ const Exchange = ({ container}: ExchangeProps) => {
 
   const [mint, setMint] = useState("");
   const [burn, setBurn] = useState("");
+  const [transfer, setTransfer] = useState({
+      from: '',
+      to: '',
+      amount: '',
+  })
+
+  const setTransferVal = (val:string, field:string) => {
+        return setTransfer({
+            ...transfer,
+            [field]: val
+        })
+  }
 
   const onMint = async (denom: string = 'uusdt') => {
     if (!mint) return;
+
+    cosmos?.connect()
 
     const converted = new bignumber(mint).shiftedBy(6);
 
@@ -47,6 +67,8 @@ const Exchange = ({ container}: ExchangeProps) => {
 
       const amount = balance?.balancesList.find(token => token.denom === denom)?.amount
 
+      console.log(amount, 'amount');
+
       if (amount && new bignumber(amount) < converted) {
           return dispatch(
             setTxStatus({
@@ -59,7 +81,7 @@ const Exchange = ({ container}: ExchangeProps) => {
       const res = (await cosmos?.mintUSC(String(converted), denom))?.toObject().txResponse;
 
       if (res && res.code === 0) {
-        cosmos?.connect()
+       
 
         return dispatch(
           setTxStatus({
@@ -91,7 +113,7 @@ const Exchange = ({ container}: ExchangeProps) => {
 
   const onBurn = async () => {
     if (!burn) return;
-
+    cosmos?.connect()
     const converted = new bignumber(burn).shiftedBy(18);
 
     dispatch(
@@ -120,7 +142,7 @@ const Exchange = ({ container}: ExchangeProps) => {
       const res = (await cosmos?.burnUSC(String(converted)))?.toObject().txResponse;
 
       if (res && res.code === 0) {
-        cosmos?.connect()
+    
         return dispatch(
           setTxStatus({
             type: "success",
@@ -150,7 +172,72 @@ const Exchange = ({ container}: ExchangeProps) => {
     }
   };
 
-  const renderTabs = ["Mint", "Redeem"].map((tab, i) => (
+  const onTransfer = async () => {
+
+    const {amount, from, to} = transfer
+
+    if (!amount || !from || !to) return
+
+
+    const converted = new bignumber(amount).shiftedBy(6);
+
+
+        dispatch(
+          setTxStatus({
+            type: "pending",
+          })
+        );
+  
+
+    try {
+
+        const res = await cosmos?.IBCtransfer({
+            from,
+            to,
+            amount: String(converted),
+            denom: CONFIG.osmosisUstDemon
+         })
+
+         if (res && res.code === 0) {
+            //cosmos?.connect()
+    
+            return dispatch(
+              setTxStatus({
+                type: "success",
+              })
+            );
+          }
+    
+          dispatch(
+            setTxStatus({
+              type: "failed",
+              code: res?.code,
+              log: res?.rawLog,
+            })
+          );
+
+    } catch (e:any) {
+
+        if (e.message.includes("Request rejected")) {
+            return dispatch(setTxStatus(undefined));
+          }
+    
+          dispatch(
+            setTxStatus({
+              type: "failed",
+              log: e?.message,
+            })
+          );
+
+    }
+
+ 
+
+    
+
+  }
+
+  const renderTabs = ["Transfer from  Osmosis", "Mint", "Redeem"].map((tab, i) => (
     <li
         key={i + 'tab'}
       onClick={() => dispatch(setTab(tab))}
@@ -161,6 +248,35 @@ const Exchange = ({ container}: ExchangeProps) => {
   ));
 
   const tabs = {
+    "Transfer from  Osmosis": (
+        <>
+        <li>
+            <div className="transferRow">
+            <div className="inputWrap">
+                <span>From:</span>
+                <input type="text"  className="convertInput" value={transfer.from} onChange={(e) => setTransferVal(e.target.value, 'from')}/>
+                </div>
+                <div className="inputWrap">
+                <span>To:</span>
+                <input type="text"  className="convertInput" value={transfer.to} onChange={(e) => setTransferVal(e.target.value, 'to')}/>
+                </div>
+            </div>
+            
+        </li>
+        <li>
+        <div className="transferRow">
+            <div className="inputWrap">
+                <span>Amount</span>
+                <input type="text"  className="convertInput" value={transfer.amount} onChange={(e) => setTransferVal(e.target.value, 'amount')}/>
+                <span>ust</span>
+                </div>
+                <button className="btn" onClick={onTransfer}>
+                    Transfer
+                    </button>
+            </div>
+        </li>
+        </>
+    ), 
     Mint: (
       <li>
         <div className="coinWrap">
@@ -182,7 +298,7 @@ const Exchange = ({ container}: ExchangeProps) => {
           />
           <span>usdt</span>
         </div>
-        <button className="btn" onClick={() => onMint('uusdt')}>
+        <button className="btn" onClick={() => onMint(CONFIG.ustDenom)}>
           Mint
         </button>
       </li>
@@ -219,8 +335,7 @@ const Exchange = ({ container}: ExchangeProps) => {
           <>
             <h2>Token Convertor</h2>
 
-            <p>Bla Bla Bla</p>
-
+            
             <div className="crumbsWrapper">
               <ul>{renderTabs}</ul>
             </div>
