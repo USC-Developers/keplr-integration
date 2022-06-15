@@ -11,7 +11,7 @@ import { QueryAllBalancesRequest } from "../grpc/cosmos/bank/v1beta1/query_pb";
 import { MsgSend } from "../grpc/cosmos/bank/v1beta1/tx_pb";
 import { MsgMintUSC, MsgRedeemCollateral } from "../grpc/gaia/usc/v1beta1/tx_pb";
 import {MsgTransfer} from '../grpc/ibc/applications/transfer/v1/tx_pb'
-import { QueryPoolRequest, QueryParamsRequest } from "../grpc/gaia/usc/v1beta1/query_pb";
+import { QueryPoolRequest, QueryParamsRequest, QueryRedeemEntryRequest } from "../grpc/gaia/usc/v1beta1/query_pb";
 import { QueryClient as UscQueryClient } from "../grpc/gaia/usc/v1beta1/QueryServiceClientPb";
 
 import { ServiceClient,  } from "../grpc/cosmos/tx/v1beta1/ServiceServiceClientPb";
@@ -231,6 +231,17 @@ class KeplrClient {
 
 }
 
+  public async getRedeems(address: string) {
+    const client = new UscQueryClient(this.proxy);
+
+    const req = new QueryRedeemEntryRequest().setAddress(address)
+
+    const res = await client.redeemEntry(req, null)
+    console.log(res.toObject())
+
+    return res.toObject()
+
+  }
 
 
   private async Simulate(tx: Uint8Array) {

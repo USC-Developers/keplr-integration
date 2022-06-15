@@ -63,7 +63,7 @@ if (goog.DEBUG && !COMPILED) {
  * @constructor
  */
 proto.gaia.usc.v1beta1.MsgMintUSCResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.gaia.usc.v1beta1.MsgMintUSCResponse.repeatedFields_, null);
 };
 goog.inherits(proto.gaia.usc.v1beta1.MsgMintUSCResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -306,6 +306,13 @@ proto.gaia.usc.v1beta1.MsgMintUSC.prototype.clearCollateralAmountList = function
 
 
 
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.gaia.usc.v1beta1.MsgMintUSCResponse.repeatedFields_ = [2];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -337,7 +344,9 @@ proto.gaia.usc.v1beta1.MsgMintUSCResponse.prototype.toObject = function(opt_incl
  */
 proto.gaia.usc.v1beta1.MsgMintUSCResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    mintedAmount: (f = msg.getMintedAmount()) && cosmos_base_v1beta1_coin_pb.Coin.toObject(includeInstance, f)
+    mintedAmount: (f = msg.getMintedAmount()) && cosmos_base_v1beta1_coin_pb.Coin.toObject(includeInstance, f),
+    collateralsAmountList: jspb.Message.toObjectList(msg.getCollateralsAmountList(),
+    cosmos_base_v1beta1_coin_pb.Coin.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -379,6 +388,11 @@ proto.gaia.usc.v1beta1.MsgMintUSCResponse.deserializeBinaryFromReader = function
       reader.readMessage(value,cosmos_base_v1beta1_coin_pb.Coin.deserializeBinaryFromReader);
       msg.setMintedAmount(value);
       break;
+    case 2:
+      var value = new cosmos_base_v1beta1_coin_pb.Coin;
+      reader.readMessage(value,cosmos_base_v1beta1_coin_pb.Coin.deserializeBinaryFromReader);
+      msg.addCollateralsAmount(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -412,6 +426,14 @@ proto.gaia.usc.v1beta1.MsgMintUSCResponse.serializeBinaryToWriter = function(mes
   if (f != null) {
     writer.writeMessage(
       1,
+      f,
+      cosmos_base_v1beta1_coin_pb.Coin.serializeBinaryToWriter
+    );
+  }
+  f = message.getCollateralsAmountList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      2,
       f,
       cosmos_base_v1beta1_coin_pb.Coin.serializeBinaryToWriter
     );
@@ -453,6 +475,44 @@ proto.gaia.usc.v1beta1.MsgMintUSCResponse.prototype.clearMintedAmount = function
  */
 proto.gaia.usc.v1beta1.MsgMintUSCResponse.prototype.hasMintedAmount = function() {
   return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * repeated cosmos.base.v1beta1.Coin collaterals_amount = 2;
+ * @return {!Array<!proto.cosmos.base.v1beta1.Coin>}
+ */
+proto.gaia.usc.v1beta1.MsgMintUSCResponse.prototype.getCollateralsAmountList = function() {
+  return /** @type{!Array<!proto.cosmos.base.v1beta1.Coin>} */ (
+    jspb.Message.getRepeatedWrapperField(this, cosmos_base_v1beta1_coin_pb.Coin, 2));
+};
+
+
+/**
+ * @param {!Array<!proto.cosmos.base.v1beta1.Coin>} value
+ * @return {!proto.gaia.usc.v1beta1.MsgMintUSCResponse} returns this
+*/
+proto.gaia.usc.v1beta1.MsgMintUSCResponse.prototype.setCollateralsAmountList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 2, value);
+};
+
+
+/**
+ * @param {!proto.cosmos.base.v1beta1.Coin=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.cosmos.base.v1beta1.Coin}
+ */
+proto.gaia.usc.v1beta1.MsgMintUSCResponse.prototype.addCollateralsAmount = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.cosmos.base.v1beta1.Coin, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.gaia.usc.v1beta1.MsgMintUSCResponse} returns this
+ */
+proto.gaia.usc.v1beta1.MsgMintUSCResponse.prototype.clearCollateralsAmountList = function() {
+  return this.setCollateralsAmountList([]);
 };
 
 

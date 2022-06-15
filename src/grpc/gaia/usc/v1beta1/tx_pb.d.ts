@@ -35,6 +35,11 @@ export class MsgMintUSCResponse extends jspb.Message {
   hasMintedAmount(): boolean;
   clearMintedAmount(): MsgMintUSCResponse;
 
+  getCollateralsAmountList(): Array<cosmos_base_v1beta1_coin_pb.Coin>;
+  setCollateralsAmountList(value: Array<cosmos_base_v1beta1_coin_pb.Coin>): MsgMintUSCResponse;
+  clearCollateralsAmountList(): MsgMintUSCResponse;
+  addCollateralsAmount(value?: cosmos_base_v1beta1_coin_pb.Coin, index?: number): cosmos_base_v1beta1_coin_pb.Coin;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): MsgMintUSCResponse.AsObject;
   static toObject(includeInstance: boolean, msg: MsgMintUSCResponse): MsgMintUSCResponse.AsObject;
@@ -46,6 +51,7 @@ export class MsgMintUSCResponse extends jspb.Message {
 export namespace MsgMintUSCResponse {
   export type AsObject = {
     mintedAmount?: cosmos_base_v1beta1_coin_pb.Coin.AsObject,
+    collateralsAmountList: Array<cosmos_base_v1beta1_coin_pb.Coin.AsObject>,
   }
 }
 

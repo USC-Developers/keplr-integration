@@ -37,7 +37,7 @@ goog.exportSymbol('proto.gaia.usc.v1beta1.GenesisState', null, global);
  * @constructor
  */
 proto.gaia.usc.v1beta1.GenesisState = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.gaia.usc.v1beta1.GenesisState.repeatedFields_, null);
 };
 goog.inherits(proto.gaia.usc.v1beta1.GenesisState, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -47,6 +47,13 @@ if (goog.DEBUG && !COMPILED) {
    */
   proto.gaia.usc.v1beta1.GenesisState.displayName = 'proto.gaia.usc.v1beta1.GenesisState';
 }
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.gaia.usc.v1beta1.GenesisState.repeatedFields_ = [2];
 
 
 
@@ -79,7 +86,9 @@ proto.gaia.usc.v1beta1.GenesisState.prototype.toObject = function(opt_includeIns
  */
 proto.gaia.usc.v1beta1.GenesisState.toObject = function(includeInstance, msg) {
   var f, obj = {
-    params: (f = msg.getParams()) && gaia_usc_v1beta1_usc_pb.Params.toObject(includeInstance, f)
+    params: (f = msg.getParams()) && gaia_usc_v1beta1_usc_pb.Params.toObject(includeInstance, f),
+    redeemEntriesList: jspb.Message.toObjectList(msg.getRedeemEntriesList(),
+    gaia_usc_v1beta1_usc_pb.RedeemEntry.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -121,6 +130,11 @@ proto.gaia.usc.v1beta1.GenesisState.deserializeBinaryFromReader = function(msg, 
       reader.readMessage(value,gaia_usc_v1beta1_usc_pb.Params.deserializeBinaryFromReader);
       msg.setParams(value);
       break;
+    case 2:
+      var value = new gaia_usc_v1beta1_usc_pb.RedeemEntry;
+      reader.readMessage(value,gaia_usc_v1beta1_usc_pb.RedeemEntry.deserializeBinaryFromReader);
+      msg.addRedeemEntries(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -156,6 +170,14 @@ proto.gaia.usc.v1beta1.GenesisState.serializeBinaryToWriter = function(message, 
       1,
       f,
       gaia_usc_v1beta1_usc_pb.Params.serializeBinaryToWriter
+    );
+  }
+  f = message.getRedeemEntriesList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      2,
+      f,
+      gaia_usc_v1beta1_usc_pb.RedeemEntry.serializeBinaryToWriter
     );
   }
 };
@@ -195,6 +217,44 @@ proto.gaia.usc.v1beta1.GenesisState.prototype.clearParams = function() {
  */
 proto.gaia.usc.v1beta1.GenesisState.prototype.hasParams = function() {
   return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * repeated RedeemEntry redeem_entries = 2;
+ * @return {!Array<!proto.gaia.usc.v1beta1.RedeemEntry>}
+ */
+proto.gaia.usc.v1beta1.GenesisState.prototype.getRedeemEntriesList = function() {
+  return /** @type{!Array<!proto.gaia.usc.v1beta1.RedeemEntry>} */ (
+    jspb.Message.getRepeatedWrapperField(this, gaia_usc_v1beta1_usc_pb.RedeemEntry, 2));
+};
+
+
+/**
+ * @param {!Array<!proto.gaia.usc.v1beta1.RedeemEntry>} value
+ * @return {!proto.gaia.usc.v1beta1.GenesisState} returns this
+*/
+proto.gaia.usc.v1beta1.GenesisState.prototype.setRedeemEntriesList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 2, value);
+};
+
+
+/**
+ * @param {!proto.gaia.usc.v1beta1.RedeemEntry=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.gaia.usc.v1beta1.RedeemEntry}
+ */
+proto.gaia.usc.v1beta1.GenesisState.prototype.addRedeemEntries = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.gaia.usc.v1beta1.RedeemEntry, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.gaia.usc.v1beta1.GenesisState} returns this
+ */
+proto.gaia.usc.v1beta1.GenesisState.prototype.clearRedeemEntriesList = function() {
+  return this.setRedeemEntriesList([]);
 };
 
 

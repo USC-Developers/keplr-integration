@@ -80,3 +80,41 @@ export namespace QueryParamsResponse {
   }
 }
 
+export class QueryRedeemEntryRequest extends jspb.Message {
+  getAddress(): string;
+  setAddress(value: string): QueryRedeemEntryRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): QueryRedeemEntryRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: QueryRedeemEntryRequest): QueryRedeemEntryRequest.AsObject;
+  static serializeBinaryToWriter(message: QueryRedeemEntryRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): QueryRedeemEntryRequest;
+  static deserializeBinaryFromReader(message: QueryRedeemEntryRequest, reader: jspb.BinaryReader): QueryRedeemEntryRequest;
+}
+
+export namespace QueryRedeemEntryRequest {
+  export type AsObject = {
+    address: string,
+  }
+}
+
+export class QueryRedeemEntryResponse extends jspb.Message {
+  getEntry(): gaia_usc_v1beta1_usc_pb.RedeemEntry | undefined;
+  setEntry(value?: gaia_usc_v1beta1_usc_pb.RedeemEntry): QueryRedeemEntryResponse;
+  hasEntry(): boolean;
+  clearEntry(): QueryRedeemEntryResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): QueryRedeemEntryResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: QueryRedeemEntryResponse): QueryRedeemEntryResponse.AsObject;
+  static serializeBinaryToWriter(message: QueryRedeemEntryResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): QueryRedeemEntryResponse;
+  static deserializeBinaryFromReader(message: QueryRedeemEntryResponse, reader: jspb.BinaryReader): QueryRedeemEntryResponse;
+}
+
+export namespace QueryRedeemEntryResponse {
+  export type AsObject = {
+    entry?: gaia_usc_v1beta1_usc_pb.RedeemEntry.AsObject,
+  }
+}
+

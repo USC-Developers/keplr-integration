@@ -1,319 +1,353 @@
 @font-face {
-    font-family: montseratt;
-    src: url(./fonts/Montserrat-Regular.ttf);
+  font-family: montseratt;
+  src: url(./fonts/Montserrat-Regular.ttf);
 }
 
 @font-face {
-    font-family: montseratt-semi;
-    src: url(./fonts/Montserrat-SemiBold.ttf);
+  font-family: montseratt-semi;
+  src: url(./fonts/Montserrat-SemiBold.ttf);
 }
 
 @font-face {
-    font-family: hind;
-    src: url(./fonts/Hind-Regular.ttf);
+  font-family: hind;
+  src: url(./fonts/Hind-Regular.ttf);
 }
-
 
 $black: #040506;
 $bg: #151a20;
 
 html {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 body {
-    font-size: 20px;
-    position: relative;
-    margin: 0;
-    width: 100%;
-    font-family: hind, sans-serif;
-    color: #FFFFFF;
-    min-height: 100vh;
-    
+  font-size: 20px;
+  position: relative;
+  margin: 0;
+  width: 100%;
+  font-family: hind, sans-serif;
+  color: #ffffff;
+  min-height: 100vh;
 }
 
-#root, .app {
-
-    width: 100%;
-    position: relative;
-    min-height: inherit;
-  
+#root,
+.app {
+  width: 100%;
+  position: relative;
+  min-height: inherit;
 }
-
 
 header {
-    position: absolute;
-    top:0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    background-color: $black;
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background-color: $black;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
-    .logoWrap {
-        display: flex;
-        align-self: center;
-        justify-content: center;
-       
-    }
- 
+  .logoWrap {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+  }
 }
 
-
 main {
- 
-    background: $bg;
-    min-height: inherit;
-    display: flex;
+  background: $bg;
+  min-height: inherit;
+  display: flex;
 
+  .introContainer {
+    margin: auto;
+    width: 500px;
+    text-align: center;
 
-    .introContainer {
-        margin: auto;
-        width: 500px;
-        text-align: center;
-
-        h2 {
-            font-family: montseratt;
-            font-size: 52px;
-            margin-bottom: 12px;
-        }
-
-        button span{
-            margin-left: 7px;
-        }
-        
+    h2 {
+      font-family: montseratt;
+      font-size: 52px;
+      margin-bottom: 12px;
     }
+
+    button span {
+      margin-left: 7px;
+    }
+  }
 }
 
 .modal {
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: $black;
-    padding: 20px;
-    z-index: 1000;
-    box-shadow: 0px 4px 14px rgba(47, 61, 84, 0.35);
-    border-radius: 20px;
-  
-  }
-  
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--overlay);
-    opacity: 0.4;
-    z-index: 1000;
-  }
-  
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $black;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0px 4px 14px rgba(47, 61, 84, 0.35);
+  border-radius: 20px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay);
+  opacity: 0.4;
+  z-index: 1000;
+}
 
 .connectModal ul li {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 
-    span {
-        padding-top: 3px;
-    }
+  span {
+    padding-top: 3px;
+  }
 
-    img {
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-    }
+  img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
 }
 
 .btn {
-    border-radius: 10px;
-    background-color: #fff;
-    padding: 10px 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    cursor: pointer;
-    color: $black;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  color: $black;
 }
 
 .btn:hover {
-    background-color: rgb(243, 239, 239);
+  background-color: rgb(243, 239, 239);
 }
 
 .mintBtn {
-    font-size: 16px;
-    font-weight: 700;
-    margin: 0 auto;
-    margin-top: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 auto;
+  margin-top: 12px;
 }
 
 .exchangeModal {
-    flex: auto;
-    padding: 15px 30px;
-    width: 600px;
-    height: 200px;
+  flex: auto;
+  padding: 15px 30px;
+  width: 600px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: unset;
+  padding-top: 50px;
+
+  .transferRow {
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+  }
 
+  .convertorWrap {
+    margin: auto;
+    text-align: center;
+    border: 1px solid #ffffff;
+    width: 100%;
+    padding: 0 10px;
+  }
 
+  .exchangeWrapper {
+    width: 100%;
+  }
 
+  .exchangeWrapper > p {
+    margin: 15px 0;
+  }
 
-    .transferRow{
-        width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-        }
-    
-
-    .convertorWrap {
-        margin: auto;
-        text-align: center;
-        border: 1px solid #FFFFFF;
-        width: 100%;
-        padding: 0 10px;
+  ul.convertorList {
+    padding: 10px 0;
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .exchangeWrapper {
-        width: 100%;
+    .lefty {
+      justify-content: flex-start;
     }
 
-    .exchangeWrapper > p {
-        margin: 15px 0;
+    .coinWrap,
+    .inputWrap {
+      display: flex;
+      align-items: center;
+      margin: 0 10px;
     }
 
-
-    ul {
-        margin-top: 10px;
-        li {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .lefty {
-            justify-content: flex-start
-        }
-
-
-        .coinWrap, .inputWrap {
-            display: flex;
-            align-items: center;
-            margin: 0 10px;
-        }
-
-        .coinWrap img {
-            margin-right: 5px;
-        }
-
-        .inputWrap span, .to {
-            font-size: 14px;
-            color: rgb(196, 196, 190);
-        }
-
-        .inputWrap input {
-            margin: 0 7px;
-        }
+    .coinWrap img {
+      margin-right: 5px;
     }
+
+    .inputWrap span,
+    .to {
+      font-size: 14px;
+      color: rgb(196, 196, 190);
+    }
+
+    .inputWrap input {
+      margin: 0 7px;
+    }
+  }
 }
 
 h2 {
-    text-align: center;
+  text-align: center;
 }
 
 .modal {
+  .closeIcon {
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
 
-    .closeIcon {
-        cursor: pointer;
-        position: absolute;
-        right: 15px;
-        top: 15px;
+  h2 {
+    margin-bottom: 10px;
+  }
 
-    }
-
-    h2 {
-        margin-bottom: 10px;
-    }
-
-    p {
-        margin: 8px 0;
-    }
+  p {
+    margin: 8px 0;
+  }
 }
-
 
 .statusModal {
-    margin: auto;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
-    .backBtn {
-        position: absolute;
-        left: 15px;
-        top: 15px;
-        cursor: pointer;
-    }
-    
-    .statusCode {
-        margin: 10px 0;
-    }
+  .backBtn {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    cursor: pointer;
+  }
 
-    .statusImg {
-        width: 100px;
-        margin: 10px auto;
-    }
+  .statusCode {
+    margin: 10px 0;
+  }
 
-    .statusLogWrap {
-        margin: 10px 0;
-        
-        p {
-            margin: 0;
-            margin-top: 7px;
-            font-size: 15px;
-            line-height: 20px;
-        }
-    }
+  .statusImg {
+    width: 100px;
+    margin: 10px auto;
+  }
 
+  .statusLogWrap {
+    margin: 10px 0;
+
+    p {
+      margin: 0;
+      margin-top: 7px;
+      font-size: 15px;
+      line-height: 20px;
+    }
+  }
 }
 
-.statusModal.success, .statusModal.pending {
-    align-items: center;
+.statusModal.success,
+.statusModal.pending {
+  align-items: center;
 }
 
 .connectModal {
-    width: 300px;
+  width: 300px;
 
-
-    li:hover {
-        color:rgb(212, 212, 208);
-    }
+  li:hover {
+    color: rgb(212, 212, 208);
+  }
 }
 
 .crumbsWrapper {
-    ul {
-        display: flex;
-        margin-bottom: -1px;
+  ul {
+    display: flex;
+    margin-bottom: -1px;
 
-        li {
-            padding: 5px;
-            border: 1px solid #FFFFFF;
-            margin-right: 5px;
-            margin-bottom: 0;
-            border-bottom: 0;
-            cursor: pointer;
-        }
-
-        li.selected {
-            border-bottom: 1px solid $black;
-        }
+    li {
+      padding: 5px;
+      border: 1px solid #ffffff;
+      margin-right: 5px;
+      margin-bottom: 0;
+      border-bottom: 0;
+      cursor: pointer;
     }
+
+    li.selected {
+      border-bottom: 1px solid $black;
+    }
+  }
+}
+
+.dropdown {
+  position: relative;
+  width: 120px;
+
+  ul {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    display: none;
+    background-color: lighten($bg, 10%);
+    width: 100%;
+  }
+
+  ul.expanded {
+    display: block;
+    margin-top: 13px;
+
+    .dropVariant {
+      background-color: unset;
+    }
+
+    li {
+      background-color: $bg;
+      cursor: pointer;
+      border-top: 0.5px solid rgba(233, 234, 236, 0.35);
+    }
+
+    li:hover {
+      background-color: lighten($bg, 15%);
+    }
+  }
+
+  .dropVariant {
+    display: flex;
+    align-items: center;
+    background-color: $bg;
+    padding: 8px;
+  }
+
+  .drop {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  .drop:hover {
+    filter: brightness(150%);
+  }
+}
+
+.coinIcon {
+  width: 30px;
+  margin-right: 5px;
 }

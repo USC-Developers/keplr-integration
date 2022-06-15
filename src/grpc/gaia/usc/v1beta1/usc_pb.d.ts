@@ -2,6 +2,7 @@ import * as jspb from 'google-protobuf'
 
 import * as gogoproto_gogo_pb from '../../../gogoproto/gogo_pb';
 import * as google_protobuf_duration_pb from 'google-protobuf/google/protobuf/duration_pb';
+import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
 import * as cosmos_base_v1beta1_coin_pb from '../../../cosmos/base/v1beta1/coin_pb';
 
 
@@ -10,6 +11,9 @@ export class Params extends jspb.Message {
   setRedeemDur(value?: google_protobuf_duration_pb.Duration): Params;
   hasRedeemDur(): boolean;
   clearRedeemDur(): Params;
+
+  getMaxRedeemEntries(): number;
+  setMaxRedeemEntries(value: number): Params;
 
   getCollateralMetasList(): Array<TokenMeta>;
   setCollateralMetasList(value: Array<TokenMeta>): Params;
@@ -32,6 +36,7 @@ export class Params extends jspb.Message {
 export namespace Params {
   export type AsObject = {
     redeemDur?: google_protobuf_duration_pb.Duration.AsObject,
+    maxRedeemEntries: number,
     collateralMetasList: Array<TokenMeta.AsObject>,
     uscMeta?: TokenMeta.AsObject,
   }
@@ -67,10 +72,10 @@ export class RedeemEntry extends jspb.Message {
   getAddress(): string;
   setAddress(value: string): RedeemEntry;
 
-  getCollateralAmountList(): Array<cosmos_base_v1beta1_coin_pb.Coin>;
-  setCollateralAmountList(value: Array<cosmos_base_v1beta1_coin_pb.Coin>): RedeemEntry;
-  clearCollateralAmountList(): RedeemEntry;
-  addCollateralAmount(value?: cosmos_base_v1beta1_coin_pb.Coin, index?: number): cosmos_base_v1beta1_coin_pb.Coin;
+  getOperationsList(): Array<RedeemEntryOperation>;
+  setOperationsList(value: Array<RedeemEntryOperation>): RedeemEntry;
+  clearOperationsList(): RedeemEntry;
+  addOperations(value?: RedeemEntryOperation, index?: number): RedeemEntryOperation;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RedeemEntry.AsObject;
@@ -83,27 +88,57 @@ export class RedeemEntry extends jspb.Message {
 export namespace RedeemEntry {
   export type AsObject = {
     address: string,
+    operationsList: Array<RedeemEntryOperation.AsObject>,
+  }
+}
+
+export class RedeemEntryOperation extends jspb.Message {
+  getCreationHeight(): number;
+  setCreationHeight(value: number): RedeemEntryOperation;
+
+  getCompletionTime(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setCompletionTime(value?: google_protobuf_timestamp_pb.Timestamp): RedeemEntryOperation;
+  hasCompletionTime(): boolean;
+  clearCompletionTime(): RedeemEntryOperation;
+
+  getCollateralAmountList(): Array<cosmos_base_v1beta1_coin_pb.Coin>;
+  setCollateralAmountList(value: Array<cosmos_base_v1beta1_coin_pb.Coin>): RedeemEntryOperation;
+  clearCollateralAmountList(): RedeemEntryOperation;
+  addCollateralAmount(value?: cosmos_base_v1beta1_coin_pb.Coin, index?: number): cosmos_base_v1beta1_coin_pb.Coin;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RedeemEntryOperation.AsObject;
+  static toObject(includeInstance: boolean, msg: RedeemEntryOperation): RedeemEntryOperation.AsObject;
+  static serializeBinaryToWriter(message: RedeemEntryOperation, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RedeemEntryOperation;
+  static deserializeBinaryFromReader(message: RedeemEntryOperation, reader: jspb.BinaryReader): RedeemEntryOperation;
+}
+
+export namespace RedeemEntryOperation {
+  export type AsObject = {
+    creationHeight: number,
+    completionTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     collateralAmountList: Array<cosmos_base_v1beta1_coin_pb.Coin.AsObject>,
   }
 }
 
-export class RedeemEntries extends jspb.Message {
-  getEntriesList(): Array<RedeemEntry>;
-  setEntriesList(value: Array<RedeemEntry>): RedeemEntries;
-  clearEntriesList(): RedeemEntries;
-  addEntries(value?: RedeemEntry, index?: number): RedeemEntry;
+export class RedeemingQueueData extends jspb.Message {
+  getAddressesList(): Array<string>;
+  setAddressesList(value: Array<string>): RedeemingQueueData;
+  clearAddressesList(): RedeemingQueueData;
+  addAddresses(value: string, index?: number): RedeemingQueueData;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): RedeemEntries.AsObject;
-  static toObject(includeInstance: boolean, msg: RedeemEntries): RedeemEntries.AsObject;
-  static serializeBinaryToWriter(message: RedeemEntries, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): RedeemEntries;
-  static deserializeBinaryFromReader(message: RedeemEntries, reader: jspb.BinaryReader): RedeemEntries;
+  toObject(includeInstance?: boolean): RedeemingQueueData.AsObject;
+  static toObject(includeInstance: boolean, msg: RedeemingQueueData): RedeemingQueueData.AsObject;
+  static serializeBinaryToWriter(message: RedeemingQueueData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RedeemingQueueData;
+  static deserializeBinaryFromReader(message: RedeemingQueueData, reader: jspb.BinaryReader): RedeemingQueueData;
 }
 
-export namespace RedeemEntries {
+export namespace RedeemingQueueData {
   export type AsObject = {
-    entriesList: Array<RedeemEntry.AsObject>,
+    addressesList: Array<string>,
   }
 }
 

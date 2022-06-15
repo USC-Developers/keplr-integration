@@ -1,136 +1,155 @@
 import React, { FC } from "react";
 
-
 import usdt from "../../assets/img/usdt.svg";
 import usc from "../../assets/img/usc.jpeg";
+import ust from "../../assets/img/ust.png";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setTab ,Global } from "../../state";
+import { setTab, Global, selectGaiaToken } from "../../state";
 import { CONFIG } from "../../config";
 
-import {Next as Previous} from './withMethods'
+import { Next as Previous } from "./withMethods";
 
-
+import { Dropdown } from "../elements/dropdown";
 
 export interface Next extends Previous {
-    TabElements: {
-        "Transfer from  Osmosis": JSX.Element;
-        "Mint": JSX.Element;
-        "Redeem": JSX.Element;
-    },
-    renderTabs: JSX.Element[],
-    selectedTab: string
-
+  TabElements: {
+    "Transfer from  Osmosis": JSX.Element;
+    Mint: JSX.Element;
+    Redeem: JSX.Element;
+  };
+  renderTabs: JSX.Element[];
+  selectedTab: string;
 }
 
+const tabs = ["Transfer from  Osmosis", "Mint", "Redeem"];
 
-const tabs = ["Transfer from  Osmosis", "Mint", "Redeem"]
+export const withTabs = (Wrapped: FC<Next>) => (props: Previous) => {
+  const dispatch = useDispatch();
 
-export const withTabs = (Wrapped: FC<Next>) =>
-  (props:Previous) => {
-    const dispatch = useDispatch();
+  const {
+    state: { mintInput, burnInput, transferFrom, transferTo, transferAmount },
+    setStateVal,
+    methods,
+  } = props;
 
-    const {state: {mintInput,burnInput, transferFrom, transferTo, transferAmount }, setStateVal, methods} = props
+  const { selectedTab, selectedGaiaToken } = useSelector(
+    ({ global }: { global: Global }) => ({
+      selectedTab: global.selectedTab,
+      selectedGaiaToken: global.selectedGaiaToken,
+    })
+  );
 
-    const { selectedTab } = useSelector(
-        ({ global }: { global: Global }) => ({
-       
-          selectedTab: global.selectedTab,
-        })
-      );
-    
+  const renderTabs = tabs.map((tab, i) => (
+    <li
+      key={i + "tab"}
+      onClick={() => dispatch(setTab(tab))}
+      className={`${tab === selectedTab ? "selected" : ""}`}
+    >
+      {tab}
+    </li>
+  ));
 
-    const renderTabs = tabs.map((tab, i) => (
-        <li
-            key={i + 'tab'}
-          onClick={() => dispatch(setTab(tab))}
-          className={`${tab === selectedTab ? "selected" : ""}`}
-        >
-          {tab}
+  const TabElements = {
+    "Transfer from  Osmosis": (
+      <>
+        <li>
+          <div className="transferRow">
+            <div className="inputWrap">
+              <span>From:</span>
+              <input
+                type="text"
+                className="convertInput"
+                value={transferFrom}
+                onChange={(e) => setStateVal(e.target.value, "transferFrom")}
+              />
+            </div>
+            <div className="inputWrap">
+              <span>To:</span>
+              <input
+                type="text"
+                className="convertInput"
+                value={transferTo}
+                onChange={(e) => setStateVal(e.target.value, "transferTo")}
+              />
+            </div>
+          </div>
         </li>
-      ));
-
-
-      const TabElements = {
-        "Transfer from  Osmosis": (
-            <>
-            <li>
-                <div className="transferRow">
-                <div className="inputWrap">
-                    <span>From:</span>
-                    <input type="text"  className="convertInput" value={transferFrom} onChange={(e) => setStateVal(e.target.value, 'transferFrom')}/>
-                    </div>
-                    <div className="inputWrap">
-                    <span>To:</span>
-                    <input type="text"  className="convertInput" value={transferTo} onChange={(e) => setStateVal(e.target.value, 'transferTo')}/>
-                    </div>
-                </div>
-                
-            </li>
-            <li>
-            <div className="transferRow">
-                <div className="inputWrap">
-                    <span>Amount</span>
-                    <input type="text"  className="convertInput" value={transferAmount} onChange={(e) => setStateVal(e.target.value, 'transferAmount')}/>
-                    <span>ust</span>
-                    </div>
-                    <button className="btn" onClick={methods.onTransfer}>
-                        Transfer
-                        </button>
-                </div>
-            </li>
-            </>
-        ), 
-        "Mint": (
-          <li>
-            <div className="coinWrap">
-              <img src={usdt} alt="" width={30} />
-              <span>USDT</span>
-            </div>
-            <span className="to">To</span>
-            <div className="coinWrap">
-              <img src={usc} alt="" width={30} />
-              <span>USC</span>
-            </div>
+        <li>
+          <div className="transferRow">
             <div className="inputWrap">
               <span>Amount</span>
               <input
                 type="text"
                 className="convertInput"
-                value={mintInput}
-                onChange={(e) => setStateVal(e.target.value, 'mintInput')}
+                value={transferAmount}
+                onChange={(e) => setStateVal(e.target.value, "transferAmount")}
               />
-              <span>usdt</span>
+              <span>ust</span>
             </div>
-            <button className="btn" onClick={() => methods.onMint(CONFIG.ustDenom)}>
-              Mint
+            <button className="btn" onClick={methods.onTransfer}>
+              Transfer
             </button>
-          </li>
-        ),
-        "Redeem": (
-          <li className="lefty">
-            <div className="coinWrap">
-              <img src={usc} alt="" width={30} />
-              <span>USC</span>
-            </div>
-            <div className="inputWrap">
-              <span>Amount</span>
-              <input
-                type="text"
-                className="convertInput"
-                value={burnInput}
-                onChange={(e) => setStateVal(e.target.value, 'burnInput')}
-              />
-              <span>usc</span>
-            </div>
-            <button className="btn" onClick={methods.onBurn}>
-              Redeem
-            </button>
-          </li>
-        ),
-      };
-     
+          </div>
+        </li>
+      </>
+    ),
+    Mint: (
+      <li>
+        <Dropdown items={CONFIG.gaiaTokens} />
 
+        <span className="to">To</span>
+        <div className="coinWrap">
+          <img src={usc} alt="" className="coinIcon" />
+          <span>USC</span>
+        </div>
+        <div className="inputWrap">
+          <span>Amount</span>
+          <input
+            type="text"
+            className="convertInput"
+            value={mintInput}
+            onChange={(e) => setStateVal(e.target.value, "mintInput")}
+          />
+          <span>{selectedGaiaToken.name.toLowerCase()}</span>
+        </div>
+        <button
+          className="btn"
+          onClick={() => methods.onMint(selectedGaiaToken.denom)}
+        >
+          Mint
+        </button>
+      </li>
+    ),
+    Redeem: (
+      <li className="lefty">
+        <div className="coinWrap">
+          <img src={usc} alt="" className="coinIcon" />
+          <span>USC</span>
+        </div>
+        <div className="inputWrap">
+          <span>Amount</span>
+          <input
+            type="text"
+            className="convertInput"
+            value={burnInput}
+            onChange={(e) => setStateVal(e.target.value, "burnInput")}
+          />
+          <span>usc</span>
+        </div>
+        <button className="btn" onClick={methods.onBurn}>
+          Redeem
+        </button>
+      </li>
+    ),
+  };
 
-    return <Wrapped selectedTab={selectedTab} TabElements={TabElements} renderTabs={renderTabs} {...props}/>;
-  }
+  return (
+    <Wrapped
+      selectedTab={selectedTab}
+      TabElements={TabElements}
+      renderTabs={renderTabs}
+      {...props}
+    />
+  );
+};

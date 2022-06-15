@@ -41,7 +41,7 @@ const Exchange = ({renderTabs, TabElements, selectedTab}: ExchangeProps) => {
 
             <div className="convertorWrap">
                 
-              <ul>{
+              <ul className="convertorList">{
             //@ts-ignore
               TabElements[selectedTab]
               }</ul>

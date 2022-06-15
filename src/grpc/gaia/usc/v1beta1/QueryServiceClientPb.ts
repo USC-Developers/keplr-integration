@@ -121,5 +121,48 @@ export class QueryClient {
     this.methodDescriptorParams);
   }
 
+  methodDescriptorRedeemEntry = new grpcWeb.MethodDescriptor(
+    '/gaia.usc.v1beta1.Query/RedeemEntry',
+    grpcWeb.MethodType.UNARY,
+    gaia_usc_v1beta1_query_pb.QueryRedeemEntryRequest,
+    gaia_usc_v1beta1_query_pb.QueryRedeemEntryResponse,
+    (request: gaia_usc_v1beta1_query_pb.QueryRedeemEntryRequest) => {
+      return request.serializeBinary();
+    },
+    gaia_usc_v1beta1_query_pb.QueryRedeemEntryResponse.deserializeBinary
+  );
+
+  redeemEntry(
+    request: gaia_usc_v1beta1_query_pb.QueryRedeemEntryRequest,
+    metadata: grpcWeb.Metadata | null): Promise<gaia_usc_v1beta1_query_pb.QueryRedeemEntryResponse>;
+
+  redeemEntry(
+    request: gaia_usc_v1beta1_query_pb.QueryRedeemEntryRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: gaia_usc_v1beta1_query_pb.QueryRedeemEntryResponse) => void): grpcWeb.ClientReadableStream<gaia_usc_v1beta1_query_pb.QueryRedeemEntryResponse>;
+
+  redeemEntry(
+    request: gaia_usc_v1beta1_query_pb.QueryRedeemEntryRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: gaia_usc_v1beta1_query_pb.QueryRedeemEntryResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/gaia.usc.v1beta1.Query/RedeemEntry',
+        request,
+        metadata || {},
+        this.methodDescriptorRedeemEntry,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/gaia.usc.v1beta1.Query/RedeemEntry',
+    request,
+    metadata || {},
+    this.methodDescriptorRedeemEntry);
+  }
+
 }
 

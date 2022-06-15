@@ -19,18 +19,17 @@ import "../assets/misc.css";
 export default function App() {
   const [container, setContainer] = useState<ServiceContainer>({});
 
+  const {cosmos} = container
+
   useEffect(() => {
-    container.cosmos &&
-      false && setTimeout(async () => {
-        await container.cosmos?.IBCtransfer({
-          from: "osmo1sfdhe0yx7vhlx00hvws3pxwct8snzw6d0q743l",
-          to: "cosmos1sfdhe0yx7vhlx00hvws3pxwct8snzw6d8md98d",
-          amount: "100000",
-          denom:
-            "ibc/BE1BB42D4BE3C30D50B68D7C41DB4DFCE9678E8EF8C539F6E6A9345048894FCC",
-        });
+
+    
+   cosmos &&
+     setTimeout(async () => {
+        await cosmos!.getRedeems(cosmos.account.address)
+
       }, 200);
-  }, [container]);
+  }, [cosmos]);
 
   return (
     <ServiceProvider value={{ container, setContainer }}>
