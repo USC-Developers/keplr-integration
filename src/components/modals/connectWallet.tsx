@@ -1,63 +1,78 @@
-import React, { PureComponent, useState } from 'react';
+import React, { PureComponent, useState } from "react";
 
-import keplr from '../../assets/img/kpl.png'
-import { useDispatch } from 'react-redux';
-import { withServices } from '../hocs/withServices';
-import keplrClient, {KeplrClient} from '../../services/keplrClient';
-import {ServiceContainer, withServiceContainer} from '../../global'
+import keplr from "../../assets/img/kpl.png";
+import { useDispatch } from "react-redux";
+import { withServices } from "../hocs/withServices";
+import keplrClient, { KeplrClient } from "../../services/keplrClient";
+import { ServiceContainer, withServiceContainer } from "../../global";
+import { setBalances } from "../../state";
 
-
-import {CONFIG} from '../../config'
+import { CONFIG } from "../../config";
+import { set } from "immer/dist/internal";
 
 interface ConnectWalletProps extends withServiceContainer {
-    onClose: () => void
+  onClose: () => void;
 }
 
- const ConnectWallet = ({container, setContainer, onClose}:ConnectWalletProps) => { //todo types
+const ConnectWallet = ({
+  container,
+  setContainer,
+  onClose,
+}: ConnectWalletProps) => {
+  //todo types
 
-  
+  const dispatch = useDispatch();
 
-    const [connection, setConnection] = useState(false)
+  const [connection, setConnection] = useState(false);
 
-    
-    const setKeplr = async () => {
-        let client:KeplrClient | null;
-        setConnection(true)
-        try {
-            client = await keplrClient(CONFIG.chain, `${CONFIG.chainIp}:${CONFIG.rpcPort}`, `${CONFIG.chainIp}:${CONFIG.restPort}`).connect()
-        } catch (e) {
-            client = null
-            console.log(e)
-        }
-        setConnection(false)
+  const setKeplr = async () => {
+    let client: KeplrClient | null;
+    setConnection(true);
+    try {
+      client = await keplrClient(
+        CONFIG.chain,
+        `${CONFIG.chainIp}:${CONFIG.rpcPort}`,
+        `${CONFIG.chainIp}:${CONFIG.restPort}`
+      ).connect();
 
-        if (client) {
-
-            onClose()
-            setContainer({
-                ...container,
-                cosmos : client
-            })
-
-
-
-        }
+      if (client) {
+        const res = await client.getBalance();
+        dispatch(setBalances(res.balancesList));
+        onClose();
+        setContainer({
+          ...container,
+          cosmos: client,
+        });
+        setConnection(false);
+      }
+    } catch (e) {
+      client = null;
+      console.log(e);
+      setConnection(false);
     }
- 
+  };
 
+  return (
+    <div className="connectModal">
+      <h2>Connect with:</h2>
 
-    return <div className="connectModal">
-            <h2>Connect with:</h2>
-
-            <ul>
-                <li onClick={() => !connection && setKeplr()}>
-                    <img src={keplr} alt="keplr" />
-                    <span>Keplr Wallet</span>
-                </li>
-            </ul>
+      <ul>
+        <li onClick={() => !connection && setKeplr()}>
+          <img src={keplr} alt="keplr" />
+          {connection ? (
+            <div className="lds-ellipsis small">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          ) : (
+            <span>Keplr Wallet</span>
+          )}
+        </li>
+      </ul>
     </div>
-}
+  );
+};
 
-
-
-export  default withServices(ConnectWallet)
+export default withServices(ConnectWallet);

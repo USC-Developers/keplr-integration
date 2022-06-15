@@ -15,6 +15,7 @@
 
 $black: #040506;
 $bg: #151a20;
+$border: rgba(224, 219, 219);
 
 html {
   overflow-x: hidden;
@@ -39,6 +40,7 @@ body {
 
 header {
   position: absolute;
+  z-index: 999999999999;
   top: 0;
   left: 0;
   width: 100%;
@@ -106,6 +108,7 @@ main {
   display: flex;
   align-items: center;
   cursor: pointer;
+  padding: 10px;
 
   span {
     padding-top: 3px;
@@ -151,10 +154,16 @@ main {
   align-items: unset;
   padding-top: 50px;
 
+  .trasferWrap {
+    display: flex;
+    flex-direction: column;
+  }
+
   .transferRow {
+    margin-bottom: 10px;
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
   }
 
@@ -279,7 +288,7 @@ h2 {
 }
 
 .crumbsWrapper {
-  ul {
+  > ul {
     display: flex;
     margin-bottom: -1px;
 
@@ -350,4 +359,53 @@ h2 {
 .coinIcon {
   width: 30px;
   margin-right: 5px;
+}
+
+.AccountWrap {
+  position: relative;
+}
+
+.AccountModal {
+  position: absolute;
+  bottom: 0;
+  right: 0px;
+  transform: translateY(100%);
+  background-color: $black;
+  border-radius: 20px;
+  padding: 10px;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  .accountSectionWrap {
+    padding: 0 10px 10px 10px;
+    border-top: 1px solid $border;
+
+    p {
+      padding-top: 10px;
+      font-size: 16px;
+    }
+  }
+
+  .accountCrumbs .accountSectionWrap ul {
+    justify-content: space-between;
+
+    padding-top: 10px;
+
+    .balanceDenom {
+      font-size: 16px;
+    }
+
+    li:last-of-type {
+      margin-right: 0;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
 }

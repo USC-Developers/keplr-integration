@@ -44,3 +44,16 @@ export interface TokenInfo {
   icon?: string;
   denom: string;
 }
+
+export interface Coin {
+  denom: string;
+  amount: string;
+}
+
+export interface RedeemOperation {
+  completionTime: {
+    seconds: number;
+  };
+  creationHeight: number;
+  collateralAmountList: Coin[];
+}

@@ -8,8 +8,9 @@ import { Status } from "./popups/Status";
 import ConnectWallet from "./modals/connectWallet";
 import { ServiceProvider } from "./hocs/ServcieProvder";
 import { ServiceContainer } from "../global";
-import { useSelector } from "react-redux";
-import { Global } from "../state";
+
+import { Global, toggleAccount } from "../state";
+import { useSelector, useDispatch } from "react-redux";
 import { Provider } from "react-redux";
 import store from "../store";
 import "../assets/reset.scss";
@@ -19,25 +20,41 @@ import "../assets/misc.css";
 export default function App() {
   const [container, setContainer] = useState<ServiceContainer>({});
 
-  const {cosmos} = container
+  const { cosmos } = container;
 
   useEffect(() => {
-
-    
-   cosmos &&
-     setTimeout(async () => {
-        await cosmos!.getRedeems(cosmos.account.address)
-
+    cosmos &&
+      setTimeout(async () => {
+        false &&
+          console.log(
+            await cosmos!.stargate?.getAllBalances(
+              "osmo1sfdhe0yx7vhlx00hvws3pxwct8snzw6d0q743l"
+            )
+          );
+        //console.log(await cosmos.getBalance());
+        //await cosmos!.getRedeems(cosmos.account.address)
       }, 200);
   }, [cosmos]);
+
+  const BodyWrapper = ({ children }: { children: React.ReactChild }) => {
+    const dispatch = useDispatch();
+
+    return (
+      <div className="app" onClick={() => dispatch(toggleAccount(false))}>
+        {children}
+      </div>
+    );
+  };
 
   return (
     <ServiceProvider value={{ container, setContainer }}>
       <Provider store={store}>
-        <div className="app">
-          <Header />
-          <Main />
-        </div>
+        <BodyWrapper>
+          <>
+            <Header />
+            <Main />
+          </>
+        </BodyWrapper>
       </Provider>
     </ServiceProvider>
   );

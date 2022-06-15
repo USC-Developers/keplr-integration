@@ -5,7 +5,12 @@ import usc from "../../assets/img/usc.jpeg";
 import ust from "../../assets/img/ust.png";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setTab, Global, selectGaiaToken } from "../../state";
+import {
+  setTab,
+  Global,
+  selectGaiaToken,
+  selectOsmosisToken,
+} from "../../state";
 import { CONFIG } from "../../config";
 
 import { Next as Previous } from "./withMethods";
@@ -33,10 +38,11 @@ export const withTabs = (Wrapped: FC<Next>) => (props: Previous) => {
     methods,
   } = props;
 
-  const { selectedTab, selectedGaiaToken } = useSelector(
+  const { selectedTab, selectedGaiaToken, selectedOsmosisToken } = useSelector(
     ({ global }: { global: Global }) => ({
       selectedTab: global.selectedTab,
       selectedGaiaToken: global.selectedGaiaToken,
+      selectedOsmosisToken: global.selectedOsmosisToken,
     })
   );
 
@@ -53,8 +59,37 @@ export const withTabs = (Wrapped: FC<Next>) => (props: Previous) => {
   const TabElements = {
     "Transfer from  Osmosis": (
       <>
-        <li>
+        <li className="trasferWrap">
           <div className="transferRow">
+            <Dropdown
+              items={CONFIG.osmosisTokens}
+              selectEntity={selectOsmosisToken}
+            />
+
+            <span className="to">To</span>
+            <div className="coinWrap">
+              <img src={usc} alt="" className="coinIcon" />
+              <span>USC</span>
+            </div>
+            <div className="inputWrap">
+              <span>Amount</span>
+              <input
+                type="text"
+                className="convertInput"
+                value={transferAmount}
+                onChange={(e) => setStateVal(e.target.value, "transferAmount")}
+              />
+              <span>{selectedGaiaToken.name.toLowerCase()}</span>
+            </div>
+            <button
+              className="btn"
+              onClick={() => methods.onTransfer(selectedOsmosisToken.denom)}
+            >
+              Transfer
+            </button>
+          </div>
+
+          <div className="transferRow" style={{ justifyContent: "flex-start" }}>
             <div className="inputWrap">
               <span>From:</span>
               <input
@@ -75,28 +110,11 @@ export const withTabs = (Wrapped: FC<Next>) => (props: Previous) => {
             </div>
           </div>
         </li>
-        <li>
-          <div className="transferRow">
-            <div className="inputWrap">
-              <span>Amount</span>
-              <input
-                type="text"
-                className="convertInput"
-                value={transferAmount}
-                onChange={(e) => setStateVal(e.target.value, "transferAmount")}
-              />
-              <span>ust</span>
-            </div>
-            <button className="btn" onClick={methods.onTransfer}>
-              Transfer
-            </button>
-          </div>
-        </li>
       </>
     ),
     Mint: (
       <li>
-        <Dropdown items={CONFIG.gaiaTokens} />
+        <Dropdown items={CONFIG.gaiaTokens} selectEntity={selectGaiaToken} />
 
         <span className="to">To</span>
         <div className="coinWrap">

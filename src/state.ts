@@ -2,7 +2,7 @@ import { Window as KeplrWindow } from "@keplr-wallet/types";
 import { KeplrClient } from "./services/keplrClient";
 
 import { createSlice } from "@reduxjs/toolkit";
-import { TokenInfo } from "./global";
+import { TokenInfo, Coin, RedeemOperation } from "./global";
 import { CONFIG } from "./config";
 
 declare global {
@@ -13,9 +13,13 @@ declare global {
 export interface Global {
   keplr: KeplrClient | undefined;
   selectedTab: "Mint" | "Redeem";
+  showAccaount: boolean;
   forceConnectModal: boolean;
   forceExchangeModal: boolean;
   selectedGaiaToken: TokenInfo;
+  selectedOsmosisToken: TokenInfo;
+  balancesList: Coin[];
+  redeemsList: RedeemOperation[];
   txStatus:
     | {
         type: "success" | "failed" | "pending";
@@ -28,13 +32,17 @@ export interface Global {
 export const initialState: Global = {
   keplr: undefined,
   selectedTab: "Mint",
+  showAccaount: false,
   forceConnectModal: false,
   forceExchangeModal: false,
   selectedGaiaToken: CONFIG.gaiaTokens.find((t) => t.name === "USDT")!,
+  selectedOsmosisToken: CONFIG.gaiaTokens.find((t) => t.name === "UST")!,
+  balancesList: [],
+  redeemsList: [],
   txStatus: undefined /*{
       type: "pending",
       //code: 4, 
-      //log: "signature verification failed; please verify account number (9) and chain-id (usc-gaia-3): unauthorized"
+      //log: "signature verification failed; please verify account number (9) and chain-id (usc-gaia-4): unauthorized"
     }*/,
 };
 
@@ -43,16 +51,33 @@ interface booleanPayload {
   payload: boolean;
 }
 
-interface Token {
+interface TokenPayload {
   type: string;
   payload: TokenInfo;
+}
+
+interface CoinPayload {
+  type: string;
+  payload: Coin[];
 }
 
 export const global = createSlice({
   name: "global",
   initialState,
   reducers: {
-    selectGaiaToken: (state, action: Token) => {
+    setRedeemsList: (state, action: any) => {
+      state.redeemsList = action.payload;
+    },
+    setBalances: (state, action: CoinPayload) => {
+      state.balancesList = action.payload;
+    },
+    toggleAccount: (state, action: booleanPayload) => {
+      state.showAccaount = action.payload;
+    },
+    selectOsmosisToken: (state, action: TokenPayload) => {
+      state.selectedOsmosisToken = action.payload;
+    },
+    selectGaiaToken: (state, action: TokenPayload) => {
       state.selectedGaiaToken = action.payload;
     },
     setForceConnect: (state, action: booleanPayload) => {
@@ -82,4 +107,8 @@ export const {
   setTxStatus,
   setTab,
   selectGaiaToken,
+  selectOsmosisToken,
+  toggleAccount,
+  setBalances,
+  setRedeemsList,
 } = global.actions;
