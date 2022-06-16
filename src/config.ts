@@ -24,18 +24,21 @@ export const CONFIG = {
       name: "USDT",
       icon: usdt,
       denom: "uusdt",
+      decimals: 6,
     },
     {
       name: "UST",
       icon: ust,
       denom:
         "ibc/312F13C9A9ECCE611FE8112B5ABCF0A14DE2C3937E38DEBF6B73F2534A83464E",
+      decimals: 6,
     },
     {
       name: "XKI",
       icon: ki,
       denom:
         "ibc/9167D1164E9ADD09EE5B6EB5DB645C950EE6A7DB049C7764D14E3C8D16C8F9B0",
+      decimals: 6,
     },
   ],
   osmosisTokens: [

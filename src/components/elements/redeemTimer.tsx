@@ -4,40 +4,27 @@ import moment, { Moment } from "moment";
 export const RedeemTimer = ({ time }: { time: Moment }) => {
   const [tick, setTick] = useState("");
 
-  console.log(tick);
-
-  var timeDiff = time.unix() - moment().unix();
-
   useEffect(() => {
-    let minutesN, secondsN, minutes, seconds;
+    const int = setInterval(() => {
+      var timeDiff = time.toDate().getTime() - moment().toDate().getTime();
 
-    minutesN = parseInt((timeDiff / 60).toFixed(0), 10);
-    secondsN = parseInt((timeDiff % 60).toFixed(0), 10);
-
-    minutes = minutesN < 10 ? "0" + minutesN : minutesN;
-    seconds = secondsN < 10 ? "0" + secondsN : secondsN;
-
-    setTick(minutes + ":" + seconds);
-
-    const int = setInterval(function () {
-      minutesN = parseInt((timeDiff / 60).toFixed(0), 10);
-      secondsN = timeDiff % 60;
-
-      minutes = minutesN < 10 ? "0" + minutesN : minutesN;
-      seconds = secondsN < 10 ? "0" + secondsN : secondsN;
-
-      setTick(minutes + ":" + seconds);
-
-      if (moment().unix() >= time.unix()) {
-        console.log(moment().unix());
-        console.log(time.unix());
+      if (timeDiff <= 0) {
         clearInterval(int);
-        return;
+        return setTick("Completed");
       }
+
+      const d = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const h = Math.floor(
+        (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const m = String(Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)));
+      const s = String(Math.floor((timeDiff % (1000 * 60)) / 1000));
+
+      setTick(`${d} days ${h} hours ${m} mins ${s} secs`);
     }, 1000);
 
-    //return () => clearInterval(int);
+    return () => clearInterval(int);
   }, []);
 
-  return <span>{tick}</span>;
+  return <span className="timer">{tick}</span>;
 };

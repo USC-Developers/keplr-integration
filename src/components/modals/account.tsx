@@ -73,20 +73,25 @@ export const AccountModal = ({
       <ul>
         {redeemsList.map((redeem, i) => {
           const denom = redeem.collateralAmountList[0].denom;
+          const coin = CONFIG.gaiaTokens.find((coin) => coin.denom === denom);
 
           return (
             <li key={i + "redeem"}>
+              <span className="balanceDenom">{coin?.name}</span>
+
               <span className="balanceDenom">
-                {denom.length > 15 ? truncate(denom, 15) : denom}
+                {
+                  //can be multiple coins waiting to be redeemed
+                  new bignumber(redeem.collateralAmountList[0].amount)
+                    .shiftedBy(0 - (coin?.decimals || 0))
+                    .toString()
+                }
               </span>
 
               <span className="balanceDenom">
                 <RedeemTimer
-                  time={moment(redeem?.completionTime?.seconds * 1000)}
+                  time={moment(redeem?.completionTime?.seconds * 1000 + 5)}
                 />
-                {/*moment(redeem?.completionTime?.seconds * 1000)
-                  .format("YYYY/MM/DD H:mm")
-                .toString()*/}
               </span>
             </li>
           );

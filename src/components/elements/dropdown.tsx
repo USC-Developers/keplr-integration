@@ -30,15 +30,13 @@ export const Dropdown = ({
 
   return (
     <div className="dropdown">
-      <div className="dropVariant selected">
+      <div
+        className="dropVariant selected"
+        onClick={() => setState({ ...state, showList: !state.showList })}
+      >
         <img src={items[state.selected].icon} alt="" className="coinIcon" />
         <span>{items[state.selected].name}</span>
-        <img
-          src={drop}
-          alt=""
-          className="drop"
-          onClick={() => setState({ ...state, showList: !state.showList })}
-        />
+        <img src={drop} alt="" className="drop" />
       </div>
       <ul className={`${state.showList ? "expanded" : ""}`}>
         {items.map((item, i) => (
@@ -50,6 +48,7 @@ export const Dropdown = ({
               setState({
                 ...state,
                 selected: i,
+                showList: false,
               });
             }}
           >
