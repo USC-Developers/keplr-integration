@@ -21,6 +21,7 @@ export default function App() {
   const [container, setContainer] = useState<ServiceContainer>({});
 
   const { cosmos } = container;
+  console.log("check");
 
   useEffect(() => {
     cosmos &&
