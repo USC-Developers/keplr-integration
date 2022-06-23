@@ -8,10 +8,299 @@
   src: url(../../assets/fonts/Roboto-Regular.ttf);
 }
 
+.mainDiv{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;;
+}
+
+
+.divContainer{
+    width: 80vw;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.div{
+    display: flex;
+    width: 100vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 .div1 {
-  display: flex;
-  width: 100vw;
   height: 669px;
   background-image: url("./AssetsImgMain/Background\ 2.jpg");
-  background-repeat: no-repeat;
+}
+
+.div2 {
+    height: 626px;
+    background-image: url("./AssetsImgMain/Background\ 4.jpg");
+}
+
+.div3 {
+    height: 548px;
+    background-image: url("./AssetsImgMain/Background\ 4.jpg");
+}
+
+.div4 {
+    height: 1335px;
+    background-image: url("./AssetsImgMain/Background.png");
+}
+
+.div5 {
+    height: 881px;
+    background-image: url("./AssetsImgMain/Background\ 7.jpg");
+}
+
+.div6 {
+    height: 717px;
+    background-image: url("./AssetsImgMain/Background\ 7.jpg");
+}
+
+
+.div7 {
+    height: 893px;
+    background-image: url("./AssetsImgMain/Background\ 5.jpg");
+}
+
+
+.div9 {
+    height: 744px;
+    background-image: url("./AssetsImgMain/Background\ 4.jpg");
+}
+
+
+.div10 {
+    height: 1354px;
+    background-image: url("./AssetsImgMain/Background\ 4.jpg");
+}
+
+.mainLogo{
+    width: 532px;
+    height: 249px;
+}
+
+.USCLogo{
+    width: 323px;
+    height: 98px;
+    padding-bottom: 10px;
+
+}
+
+.cubeImg{
+    margin-top: 150px;
+    width: 516px;
+    height: 486px;
+}
+
+.cubesImg2{
+    width: 590px;
+    height: 534px;
+}
+
+.mvpUIImg{
+    width: 365.83px;
+    height: 215.24px;
+    align-self: flex-end;
+}
+
+.machineImg{
+    margin-left: 140px;
+    width: 200.06px;
+    height: 400px;
+}
+
+.roadmapImg{
+    width: 1310px;
+    height: 385px;
+}
+
+.TokenomicsImg{
+    width: 490px;
+    height: 490px;
+}
+
+.ColorLegendsImg{
+    width: 452px;
+    height: 446px;
+}
+
+.userImg{
+    width: 72px;
+    height: 72px;
+}
+.generatorImg{
+    position: absolute;
+    width: 1114px;
+    height: 602px;
+    left: 16%;
+    right: 15.49%;
+    margin-top: 180px;
+
+}
+
+.flexColoumn{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.flexRow{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.casadia{
+    font-family: 'Cascadia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 47px;
+}
+
+.green{
+    color: #49E0B3;
+}
+
+.blue{
+    color: #017BCB
+}
+
+.pDiv3{
+    font-family: 'Cascadia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 40px;
+    text-align: left;
+}
+
+
+.pDiv4{
+    font-family: 'Cascadia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 25px;
+    /* identical to box height, or 100% */
+    
+    text-align: center;
+}
+
+
+.alignLeft{
+    align-items: flex-start;
+    gap: 50px;
+}
+
+.gap{
+    gap:50px;
+}
+
+.chainBox{
+    width: 403px;
+    height: 457px;
+    box-sizing: border-box;
+    background: rgba(27, 19, 26, 0.89);
+    border: 2px solid #F0F0F0;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    gap: 30px;
+    align-items: flex-start;
+    padding: 40px;
+    font-size: 30px;
+    line-height: 36px;
+}
+
+.teamBoxes {
+    width: 80vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.TeamBox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    padding-left: 20px;
+    /* padding: 20px; */
+    width: 293px;
+    height: 292px;
+    background: rgba(27, 19, 26, 0.89);
+    border: 2px solid rgba(173, 173, 173, 0.89);
+    border-radius: 25px;
+    font-family: 'Cascadia Code';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #FFFFFF; 
+    
+}
+
+.chainText{
+    font-size: 16px;
+    line-height: 24px;
+    color: #D1D1D1;
+}
+
+.userLinkedin{
+    font-family: 'Cascadia Code';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;    
+    color: #49E0B3;
+}
+
+.userText{
+    font-family: 'Cascadia Code';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #D1D1D1;
+}
+
+.mvpLabelGreen{
+    font-family: 'Cascadia Code';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 27px;
+    line-height: 34px;
+    color: #49E0B3;
+}
+
+.mvpLabel{
+    font-family: 'Cascadia Code';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 40px;
+    /* identical to box height, or 160% */
+    
+    
+    color: #FFFFFF;
+    
+}
+
+
+.uscToken{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 150px;
 }

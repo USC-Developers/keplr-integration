@@ -15,7 +15,7 @@ import "./components/mainPage/Main.css";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <MintPage />
+      <App />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
