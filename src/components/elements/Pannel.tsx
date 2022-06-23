@@ -1,6 +1,6 @@
 import React from "react";
 
-import swap
+import swap from "../../assets/img/Exchange icon.svg";
 
 export const Pannel = ({
   children,
@@ -22,7 +22,7 @@ export const Pannel = ({
               <div className="coinWrap">{children[0]}</div>
             </div>
           </div>
-          <img src="" alt="swapImg" className="swapImg" />
+          <img src={swap} alt="swapImg" className="swapImg" />
         </div>
 
         <button className="pannelBtn">{type.toUpperCase() + " NOW"}</button>
