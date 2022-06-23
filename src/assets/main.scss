@@ -170,7 +170,7 @@ main {
   .convertorWrap {
     margin: auto;
     text-align: center;
-    border: 1px solid #ffffff;
+    border: 1px solid $border;
     width: 100%;
     padding: 0 10px;
   }
@@ -294,7 +294,7 @@ h2 {
 
     li {
       padding: 5px;
-      border: 1px solid #ffffff;
+      border: 1px solid $border;
       margin-right: 5px;
       margin-bottom: 0;
       border-bottom: 0;
@@ -331,7 +331,7 @@ h2 {
     li {
       background-color: $bg;
       cursor: pointer;
-      border-top: 0.5px solid rgba(233, 234, 236, 0.35);
+      border-top: 0.5px solid $border;
     }
 
     li:hover {
@@ -400,7 +400,11 @@ h2 {
 
     .balanceDenom .timer {
       text-align: right;
-      color: rgb(132, 211, 13);
+      color: rgb(161, 81, 144);
+    }
+
+    .balanceDenom .timer.completed {
+      color: rgb(57, 206, 89);
     }
 
     li:last-of-type {

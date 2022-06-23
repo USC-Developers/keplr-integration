@@ -36,7 +36,7 @@ export const initialState: Global = {
   forceConnectModal: false,
   forceExchangeModal: false,
   selectedGaiaToken: CONFIG.gaiaTokens.find((t) => t.name === "USDT")!,
-  selectedOsmosisToken: CONFIG.gaiaTokens.find((t) => t.name === "UST")!,
+  selectedOsmosisToken: CONFIG.gaiaTokens.find((t) => t.name === "USDC")!,
   balancesList: [],
   redeemsList: [],
   txStatus: undefined /*{

@@ -2,6 +2,7 @@ import usdt from "./assets/img/usdt.svg";
 import usc from "./assets/img/usc.jpeg";
 import ust from "./assets/img/ust.png";
 import ki from "./assets/img/ki.svg";
+import usdc from "./assets/img/usdc.svg";
 
 export const CONFIG = {
   chain: "usc-gaia-4",
@@ -11,7 +12,7 @@ export const CONFIG = {
   ibcChannel: "channel-299",
   defaultFee: 120000,
   feesDenom: "stake",
-  proxyUrl: "http://localhost:8080",
+  proxyUrl: "https://usc-proxy.herokuapp.com", //http://localhost:8080",
   osmosisUrl: "rpc-test.osmosis.zone",
   osmosisRest: "lcd-test.osmosis.zone",
   osmosisChain: "osmo-test-4",
@@ -27,8 +28,8 @@ export const CONFIG = {
       decimals: 6,
     },
     {
-      name: "UST",
-      icon: ust,
+      name: "USDC",
+      icon: usdc,
       denom:
         "ibc/312F13C9A9ECCE611FE8112B5ABCF0A14DE2C3937E38DEBF6B73F2534A83464E",
       decimals: 6,
@@ -43,8 +44,8 @@ export const CONFIG = {
   ],
   osmosisTokens: [
     {
-      name: "UST",
-      icon: ust,
+      name: "USDC",
+      icon: usdc,
       denom:
         "ibc/BE1BB42D4BE3C30D50B68D7C41DB4DFCE9678E8EF8C539F6E6A9345048894FCC",
     },

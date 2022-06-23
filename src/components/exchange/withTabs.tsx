@@ -66,11 +66,11 @@ export const withTabs = (Wrapped: FC<Next>) => (props: Previous) => {
               selectEntity={selectOsmosisToken}
             />
 
-            <span className="to">To</span>
+            {/*  <span className="to">To</span>
             <div className="coinWrap">
               <img src={usc} alt="" className="coinIcon" />
               <span>USC</span>
-            </div>
+    </div> */}
             <div className="inputWrap">
               <span>Amount</span>
               <input
@@ -79,7 +79,7 @@ export const withTabs = (Wrapped: FC<Next>) => (props: Previous) => {
                 value={transferAmount}
                 onChange={(e) => setStateVal(e.target.value, "transferAmount")}
               />
-              <span>{selectedGaiaToken.name.toLowerCase()}</span>
+              <span>{selectedOsmosisToken.name.toLowerCase()}</span>
             </div>
             <button
               className="btn"

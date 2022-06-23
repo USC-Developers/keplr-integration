@@ -26,5 +26,9 @@ export const RedeemTimer = ({ time }: { time: Moment }) => {
     return () => clearInterval(int);
   }, []);
 
-  return <span className="timer">{tick}</span>;
+  return (
+    <span className={`timer ${tick === "Completed" ? "completed" : ""}`}>
+      {tick}
+    </span>
+  );
 };
