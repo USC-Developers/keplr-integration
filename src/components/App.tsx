@@ -16,6 +16,8 @@ import store from "../store";
 import "../assets/reset.scss";
 import "../assets/main.scss";
 import "../assets/misc.css";
+import MainHeader from "./mainPage/Header";
+import MainPage from "./mainPage/Main";
 
 export default function App() {
   const [container, setContainer] = useState<ServiceContainer>({});
@@ -52,8 +54,11 @@ export default function App() {
       <Provider store={store}>
         <BodyWrapper>
           <>
-            <Header />
-            <Main />
+            {/* <Header />
+            <Main /> */}
+           
+            <MainHeader/>
+            <MainPage/>
           </>
         </BodyWrapper>
       </Provider>
