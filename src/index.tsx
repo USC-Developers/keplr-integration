@@ -9,7 +9,7 @@ import "./assets/reset.scss"
 import './assets/main.scss'
 import "./assets/misc.css"
 
-
+//fdgdfgdfgdfgdfg
 
 
 ReactDOM.render(
