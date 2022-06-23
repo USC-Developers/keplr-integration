@@ -8,6 +8,7 @@ import { MintPage } from "./components/pages/mint";
 import "./assets/reset.scss";
 import "./assets/main.scss";
 import "./assets/misc.css";
+import "./components/mainPage/Main.css";
 
 //fdgdfgdfgdfgdfg
 

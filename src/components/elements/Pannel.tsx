@@ -1,5 +1,7 @@
 import React from "react";
 
+import swap
+
 export const Pannel = ({
   children,
   type,
