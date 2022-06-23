@@ -63,11 +63,13 @@ export const withMethods = (Wrapped: FC<Next>) =>
 
         const balance = await cosmos?.getBalance();
 
-        const amount = balance?.balancesList.find(
+        balance?.balancesList && dispatch(setBalances(balance?.balancesList));
+
+        /*const amount = balance?.balancesList.find(
           (token) => token.denom === denom
         )?.amount;
 
-        /* if (amount && new bignumber(amount) < converted) {
+         if (amount && new bignumber(amount) < converted) {
           return dispatch(
             setTxStatus({
               type: "failed",
@@ -131,7 +133,9 @@ export const withMethods = (Wrapped: FC<Next>) =>
       try {
         const balance = await cosmos?.getBalance();
 
-        const amount = balance?.balancesList.find(
+        balance?.balancesList && dispatch(setBalances(balance?.balancesList));
+
+        /*const amount = balance?.balancesList.find(
           (token) => token.denom === CONFIG.uscToken.denom
         )?.amount;
 
@@ -144,7 +148,7 @@ export const withMethods = (Wrapped: FC<Next>) =>
                 .toString()} asuc`,
             })
           );
-        }
+        }*/
 
         const res = (await cosmos?.burnUSC(String(converted)))?.toObject()
           .txResponse;

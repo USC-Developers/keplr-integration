@@ -7,7 +7,7 @@
 
 .lds-ellipsis.small {
   transform: scale(0.4);
-  bottom: 10px;
+  bottom: 12px;
   right: 10px;
 }
 .lds-ellipsis div {

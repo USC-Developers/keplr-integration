@@ -45,7 +45,7 @@ export const setChain = (
       coinDecimals: CONFIG.uscToken.decimals,
     },
     {
-      coinDenom: "UST",
+      coinDenom: "usdc",
       coinMinimalDenom:
         "ibc/312F13C9A9ECCE611FE8112B5ABCF0A14DE2C3937E38DEBF6B73F2534A83464E",
       coinDecimals: 6,

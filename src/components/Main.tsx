@@ -1,54 +1,52 @@
-import React, {useEffect} from 'react'
-import usc from '../assets/img/usc.jpeg'
-import Exchange from './modals/exchange'
-import { withModal } from './hocs/withModal'
-import { compose } from 'redux'
-import { withServices } from './hocs/withServices'
-import {withServiceContainer} from '../global'
-import {useDispatch, useSelector} from 'react-redux'
-import {Global, setForceConnect ,setForceExchangeModal} from '../state'
-
+import React, { useEffect } from "react";
+import usc from "../assets/img/usc.jpeg";
+import Exchange from "./modals/exchange";
+import { withModal } from "./hocs/withModal";
+import { compose } from "redux";
+import { withServices } from "./hocs/withServices";
+import { withServiceContainer } from "../global";
+import { useDispatch, useSelector } from "react-redux";
+import { Global, setForceConnect, setForceExchangeModal } from "../state";
 
 interface MainProps extends withServiceContainer {
-    onOpenModal:  () => void
+  onOpenModal: () => void;
 }
 
+const Main = ({ container, onOpenModal }: MainProps) => {
+  const { cosmos } = container;
 
-const Main = ({container, onOpenModal}: MainProps) => {
+  const dispatch = useDispatch();
 
-    const {cosmos} = container
+  const forceExchangeModal = useSelector(
+    ({ global }: { global: Global }) => global.forceExchangeModal
+  );
 
-    const dispatch = useDispatch()
-
-    const forceExchangeModal = useSelector(({global}:{global: Global}) => global.forceExchangeModal)
-
-    const onClickMint = () => {
-       if (!cosmos) {
-            return dispatch(setForceConnect(true))
-       }
-       onOpenModal()
+  const onClickMint = () => {
+    if (!cosmos) {
+      return dispatch(setForceConnect(true));
     }
+    onOpenModal();
+  };
 
-    useEffect(() => {
+  useEffect(() => {
+    if (forceExchangeModal && cosmos) {
+      onOpenModal();
+      dispatch(setForceExchangeModal(false));
+    }
+  }, [cosmos]);
 
-        if (forceExchangeModal && cosmos) {
-            onOpenModal()
-            dispatch(setForceExchangeModal(false))
-        }
-
-    }, [cosmos])
-
-    return <main>
-        <div className="introContainer">
-            <h2>USC Minter</h2>
-            <p>Lorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem LoremLorem Lorem</p>
-            <button className="btn mintBtn" onClick={onClickMint}>
-                <img src={usc} alt="mint" width="30"/>
-                <span>Get USC</span>
-            </button>
-        </div>
-       
+  return (
+    <main>
+      <div className="introContainer">
+        <h2>USC Minter</h2>
+        <p></p>
+        <button className="btn mintBtn" onClick={onClickMint}>
+          <img src={usc} alt="mint" width="30" />
+          <span>Get USC</span>
+        </button>
+      </div>
     </main>
-}
+  );
+};
 
-export default compose<any>(withModal(Exchange), withServices)(Main)
+export default compose<any>(withModal(Exchange), withServices)(Main);

@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "../../../.."
+    },
+    {
+      "path": "../../../../../Downloads/staging.quigon.com 3"
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "www"
+  }
+}
