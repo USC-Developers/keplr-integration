@@ -1,5 +1,5 @@
 import React from "react";
 
-const Background = ({ children }: { children: React.ReactChildren }) => {
+export const Background = ({ children }: { children: React.ReactChild }) => {
   return <div className="background">{children}</div>;
 };
