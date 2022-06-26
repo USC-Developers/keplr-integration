@@ -48,18 +48,253 @@
   }
 }
 
-@media only screen and (max-width: 860px), (max-height: 712px) {
+@media only screen and (max-height: 712px) {
   html {
     body {
-    
+      .background {
+        height: unset;
+        min-height: 100%;
+
+        .navWrapper {
+          position: absolute;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 860px) {
+  html {
+    overflow-x: hidden;
+    body,
+    #root,
+    .app,
+    .pageWrapper,
+    .background {
+      overflow-x: hidden;
+    }
+    body {
+      .mobOnly {
+        display: initial;
+      }
+
+      .modal {
+        left: calc(50%);
+        transform: translate(-50%, -50%);
+        width: 50%;
+      }
+
+      .background {
+        background-image: url("./img/new/bgMob.png");
+      }
+
+      .pannelWrapper .pannelContainer {
+        margin-top: 100px;
+        margin-bottom: 80px;
+        text-align: center;
+      }
+
+      .navWrapper {
+        height: 150px;
+        width: 100%;
+        position: absolute;
+
+        .AccountModal {
+          width: 100%;
+          padding-left: 0;
+          padding-right: 0;
+          height: 150px;
+        }
+
+        .AccountWrap .pannelBtn {
+          width: 100%;
+          margin-bottom: 0;
+        }
+
+        .connectModal {
+          width: calc(100% - 10px);
+        }
+
+        .connectModal.force {
+          left: 50%;
+          transform: translate(-50%, -100%);
+        }
+
+        .mobTopWrapper {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          margin-bottom: 20px;
+        }
+
+        .mobLogo {
+          width: 150px;
+        }
+
+        .connectBtn {
+          background: var(--accent);
+          color: black;
+          font-size: calc(var(--defaultMobFontSize) * 0.9);
+          text-transform: uppercase;
+        }
+
+        ul.linksWrapper,
+        img.cubes,
+        img.logo,
+        .totalValueWrapper,
+        .separator,
+        nav {
+          display: none;
+        }
+
+        nav.showMenu {
+          display: initial;
+          position: absolute;
+          top: 80px;
+          background-color: black;
+          //border: 1px solid White;
+          padding: 5px;
+          width: 90%;
+          z-index: 9050;
+          .navButton {
+            margin-bottom: 5px;
+          }
+        }
+      }
+
+      .pannelWrapper {
+        padding-left: 0;
+
+        padding-top: 150px;
+
+        height: unset;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 548px) {
+  html {
+    body {
+      .pannelWrapper,
+      .navContainer {
+        width: 450px;
+        margin: 0 auto;
+      }
+
+      .pannelWrapper .pannelContainer {
+        padding: 33px 30px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+
+        h2 {
+          font-size: 28px;
+        }
+      }
+
+      .navWrapper .navContainer {
+        padding: 26px 15px;
+      }
+
+      .swapWrapper .inputWrapper {
+        flex-direction: column;
+      }
+
+      .swapUnit p {
+        text-align: center;
+      }
+
+      .swapWrapper .inputWrapper input {
+        margin-right: 0;
+        margin-bottom: 25px;
+      }
+
+      .swapUnit,
+      .pannelWrapper .rateWrapper,
+      .pannelBtn {
+        width: 316px;
+        margin-left: auto;
+        margin-right: auto;
+
+        .inputWrapper input,
+        .inputWrapper .coinWrap,
+        .inputWrapper .coin {
+          width: 100%;
+          text-align: center;
+        }
+      }
     }
   }
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
+  html {
+    body {
+      .navContainer {
+        width: 400px;
+        margin: 0 auto;
+      }
+
+      .pannelWrapper {
+        width: 400px;
+        margin: 0 auto;
+      }
+
+      .pannelWrapper .pannelContainer {
+        width: 100%;
+        .inputWrapper input {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  html {
+    body {
+      .navContainer,
+      .pannelWrapper {
+        width: 380px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  html {
+    body {
+      .navContainer,
+      .pannelWrapper {
+        width: 350px;
+      }
+
+      .swapUnit,
+      .pannelWrapper .rateWrapper,
+      .pannelBtn {
+        width: 290px;
+      }
+    }
+  }
 }
 
 /* Custom, iPhone Retina */
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 385px) {
+  html {
+    body {
+      .navContainer,
+      .pannelWrapper {
+        width: 320px;
+      }
+
+      .swapUnit,
+      .pannelWrapper .rateWrapper,
+      .pannelBtn {
+        width: 260px;
+      }
+    }
+  }
 }

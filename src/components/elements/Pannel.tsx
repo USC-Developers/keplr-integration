@@ -3,8 +3,8 @@ import React from "react";
 import { withMethods, Next as Previous } from "../exchange/withMethods";
 import swap from "../../assets/img/new/Exchange icon.svg";
 import { compose } from "redux";
-import { useSelector } from "react-redux";
-import { Global } from "../../state";
+import { useSelector, useDispatch } from "react-redux";
+import { Global, setForceConnect } from "../../state";
 import { useEffect } from "hoist-non-react-statics/node_modules/@types/react";
 import { useLocation } from "react-router-dom";
 
@@ -14,9 +14,10 @@ interface PannelProps extends Previous {
 }
 
 const Pannel = (props: PannelProps) => {
-  const { children, type, methods, state, setStateVal } = props;
+  const { children, type, methods, state, setStateVal, cosmos } = props;
 
   const loc = useLocation();
+  const dispatch = useDispatch();
 
   const { selectedTab, selectedGaiaToken, selectedOsmosisToken } = useSelector(
     ({ global }: { global: Global }) => ({
@@ -102,7 +103,15 @@ const Pannel = (props: PannelProps) => {
           </div>
         </div>
 
-        <button className="pannelBtn" onClick={btnHandler}>
+        <button
+          className="pannelBtn"
+          onClick={() => {
+            if (!cosmos) {
+              return dispatch(setForceConnect(true));
+            }
+            btnHandler();
+          }}
+        >
           {type.toUpperCase() + " NOW"}
         </button>
       </div>

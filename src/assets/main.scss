@@ -26,6 +26,7 @@ html {
   --blue: rgba(4, 74, 184, 1);
   --white: rgba(255, 255, 255, 1);
   --defaultFontSize: 24px;
+  --defaultMobFontSize: 20px;
 }
 
 body {
@@ -36,6 +37,10 @@ body {
   font-family: hind, sans-serif;
   color: #ffffff;
   min-height: 100vh;
+}
+
+.mobOnly {
+  display: none;
 }
 
 #root,
@@ -230,14 +235,14 @@ h2 {
   text-align: center;
 }
 
-.modal {
-  .closeIcon {
-    cursor: pointer;
-    position: absolute;
-    right: 15px;
-    top: 15px;
-  }
+.closeIcon {
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
 
+.modal {
   h2 {
     margin-bottom: 10px;
   }
@@ -289,6 +294,7 @@ h2 {
 
 .connectModal {
   position: absolute;
+  z-index: 9000;
   top: 0;
   left: 0;
   width: calc(100% - 1px);
@@ -296,9 +302,21 @@ h2 {
   padding: 10px 0;
   border: 1px solid var(--white);
 
+  .closeIcon {
+    top: 10px;
+  }
+
   li:hover {
     color: rgb(212, 212, 208);
   }
+}
+
+.connectModal.force {
+  position: fixed;
+  left: calc(50% - $navbarWidth);
+  top: 50%;
+  transform: translate(100%, -100%);
+  width: 300px;
 }
 
 .crumbsWrapper {
@@ -377,17 +395,51 @@ h2 {
 
 .AccountWrap {
   position: relative;
+  width: 100%;
+
+  .pannelBtn {
+    position: relative;
+    z-index: 9001;
+  }
 }
 
 .AccountModal {
   position: absolute;
-  bottom: 0;
-  right: 0px;
-  transform: translateY(100%);
+  top: -17px;
+  left: 0px;
   background-color: $black;
-  border-radius: 20px;
   padding: 10px;
-  width: 300px;
+  opacity: 0.8;
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+  border-radius: 9px;
+  justify-content: flex-end;
+  height: 200px;
+
+  > p {
+    font-size: 35px;
+    text-align: center;
+  }
+
+  .separator {
+    margin: 20px 0;
+  }
+
+  .timerWrapper {
+    text-align: center;
+    font-size: var(--defaultFontSize) p {
+      line-height: 25px;
+      font-size: var(--defaultFontSize);
+    }
+
+    .timer {
+      text-align: right;
+      color: var(--accent);
+    }
+  }
 
   h2 {
     margin-bottom: 10px;
@@ -414,11 +466,11 @@ h2 {
 
     .balanceDenom .timer {
       text-align: right;
-      color: rgb(161, 81, 144);
+      color: var(--accent);
     }
 
     .balanceDenom .timer.completed {
-      color: rgb(57, 206, 89);
+      color: var(--accent);
     }
 
     li:last-of-type {
@@ -466,6 +518,7 @@ h2 {
     margin-bottom: 40px;
     border-radius: 3px;
     padding: 13px 0;
+    text-transform: unset;
   }
 
   .connectBtn {

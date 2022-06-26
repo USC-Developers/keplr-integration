@@ -10,14 +10,18 @@ import { setBalances } from "../../state";
 import { CONFIG } from "../../config";
 import { set } from "immer/dist/internal";
 
+import close from "../../assets/img/close.svg";
+
 interface ConnectWalletProps extends withServiceContainer {
   onClose: () => void;
+  force: boolean;
 }
 
 const ConnectWallet = ({
   container,
   setContainer,
   onClose,
+  force,
 }: ConnectWalletProps) => {
   //todo types
 
@@ -56,9 +60,9 @@ const ConnectWallet = ({
   };
 
   return (
-    <div className="connectModal">
+    <div className={`connectModal ${force ? "force" : ""}`}>
       <h2>Connect with:</h2>
-
+      <img src={close} alt="close" className="closeIcon" onClick={onClose} />
       <ul>
         <li onClick={() => !connection && setKeplr()}>
           <img src={keplr} alt="keplr" />
