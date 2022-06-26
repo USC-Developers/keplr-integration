@@ -44,12 +44,8 @@ export default function MainPage() {
             <div className="flexColoumn casadia ">
               <img className="cubeImg" src={cubeImg}></img>
               <img className="USCLogo" src={logoUSC}></img>
-              <label className="textWhite">A New Fully <span className="green">Collateralized</span></label>
-              <div>
-                
-          
-              </div>
-              <label>For Cosmos</label>
+              <label className="textWhite">A New Fully <span className="green">Collateralized</span>
+              <br/> <span className="blue">Stablecoin</span>For Cosmos</label>
             </div>
           </div>
         </div>
