@@ -35,15 +35,15 @@ export const initialState: Global = {
   showAccaount: false,
   forceConnectModal: false,
   forceExchangeModal: false,
-  selectedGaiaToken: CONFIG.gaiaTokens.find((t) => t.name === "USDT")!,
+  selectedGaiaToken: CONFIG.gaiaTokens.find((t) => t.name === "USDC")!,
   selectedOsmosisToken: CONFIG.gaiaTokens.find((t) => t.name === "USDC")!,
   balancesList: [],
   redeemsList: [],
-  txStatus: undefined /*{
-      type: "pending",
-      //code: 4, 
-      //log: "signature verification failed; please verify account number (9) and chain-id (usc-gaia-4): unauthorized"
-    }*/,
+  txStatus: undefined, // {
+  //type: "pending",
+  //code: 4,
+  //log: "signature verification failed; please verify account number (9) and chain-id (usc-gaia-4): unauthorized"
+  //},
 };
 
 interface booleanPayload {

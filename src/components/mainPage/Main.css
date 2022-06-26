@@ -419,4 +419,11 @@
         align-items: center;
       }
 
+      .divContainer{
+        width: 90vw;
+      }
+      .cubeImg{
+        margin: 0;
+      }
+
 }

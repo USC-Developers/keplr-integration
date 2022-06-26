@@ -9,7 +9,10 @@ import { useDispatch } from "react-redux";
 import { setTxStatus, setBalances, setRedeemsList } from "../../state";
 import { CONFIG } from "../../config";
 
-interface withMethodProps extends withServiceContainer {}
+interface withMethodProps extends withServiceContainer {
+  children: React.ReactChild[];
+  type: string;
+}
 
 export interface Next {
   state: ExchangeState;
@@ -19,10 +22,12 @@ export interface Next {
     onBurn: () => void;
     onTransfer: (denom: string) => void;
   };
+  children: React.ReactChild[];
+  type: string;
 }
 
 export const withMethods = (Wrapped: FC<Next>) =>
-  withServices(({ container }: withMethodProps) => {
+  withServices(({ container, children, type }: withMethodProps) => {
     const dispatch = useDispatch();
 
     const { cosmos } = container;
@@ -257,6 +262,8 @@ export const withMethods = (Wrapped: FC<Next>) =>
         state={state}
         setStateVal={setStateVal}
         methods={{ onMint, onBurn, onTransfer }}
+        children={children}
+        type={type}
       />
     );
   });

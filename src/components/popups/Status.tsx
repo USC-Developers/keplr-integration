@@ -48,15 +48,20 @@ export const Status = ({ status }: StatusProps) => {
     );
 
   return (
-    <div className={`statusModal ${status?.type}`}>
-      <img
-        className="backBtn"
-        src={returnIcon}
-        width={25}
-        onClick={() => dispatch(setTxStatus(undefined))}
-      />
-      {render}
-    </div>
+    <>
+      <div className="overlay" />
+      <div className="modal">
+        <div className={`statusModal ${status?.type}`}>
+          <img
+            src={close}
+            alt="close"
+            className="closeIcon"
+            onClick={() => dispatch(setTxStatus(undefined))}
+          />
+          {render}
+        </div>
+      </div>
+    </>
   );
 };
 

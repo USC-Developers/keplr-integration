@@ -8,6 +8,7 @@ import "./assets/reset.scss";
 import "./assets/main.scss";
 import "./assets/misc.css";
 import "./components/mainPage/Main.css";
+import "./assets/media.scss";
 
 //fdgdfgdfgdfgdfg
 
