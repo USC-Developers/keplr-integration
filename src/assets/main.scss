@@ -18,13 +18,14 @@ $bg: #151a20;
 $border: rgba(224, 219, 219);
 $navbarWidth: 290px;
 
-$defaultFontSize: 24px;
+//var(--defaultFontSize): 24px;
 
 html {
   overflow-x: hidden;
   --accent: rgba(73, 224, 179, 1);
   --blue: rgba(4, 74, 184, 1);
   --white: rgba(255, 255, 255, 1);
+  --defaultFontSize: 24px;
 }
 
 body {
@@ -90,10 +91,10 @@ main {
 .modal {
   position: fixed;
   top: 45%;
-  left: 50%;
+  left: calc(50% + $navbarWidth/2);
   transform: translate(-50%, -50%);
   background-color: $black;
-  padding: 20px;
+  padding: 20px 60px;
   z-index: 1000;
   box-shadow: 0px 4px 14px rgba(47, 61, 84, 0.35);
   border-radius: 20px;
@@ -115,6 +116,7 @@ main {
   align-items: center;
   cursor: pointer;
   padding: 10px;
+  font-family: "Roboto", sans-serif;
 
   span {
     padding-top: 3px;
@@ -286,7 +288,13 @@ h2 {
 }
 
 .connectModal {
-  width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 1px);
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 10px 0;
+  border: 1px solid var(--white);
 
   li:hover {
     color: rgb(212, 212, 208);
@@ -448,9 +456,17 @@ h2 {
   position: fixed;
   height: 100%;
   width: $navbarWidth;
+  border-right: 1px solid var(--white);
   left: 0;
   top: 0;
   font-family: "Roboto", sans-serif;
+
+  .pannelBtn {
+    font-size: 20px;
+    margin-bottom: 40px;
+    border-radius: 3px;
+    padding: 13px 0;
+  }
 
   .connectBtn {
     width: 100%;
@@ -480,6 +496,8 @@ h2 {
     position: absolute;
     bottom: 7px;
     width: 236px;
+    left: 50%;
+    transform: translateX(-40%);
   }
 
   .linksWrapper {
@@ -504,13 +522,14 @@ h2 {
     height: 1px;
     width: 100%;
     background-color: var(--white);
+    margin-bottom: 40px;
   }
 
   .navButton {
     background-color: transparent;
     border: 1px solid var(--white);
     text-transform: uppercase;
-    font-size: calc($defaultFontSize * 0.9);
+    font-size: calc(var(--defaultFontSize) * 0.9);
     transition: all 0.4s ease;
     margin-bottom: 32px;
     color: var(--white);
@@ -518,6 +537,10 @@ h2 {
     padding: 7px;
     width: 100%;
     cursor: pointer;
+
+    &:hover {
+      background-color: rgba(73, 224, 179, 0.4);
+    }
 
     &:last-of-type {
       //margin-bottom: 0;
@@ -535,8 +558,8 @@ h2 {
   }
 
   .totalValueWrapper p {
-    font-size: calc($defaultFontSize * 1.15);
-    line-height: calc($defaultFontSize * 1.15 + 7px);
+    font-size: calc(var(--defaultFontSize) * 1.15);
+    line-height: calc(var(--defaultFontSize) * 1.15 + 7px);
     text-align: center;
     margin-bottom: 16px;
   }
@@ -544,7 +567,7 @@ h2 {
   .totalValueWrapper span {
     color: var(--accent);
     margin: 0 auto;
-    font-size: calc($defaultFontSize * 1.17);
+    font-size: calc(var(--defaultFontSize) * 1.17);
   }
 }
 
@@ -568,7 +591,7 @@ h2 {
   }
 
   h2 {
-    font-size: calc($defaultFontSize * 2.5);
+    font-size: calc(var(--defaultFontSize) * 2.5);
 
     span {
       color: var(--accent);
@@ -582,7 +605,7 @@ h2 {
   }
 
   .swapUnit p {
-    font-size: calc($defaultFontSize * 0.9);
+    font-size: calc(var(--defaultFontSize) * 0.9);
     margin-bottom: 20px;
   }
 
@@ -601,7 +624,7 @@ h2 {
     padding: 7px 0;
     text-align: center;
     margin-right: 20px;
-    font-size: $defaultFontSize;
+    font-size: var(--defaultFontSize);
 
     &:focus {
       outline: 1px solid var(--accent);
@@ -625,7 +648,7 @@ h2 {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: calc($defaultFontSize * 0.85);
+      font-size: calc(var(--defaultFontSize) * 0.85);
     }
   }
 
@@ -635,7 +658,7 @@ h2 {
     padding: 9px 0;
     text-align: center;
     font-family: "Roboto", sans-serif;
-    font-size: calc($defaultFontSize * 0.85);
+    font-size: calc(var(--defaultFontSize) * 0.85);
   }
 
   .uscCoin {
@@ -649,18 +672,18 @@ h2 {
     border: 1px solid var(--accent);
     color: black;
   }
+}
 
-  .pannelBtn {
-    background-color: var(--accent);
-    border: none;
-    border: 1px solid var(--accent);
-    border-radius: 10px;
-    text-transform: uppercase;
-    padding: 12px 0;
-    text-align: center;
-    width: 100%;
-    font-size: $defaultFontSize;
-    cursor: pointer;
-    font-family: "Roboto", sans-serif;
-  }
+.pannelBtn {
+  background-color: var(--accent);
+  border: none;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  text-transform: uppercase;
+  padding: 12px 0;
+  text-align: center;
+  width: 100%;
+  font-size: var(--defaultFontSize);
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
 }

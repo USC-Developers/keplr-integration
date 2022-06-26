@@ -2,6 +2,11 @@ import { useLayoutEffect } from "hoist-non-react-statics/node_modules/@types/rea
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import ConnectWallet from "../modals/connectWallet";
+import { withServices } from "../hocs/withServices";
+import { withServiceContainer } from "../../global";
+import { truncate } from "../../helpers";
+
 import cubes from "../../assets/img/new/Cubes.png";
 import logo from "../../assets/img/new/Logo.svg";
 import discord from "../../assets/img/new/social/discord.svg";
@@ -9,13 +14,30 @@ import twitter from "../../assets/img/new/social/twitter.svg";
 import telega from "../../assets/img/new/social/telega.svg";
 import msomth from "../../assets/img/new/social/msomth.svg";
 
-export const Navbar = () => {
+interface NavbarProps extends withServiceContainer {
+  onClose: () => void;
+}
+
+export const Navbar = withServices(({ container }: NavbarProps) => {
+  const [showWalletMenu, setShow] = React.useState(false);
+
   const loc = useLocation();
+
+  const connectedUser = container.cosmos?.account.address;
 
   return (
     <div className="navWrapper">
       <div className="navContainer">
-        <button className="connectBtn">Connect Wallet</button>
+        {showWalletMenu && <ConnectWallet onClose={() => setShow(false)} />}
+
+        {!connectedUser ? (
+          <button className="connectBtn" onClick={() => setShow(true)}>
+            Connect Wallet
+          </button>
+        ) : (
+          <button className="pannelBtn">{truncate(connectedUser, 15)}</button>
+        )}
+
         <img src={logo} alt="logo" className="logo" />
         <ul className="linksWrapper">
           <li>
@@ -39,7 +61,7 @@ export const Navbar = () => {
             </a>
           </li>
         </ul>
-        <div className="separator" style={{ marginBottom: "20%" }}></div>
+        <div className="separator"></div>
         <nav>
           <Link to="/mint">
             <button
@@ -59,15 +81,12 @@ export const Navbar = () => {
               REDEEM
             </button>
           </Link>
-          <Link to="/faq">
-            <button
-              className={`navButton ${
-                loc.pathname.includes("faq") && "active"
-              }`}
-            >
-              FAQ
-            </button>
-          </Link>
+
+          <button
+            className={`navButton ${loc.pathname.includes("faq") && "active"}`}
+          >
+            FAQ
+          </button>
         </nav>
 
         <div className="totalValueWrapper">
@@ -79,4 +98,4 @@ export const Navbar = () => {
       </div>
     </div>
   );
-};
+});

@@ -37,13 +37,16 @@ const ConnectWallet = ({
 
       if (client) {
         const res = await client.getBalance();
+        console.log(res.balancesList);
         dispatch(setBalances(res.balancesList));
-        onClose();
+
         setContainer({
           ...container,
           cosmos: client,
         });
         setConnection(false);
+
+        onClose();
       }
     } catch (e) {
       client = null;
