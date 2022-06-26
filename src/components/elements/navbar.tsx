@@ -1,6 +1,6 @@
 import { useLayoutEffect } from "hoist-non-react-statics/node_modules/@types/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import cubes from "../../assets/img/new/Cubes.png";
 import logo from "../../assets/img/new/Logo.svg";
@@ -10,6 +10,8 @@ import telega from "../../assets/img/new/social/telega.svg";
 import msomth from "../../assets/img/new/social/msomth.svg";
 
 export const Navbar = () => {
+  const loc = useLocation();
+
   return (
     <div className="navWrapper">
       <div className="navContainer">
@@ -39,14 +41,32 @@ export const Navbar = () => {
         </ul>
         <div className="separator" style={{ marginBottom: "20%" }}></div>
         <nav>
-          <Link to="mint">
-            <button className="navButton">MINT</button>
+          <Link to="/mint">
+            <button
+              className={`navButton ${
+                loc.pathname.includes("mint") && "active"
+              }`}
+            >
+              MINT
+            </button>
           </Link>
-          <Link to="redeem">
-            <button className="navButton active">REDEEM</button>
+          <Link to="/redeem">
+            <button
+              className={`navButton ${
+                loc.pathname.includes("redeem") && "active"
+              }`}
+            >
+              REDEEM
+            </button>
           </Link>
-          <Link to="faq">
-            <button className="navButton">FAQ</button>
+          <Link to="/faq">
+            <button
+              className={`navButton ${
+                loc.pathname.includes("faq") && "active"
+              }`}
+            >
+              FAQ
+            </button>
           </Link>
         </nav>
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { Routes, Route } from "react-router";
 import keplrClient from "../services/keplrClient";
 
 import Header from "../components/Header";
@@ -18,26 +18,12 @@ import "../assets/main.scss";
 import "../assets/misc.css";
 import MainHeader from "./mainPage/Header";
 import MainPage from "./mainPage/Main";
+import { MintPage } from "../components/pages/mint";
 
 export default function App() {
   const [container, setContainer] = useState<ServiceContainer>({});
 
   const { cosmos } = container;
-  console.log("check");
-
-  useEffect(() => {
-    cosmos &&
-      setTimeout(async () => {
-        false &&
-          console.log(
-            await cosmos!.stargate?.getAllBalances(
-              "osmo1sfdhe0yx7vhlx00hvws3pxwct8snzw6d0q743l"
-            )
-          );
-        //console.log(await cosmos.getBalance());
-        //await cosmos!.getRedeems(cosmos.account.address)
-      }, 200);
-  }, [cosmos]);
 
   const BodyWrapper = ({ children }: { children: React.ReactChild }) => {
     const dispatch = useDispatch();
@@ -53,13 +39,19 @@ export default function App() {
     <ServiceProvider value={{ container, setContainer }}>
       <Provider store={store}>
         <BodyWrapper>
-          <>
-            {/* <Header />
-            <Main /> */}
-           
-            <MainHeader/>
-            <MainPage/>
-          </>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <MainHeader />
+                  <MainPage />
+                </>
+              }
+            />
+            <Route path="/mint" element={<MintPage />} />
+            <Route path="/redeem" element={<MintPage />} />
+          </Routes>
         </BodyWrapper>
       </Provider>
     </ServiceProvider>
