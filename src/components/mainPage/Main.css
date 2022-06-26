@@ -47,7 +47,7 @@
 .div3 {
     height: 548px;
     background-image: url("./AssetsImgMain/Background\ 4.jpg");
-}
+}   
 
 .div4 {
     height: 1335px;
@@ -64,10 +64,15 @@
     background-image: url("./AssetsImgMain/Background\ 7.jpg");
 }
 
-
 .div7 {
     height: 893px;
     background-image: url("./AssetsImgMain/Background\ 5.jpg");
+}
+
+
+.div8 {
+    height: 626px;
+    background-image: url("./AssetsImgMain/Background\ 4.jpg");
 }
 
 
@@ -75,7 +80,6 @@
     height: 744px;
     background-image: url("./AssetsImgMain/Background\ 4.jpg");
 }
-
 
 .div10 {
     height: 1354px;
@@ -303,4 +307,116 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 150px;
+}
+
+.deskOnly{
+    display: inline-flex;
+}
+
+.mobileOnly{
+    display: none;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    .textWhite{
+        font-family: 'Cascadia Code';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19px;
+        line-height: 30px;
+        text-align: center;
+        color: #F0F0F0;
+    }
+    
+    .divContainer{
+        width: 90vw;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mainLogo{
+        width: 228px;
+        height: 107px;
+    }
+    .deskOnly{
+        display: none;
+    }
+    
+    .mobileOnly{
+        display: block;
+    }
+    
+    .div1 {
+        height: 327px;
+        background-image: url("./uscMobile/IMAGE.png");
+      }
+      
+      .div2 {
+          height: 540px;
+          background-image: url("./AssetsImgMain/Background\ 4.jpg");
+      }
+      
+      .div3 {
+          height: 615px;
+          background-image: url("./AssetsImgMain/Background\ 4.jpg");
+      }   
+      
+      .div4 {
+          height: 615px;
+          background-image: url("./AssetsImgMain/Background.png");
+      }
+      
+      .div5 {
+          height: 326px;
+          background-image: url("./AssetsImgMain/Background\ 7.jpg");
+      }
+      
+      .div6 {
+          height: 717px;
+          background-image: url("./AssetsImgMain/Background\ 7.jpg");
+      }
+      
+      .div7 {
+          height: 893px;
+          background-image: url("./AssetsImgMain/Background\ 5.jpg");
+      }
+      
+      
+      .div8 {
+          height: 626px;
+          background-image: url("./AssetsImgMain/Background\ 4.jpg");
+      }
+      
+      
+      .div9 {
+          height: 744px;
+          background-image: url("./AssetsImgMain/Background\ 4.jpg");
+      }
+      
+      .div10 {
+          height: 1354px;
+          background-image: url("./AssetsImgMain/Background\ 4.jpg");
+      }
+      
+      .cubeImg{
+        width: 288px;
+        height: 271px;
+        align-self: end;
+
+      }
+
+      .USCLogo{
+        width: 176px;
+        height: 53px;
+      }
+
+      .flexColoumn{
+        align-items: center;
+      }
+
 }
