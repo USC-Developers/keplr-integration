@@ -78,6 +78,16 @@
         display: initial;
       }
 
+      .modal {
+        left: calc(50%);
+        transform: translate(-50%, -50%);
+        width: 50%;
+      }
+
+      .background {
+        background-image: url("./img/new/bgMob.png");
+      }
+
       .pannelWrapper .pannelContainer {
         margin-top: 100px;
         margin-bottom: 80px;
@@ -87,6 +97,28 @@
       .navWrapper {
         height: 150px;
         width: 100%;
+        position: absolute;
+
+        .AccountModal {
+          width: 100%;
+          padding-left: 0;
+          padding-right: 0;
+          height: 150px;
+        }
+
+        .AccountWrap .pannelBtn {
+          width: 100%;
+          margin-bottom: 0;
+        }
+
+        .connectModal {
+          width: calc(100% - 10px);
+        }
+
+        .connectModal.force {
+          left: 50%;
+          transform: translate(-50%, -100%);
+        }
 
         .mobTopWrapper {
           display: flex;
@@ -98,9 +130,6 @@
 
         .mobLogo {
           width: 150px;
-        }
-
-        .hamburger {
         }
 
         .connectBtn {
@@ -117,6 +146,20 @@
         .separator,
         nav {
           display: none;
+        }
+
+        nav.showMenu {
+          display: initial;
+          position: absolute;
+          top: 80px;
+          background-color: black;
+          //border: 1px solid White;
+          padding: 5px;
+          width: 90%;
+          z-index: 9050;
+          .navButton {
+            margin-bottom: 5px;
+          }
         }
       }
 

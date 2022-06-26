@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { setTxStatus, setBalances, setRedeemsList } from "../../state";
 import { CONFIG } from "../../config";
 
+import { KeplrClient } from "../../services/keplrClient";
+
 interface withMethodProps extends withServiceContainer {
   children: React.ReactChild[];
   type: string;
@@ -24,6 +26,7 @@ export interface Next {
   };
   children: React.ReactChild[];
   type: string;
+  cosmos: KeplrClient | undefined;
 }
 
 export const withMethods = (Wrapped: FC<Next>) =>
@@ -264,6 +267,7 @@ export const withMethods = (Wrapped: FC<Next>) =>
         methods={{ onMint, onBurn, onTransfer }}
         children={children}
         type={type}
+        cosmos={cosmos}
       />
     );
   });

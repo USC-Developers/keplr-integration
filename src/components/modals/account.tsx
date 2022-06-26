@@ -35,7 +35,7 @@ export const AccountModal = ({
 }: AccountModalProps) => {
   const [selectedTab, setTab] = useState(tabs[0]);
 
-  console.log(redeemsList, "redeemsList");
+  console.log(balancesList, "balancesList");
 
   const renderTabs = tabs.map((tab, i) => (
     <li
@@ -100,18 +100,31 @@ export const AccountModal = ({
     ),
   };
 
+  const uscBalance = new bignumber(
+    String(balancesList.find((b) => b.denom === CONFIG.uscToken.denom)?.amount)
+  )
+    .shiftedBy(0 - CONFIG.uscToken.decimals)
+    .toString();
+
   return (
     <div className="AccountModal">
-      <h2>Account</h2>
-
-      <div className="crumbsWrapper accountCrumbs">
-        <ul>{renderTabs}</ul>
-        <div className="accountSectionWrap">
-          {
-            //@ts-ignore
-            TabElement[selectedTab]
-          }
-        </div>
+      <p>{uscBalance} USC</p>
+      <div className="separator"></div>
+      <div className="timerWrapper">
+        {!redeemsList.length ? (
+          <p>No redeeming tokens currently</p>
+        ) : (
+          <p>
+            The redeeming period ends in:{" "}
+            {
+              <RedeemTimer
+                time={moment(
+                  redeemsList[0]?.completionTime?.seconds * 1000 + 5
+                )}
+              />
+            }
+          </p>
+        )}
       </div>
     </div>
   );
@@ -138,7 +151,7 @@ const Account = ({ address }: { address: string }) => {
       {showAccaount && (
         <AccountModal balancesList={balancesList} redeemsList={redeemsList} />
       )}
-      <span>{address}</span>
+      <button className="pannelBtn">{truncate(address, 15)}</button>
     </div>
   );
 };
