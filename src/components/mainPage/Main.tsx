@@ -52,7 +52,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className="div div3">
+        {/* <div className="div div3">
           <div className="flexColoumn casadia divContainer alignLeft">
             <div>
               <label>The </label>
@@ -72,9 +72,9 @@ export default function MainPage() {
               for attracting sufficient initial liquidity
             </p>
           </div>
-        </div>
+        </div> */}
 
-        <div className="div div4">
+        {/* <div className="div div4">
           <div className="flexColoumn casadia divContainer gap">
             <div className="titleDiv">
               <label>The </label>
@@ -103,9 +103,9 @@ export default function MainPage() {
               ISTR, assuming they lock $10 worth of collateral in the protocol.
             </p>
           </div>
-        </div>
+        </div> */}
 
-        <div
+        {/* <div
           className="div div5"
           style={{ alignItems: "flex-start", paddingTop: "100px" }}
         >
@@ -126,9 +126,9 @@ export default function MainPage() {
             </p>
           </div>
           <img src={generator} className="generatorImg" />
-        </div>
+        </div> */}
 
-        <div className="div div6">
+        {/* <div className="div div6">
           <div className="flexColoumn casadia divContainer gap">
             <div>
               <label>The </label>
@@ -172,8 +172,8 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-        </div>
-
+        </div> */}
+        {/* 
         <div className="div div7">
           <div className="flexColoumn casadia divContainer gap">
             <div>
@@ -215,9 +215,9 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="div div8">
+        {/* <div className="div div8">
           <div className="flexColoumn casadia divContainer">
             <div>
               <label>The </label>
@@ -225,9 +225,9 @@ export default function MainPage() {
             </div>
             <img src={roadmap} className="roadmapImg" />
           </div>
-        </div>
+        </div> */}
 
-        <div className="div div9">
+        {/* <div className="div div9">
           <div className="flexColoumn casadia divContainer">
             <div>
               <label>USC </label>
@@ -238,9 +238,9 @@ export default function MainPage() {
               <img src={colorLegends} className="ColorLegendsImg" />
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="div div10">
+        {/* <div className="div div10">
           <div className="flexColoumn casadia divContainer alignLeft">
             <div>
               <label>The </label>
@@ -368,7 +368,7 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
