@@ -19,6 +19,7 @@ import "../assets/misc.css";
 import MainHeader from "./mainPage/Header";
 import MainPage from "./mainPage/Main";
 import { MintPage } from "../components/pages/mint";
+import MainFooter from "./mainPage/Footer";
 
 export default function App() {
   const [container, setContainer] = useState<ServiceContainer>({});
@@ -46,6 +47,7 @@ export default function App() {
                 <>
                   <MainHeader />
                   <MainPage />
+                  <MainFooter />
                 </>
               }
             />

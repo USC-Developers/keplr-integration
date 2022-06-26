@@ -82,8 +82,10 @@
 }
 
 .div10 {
-    height: 1354px;
+    height: auto;
     background-image: url("./AssetsImgMain/Background\ 4.jpg");
+    padding-top: 70px;
+    padding-bottom: 70px;
 }
 
 .mainLogo{
@@ -229,6 +231,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin: 0 auto;
+    
+}
+
+.teamBoxes::after{
+    content: '';
+    width: 313px;
 }
 
 .TeamBox{
@@ -243,13 +254,13 @@
     background: rgba(27, 19, 26, 0.89);
     border: 2px solid rgba(173, 173, 173, 0.89);
     border-radius: 25px;
-    font-family: 'Cascadia Code';
+    font-family: 'Cascadia';
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
     line-height: 24px;
     color: #FFFFFF; 
-    
+    flex-wrap: wrap;
 }
 
 .chainText{
@@ -259,16 +270,17 @@
 }
 
 .userLinkedin{
-    font-family: 'Cascadia Code';
+    font-family: 'Cascadia';
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
     line-height: 20px;    
     color: #49E0B3;
+    width: inherit;
 }
 
 .userText{
-    font-family: 'Cascadia Code';
+    font-family: 'Cascadia';
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
@@ -277,7 +289,7 @@
 }
 
 .mvpLabelGreen{
-    font-family: 'Cascadia Code';
+    font-family: 'Cascadia';
     font-style: normal;
     font-weight: 400;
     font-size: 27px;
@@ -286,7 +298,7 @@
 }
 
 .mvpLabel{
-    font-family: 'Cascadia Code';
+    font-family: 'Cascadia';
     font-style: normal;
     font-weight: 400;
     font-size: 25px;
@@ -305,6 +317,7 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 150px;
+    align-items: center;
 }
 
 .deskOnly{
@@ -315,11 +328,17 @@
     display: none;
 }
 
+.marginMobile{
+    margin-top: 50px;
+}
 
 @media only screen and (max-width: 768px) {
-
+    .casadia{
+        font-size: 28px;
+        line-height: 45px;
+    }
     .textWhite{
-        font-family: 'Cascadia Code';
+        font-family: 'Cascadia';
         font-style: normal;
         font-weight: 400;
         font-size: 19px;
@@ -352,76 +371,206 @@
     .div1 {
         height: 327px;
         background-image: url("./uscMobile/IMAGE.png");
-      }
+    }
+    
+    .div2 {
+        height: 540px;
+        background-image: url("./AssetsImgMain/Background\ 4.jpg");
+    }
+    
+    .div3 {
+        height: 615px;
+        background-image: url("./uscMobile/IMAGE\ \(2\).png");
+    }   
+    
+    .div4 {
+        height: 1314px;
+        background-image: url("./uscMobile/IMAGE\ \(3\).png");
+    }
+    
+    .div5 {
+        height: 578px;
+        background-image: url("./uscMobile/IMAGE\ \(4\).png");
+    }
       
-      .div2 {
-          height: 540px;
-          background-image: url("./AssetsImgMain/Background\ 4.jpg");
-      }
-      
-      .div3 {
-          height: 615px;
-          background-image: url("./AssetsImgMain/Background\ 4.jpg");
-      }   
-      
-      .div4 {
-          height: 615px;
-          background-image: url("./AssetsImgMain/Background.png");
-      }
-      
-      .div5 {
-          height: 326px;
-          background-image: url("./AssetsImgMain/Background\ 7.jpg");
-      }
-      
-      .div6 {
-          height: 717px;
-          background-image: url("./AssetsImgMain/Background\ 7.jpg");
-      }
-      
-      .div7 {
-          height: 893px;
-          background-image: url("./AssetsImgMain/Background\ 5.jpg");
-      }
-      
-      
-      .div8 {
-          height: 626px;
-          background-image: url("./AssetsImgMain/Background\ 4.jpg");
-      }
-      
-      
-      .div9 {
-          height: 744px;
-          background-image: url("./AssetsImgMain/Background\ 4.jpg");
-      }
-      
-      .div10 {
-          height: 1354px;
-          background-image: url("./AssetsImgMain/Background\ 4.jpg");
-      }
-      
-      .cubeImg{
+    .div6 {
+        height: 1378px;
+        background-image: url("./uscMobile/IMAGE\ \(5\).png");
+    }
+    
+    .div7 {
+        height: 1265px;
+        background-image: url("./uscMobile/IMAGE\ \(7\).png");
+    }
+    
+    
+    .div8 {
+        height: 300px;
+        background-image: url("./uscMobile/IMAGE\ \(8\).png");
+    }
+    
+    
+    .div9 {
+        height: 954px;
+        background-image: url("./AssetsImgMain/Background\ 4.jpg");
+    }
+    
+    .div10 {
+        height: 3111px;
+        background-image: url("./uscMobile/IMAGE\ \(8\).png");
+        padding: 0;
+    }
+    
+    .cubeImg{
         width: 288px;
         height: 271px;
         align-self: end;
 
-      }
+    }
 
-      .USCLogo{
+    .USCLogo{
         width: 176px;
         height: 53px;
-      }
+    }
 
-      .flexColoumn{
+    .flexColoumn{
         align-items: center;
-      }
+    }
 
-      .divContainer{
-        width: 90vw;
-      }
-      .cubeImg{
+    .cubeImg{
         margin: 0;
-      }
+    }
 
+    .cubesImg2{
+        width: 360px;
+        height: 326px;
+    }
+
+    .generatorImg{
+        position: relative;
+        width: inherit;
+        height: 194px;
+        left: 0;
+        top: -300px;
+        flex-wrap: wrap;
+    }
+
+    .machineImg{
+        width: 176.45px;
+        height: 298.02px;
+        align-self: center;
+        margin: 0;
+    }
+
+    .roadmapImg{
+        width: inherit;
+        height: 106px;
+    }
+
+    .TokenomicsImg{
+        width: 360px;
+        height: 360px;
+    }
+
+    .ColorLegendsImg{
+        width: 360px;
+        height: 355px;
+    }
+
+    .mvpUIImg{
+        width: 271.93px;
+        height: 155.13px;
+        align-self: center;
+        margin-top: 30px;
+    }
+
+    .uscToken{
+        margin-top: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 40px;
+
+    }
+
+    .pDiv3{
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 28px;
+        z-index: 1;
+    }
+
+    .pDiv4{
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 28px;
+    }
+
+    .flexMobile{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chainBox{
+        padding: 25px;
+        height: 374px;
+        width: 90vw;
+        line-height: 10px;
+        gap: 20px;
+    }
+
+    .chainTitle{
+        font-family: 'Cascadia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 25px;
+        line-height: 30px;
+    }
+
+    .chainText{
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .chainImg{
+        height: 92px;
+        width: 92px;
+    }
+    .mvpLabelGreen{
+        align-self: flex-start;
+    }
+    .mvpLabel{
+        font-size: 15px;
+        line-height: 28px;
+        align-self: flex-start;
+    }
+    .mvptext{
+        align-self: flex-start;
+    }
+
+    .teamBoxes {
+        width: 90vw;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .marginMobile{
+        margin-top: 0px;
+    }
+
+    .TeamBox{
+        height: 299px;
+    }
+
+}
+
+
+
+@media only screen and (min-width: 768px) and (max-width: 1500px)  {
+    .divContainer{
+        width: 90vw;
+    }
 }

@@ -74,3 +74,18 @@ li a:hover{
     display: none;
 }
 }
+
+
+@media only screen and (min-width: 768px) and (max-width: 1500px)  {
+
+    .headerFlexRow{
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 90vw;
+        margin: 0 auto;
+        height: 87px;
+    }
+    
+}

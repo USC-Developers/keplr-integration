@@ -16,6 +16,7 @@ import colorLegends from "./AssetsImgMain/Color legends.png";
 import userImg from "./AssetsImgMain/avatar.png";
 import uscLogoMobile from "./uscMobile/logo.png";
 import frame from "./uscMobile/Frame.png";
+import cubesImgMobile from "./uscMobile/cubes2.png";
 
 export default function MainPage() {
   return (
@@ -52,7 +53,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        {/* <div className="div div3">
+        <div className="div div3">
           <div className="flexColoumn casadia divContainer alignLeft">
             <div>
               <label>The </label>
@@ -69,12 +70,12 @@ export default function MainPage() {
               Other solutions are either not native to the ecosystem and
               therefore fragment liquidity and increase the attack surface
               (e.g., bridged USDC), or are not ready for market nor have a plan
-              for attracting sufficient initial liquidity
+              for attracting sufficient initial liquidity.
             </p>
           </div>
-        </div> */}
+        </div>
 
-        {/* <div className="div div4">
+        <div className="div div4">
           <div className="flexColoumn casadia divContainer gap">
             <div className="titleDiv">
               <label>The </label>
@@ -84,9 +85,10 @@ export default function MainPage() {
               We’re building USC (Cosmos USD), a fully collateralized and <br />
               redeemable USD-pegged stablecoin built on Secret and dedicated
               <br />
-              to the needs of Cosmos and the IBC ecosystem
+              to the needs of Cosmos and the IBC ecosystem.
             </p>
-            <img className="cubesImg2" src={cubesImg2} />
+            <img className="cubesImg2 deskOnly" src={cubesImg2} />
+            <img className="cubesImg2 mobileOnly" src={cubesImgMobile} />
             <p className="pDiv3">
               Our solution provides a partial recompensation for UST holders and
               also serves as a mechanism to attract initial collateral. Every
@@ -103,9 +105,9 @@ export default function MainPage() {
               ISTR, assuming they lock $10 worth of collateral in the protocol.
             </p>
           </div>
-        </div> */}
+        </div>
 
-        {/* <div
+        <div
           className="div div5"
           style={{ alignItems: "flex-start", paddingTop: "100px" }}
         >
@@ -124,17 +126,18 @@ export default function MainPage() {
               some additional ISTR tokens allocated to them over time, but at a
               much lower value.
             </p>
+            <img src={generator} className="generatorImg mobileOnly" />
           </div>
-          <img src={generator} className="generatorImg" />
-        </div> */}
+          <img src={generator} className="generatorImg deskOnly" />
+        </div>
 
-        {/* <div className="div div6">
+        <div className="div div6">
           <div className="flexColoumn casadia divContainer gap">
             <div>
               <label>The </label>
               <label className="green">Chain</label>
             </div>
-            <div className="flexRow">
+            <div className="flexRow flexMobile">
               <div className="chainBox">
                 <img src={partial} className="chainImg" />
                 <label className="chainTitle">
@@ -172,42 +175,58 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-        </div> */}
-        {/* 
+        </div>
+
         <div className="div div7">
           <div className="flexColoumn casadia divContainer gap">
             <div>
               <label>The </label>
               <label className="green">MVP</label>
             </div>
-            <div className="flexRow">
+            <div className="flexRow flexMobile">
               <div className="flexColoumn">
-                <p className="pDiv3" style={{ width: "690px" }}>
+                <img src={Machine} className="machineImg mobileOnly" />
+                <p className="pDiv3 deskOnly" style={{ width: "690px" }}>
                   The initial MVP for the product would be a new Cosmos SDK
                   module deployed on Secret that will implement a simple fully
                   collateralized and redeemable stablecoin. The following main
                   components are required for this to work:
                 </p>
-                <p className="pDiv3" style={{ marginLeft: "50px" }}>
+                <p className="pDiv3 deskOnly" style={{ marginLeft: "50px" }}>
                   Front-end/App <br />
                   Cosmos SDK Module <br />
                   Bridge integration <br />
                 </p>
-                <div className="flexRow">
+                <p className="pDiv3 mobileOnly" style={{ width: "90vw" }}>
+                  The initial MVP for the product would be a new Cosmos SDK
+                  module deployed on Secret that will implement a simple fully
+                  collateralized and redeemable stablecoin. The following main
+                  components are required for this to work:
+                </p>
+                <p
+                  className="pDiv3 mobileOnly mvptext"
+                  style={{ marginLeft: "50px" }}
+                >
+                  Front-end/App <br />
+                  Cosmos SDK Module <br />
+                  Bridge integration <br />
+                </p>
+                <div className="flexRow deskOnly">
                   <img
                     src={mvpUI}
                     className="mvpUIImg"
                     style={{ marginLeft: "200px", marginTop: "50px" }}
                   />
                 </div>
+                <img src={mvpUI} className="mvpUIImg mobileOnly" />
               </div>
               <div className="flexColoumn">
-                <img src={Machine} className="machineImg" />
+                <img src={Machine} className="machineImg deskOnly" />
                 <label className="mvpLabelGreen">Front-end / App</label>
                 <label className="mvpLabel">
                   A simple app with three tabs:
                 </label>
-                <p className="pDiv3" style={{ marginLeft: "50px" }}>
+                <p className="pDiv3 mvptext" style={{ marginLeft: "50px" }}>
                   Dashboard <br />
                   Assets <br />
                   Mint/Redeem <br />
@@ -215,34 +234,37 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
 
-        {/* <div className="div div8">
-          <div className="flexColoumn casadia divContainer">
+        <div className="div div8">
+          <div
+            className="flexColoumn casadia divContainer"
+            style={{ gap: "50px" }}
+          >
             <div>
               <label>The </label>
               <label className="green">Roadmap</label>
             </div>
             <img src={roadmap} className="roadmapImg" />
           </div>
-        </div> */}
+        </div>
 
-        {/* <div className="div div9">
+        <div className="div div9">
           <div className="flexColoumn casadia divContainer">
             <div>
               <label>USC </label>
               <label className="green">Tokenomics</label>
             </div>
-            <div className="uscToken">
+            <div className="uscToken flexMobile">
               <img src={Tokenomics} className="TokenomicsImg" />
               <img src={colorLegends} className="ColorLegendsImg" />
             </div>
           </div>
-        </div> */}
+        </div>
 
-        {/* <div className="div div10">
+        <div className="div div10">
           <div className="flexColoumn casadia divContainer alignLeft">
-            <div>
+            <div style={{ alignSelf: "center" }}>
               <label>The </label>
               <label className="green">Team</label>
             </div>
@@ -311,8 +333,8 @@ export default function MainPage() {
                     https://www.linkedin.com/
                   </a>
                 </div>
-              </div>
-              <div className="teamBoxes" style={{ marginTop: "50px" }}>
+                {/* </div>
+              <div className="teamBoxes marginMobile"> */}
                 <div className="TeamBox">
                   <img src={userImg} className="userImg" />
                   <label className="chainTitle">User 5</label>
@@ -368,7 +390,7 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
