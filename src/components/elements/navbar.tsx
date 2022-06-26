@@ -9,6 +9,8 @@ import { truncate } from "../../helpers";
 
 import cubes from "../../assets/img/new/Cubes.png";
 import logo from "../../assets/img/new/Logo.svg";
+import mobLogo from "../../assets/img/new/mobLogo.svg";
+import hamburger from "../../assets/img/new/hamburger menu.svg";
 import discord from "../../assets/img/new/social/discord.svg";
 import twitter from "../../assets/img/new/social/twitter.svg";
 import telega from "../../assets/img/new/social/telega.svg";
@@ -30,6 +32,10 @@ export const Navbar = withServices(({ container }: NavbarProps) => {
       <div className="navContainer">
         {showWalletMenu && <ConnectWallet onClose={() => setShow(false)} />}
 
+        <div className="mobTopWrapper mobOnly">
+          <img src={mobLogo} alt="moblogo" className="mobLogo" />
+          <img src={hamburger} alt="burger" className="hamburger" />
+        </div>
         {!connectedUser ? (
           <button className="connectBtn" onClick={() => setShow(true)}>
             Connect Wallet
