@@ -49,6 +49,7 @@ export const withMethods = (Wrapped: FC<Next>) =>
       state;
 
     const setStateVal = (val: string, field: string) => {
+      if (!/^(\s*|[+-]?((\d+\.?\d*)|(\.\d+)))$/.test(val)) return;
       return setState({
         ...state,
         [field]: val,
@@ -61,6 +62,8 @@ export const withMethods = (Wrapped: FC<Next>) =>
       await cosmos?.connect();
 
       const converted = new bignumber(mintInput).shiftedBy(6);
+
+      setStateVal("", "mintInput");
 
       try {
         dispatch(
@@ -131,6 +134,8 @@ export const withMethods = (Wrapped: FC<Next>) =>
       const converted = new bignumber(burnInput).shiftedBy(
         CONFIG.uscToken.decimals
       );
+
+      setStateVal("", "burnInput");
 
       dispatch(
         setTxStatus({

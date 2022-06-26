@@ -75,18 +75,15 @@ export const Navbar = withServices(({ container }: NavbarProps) => {
             <span></span>
           </div>
         </div>
-        {
-          !connectedUser ? (
-            <button className="connectBtn" onClick={() => setShow(true)}>
-              Connect Wallet
-            </button>
-          ) : (
-            container.cosmos?.account?.address && (
-              <Account address={container.cosmos.account.address} />
-            )
+        {!connectedUser ? (
+          <button className="connectBtn" onClick={() => setShow(true)}>
+            Connect Wallet
+          </button>
+        ) : (
+          container.cosmos?.account?.address && (
+            <Account address={container.cosmos.account.address} />
           )
-          //<button onClick={() => setAccountShow(true)} className="pannelBtn">{truncate(connectedUser, 15)}</button>
-        }
+        )}
 
         <img src={logo} alt="logo" className="logo" />
         <ul className="linksWrapper">

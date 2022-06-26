@@ -34,7 +34,7 @@ body {
   position: relative;
   margin: 0;
   width: 100%;
-  font-family: hind, sans-serif;
+
   color: #ffffff;
   min-height: 100vh;
 }
@@ -405,7 +405,7 @@ h2 {
 
 .AccountModal {
   position: absolute;
-  top: -17px;
+  top: 10px;
   left: 0px;
   background-color: $black;
   padding: 10px;
@@ -417,7 +417,7 @@ h2 {
   border: 1px solid white;
   border-radius: 9px;
   justify-content: flex-end;
-  height: 200px;
+  height: 250px;
 
   > p {
     font-size: 35px;
@@ -430,9 +430,11 @@ h2 {
 
   .timerWrapper {
     text-align: center;
-    font-size: var(--defaultFontSize) p {
+    font-size: var(--defaultFontSize);
+    p {
       line-height: 25px;
       font-size: var(--defaultFontSize);
+      min-height: 100px;
     }
 
     .timer {
