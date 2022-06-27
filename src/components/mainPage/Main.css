@@ -580,7 +580,7 @@
 
 label{
     display: unset !important;
-    font-family: 'Cascadia Code';
+    font-family: 'Cascadia'!important;
     font-style: normal;
     font-weight: 400;
 }
