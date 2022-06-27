@@ -12,7 +12,7 @@ export const CONFIG = {
   ibcChannel: "channel-299",
   defaultFee: 140000,
   feesDenom: "stake",
-  proxyUrl: "https://usc-proxy.herokuapp.com", //http://localhost:8080",
+  proxyUrl: "https://usc-cosmos-proxy.herokuapp.com", //http://localhost:8080",
   osmosisUrl: "rpc-test.osmosis.zone",
   osmosisRest: "lcd-test.osmosis.zone",
   osmosisChain: "osmo-test-4",

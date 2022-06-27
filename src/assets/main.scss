@@ -53,25 +53,6 @@ html {
   --white: rgba(255, 255, 255, 1);
   --defaultFontSize: 24px;
   --defaultMobFontSize: 20px;
-
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #5c5555;
-  }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: var(--accent);
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--accentD);
-  }
 }
 
 body {

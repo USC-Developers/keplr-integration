@@ -29,7 +29,9 @@ export default function NavBarMobile() {
           <Container fluid>
             <Navbar.Brand href="#"></Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <button className="connectBtnNav">CONNECT WALLET</button>
+            <button className="connectBtnNav" style={{ display: "none" }}>
+              CONNECT WALLET
+            </button>
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
@@ -52,7 +54,7 @@ export default function NavBarMobile() {
                     </Nav.Link>
                   ))}
 
-                  <Nav.Link href="/">Launch App</Nav.Link>
+                  <Nav.Link href="/mint">Launch App</Nav.Link>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
