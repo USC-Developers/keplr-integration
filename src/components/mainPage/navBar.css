@@ -8,11 +8,17 @@
     background-image: url("./uscMobile/Hamburger\ menu.png")
 }
 
+.offcanvas.offcanvas-end.show{
+    width: 100vw !important;
+}
+
 .offcanvas-body{
+    width: 100vw !important;
     background-color:#21151F !important;
 }
 
 .offcanvas-header{
+    width: 100vw !important;
     background-color:#21151F !important;
 }
 
