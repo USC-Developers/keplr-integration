@@ -441,7 +441,7 @@ h2 {
 
 .AccountModal {
   position: absolute;
-  top: 10px;
+  top: 0px;
   left: 0px;
   background-color: $black;
   padding: 10px;
@@ -453,11 +453,12 @@ h2 {
   border: 1px solid white;
   border-radius: 9px;
   justify-content: flex-end;
-  height: 250px;
+  min-height: 280px;
 
   > p {
     font-size: 35px;
     text-align: center;
+    margin-bottom: 0;
   }
 
   .separator {
@@ -470,12 +471,15 @@ h2 {
     p {
       line-height: 25px;
       font-size: var(--defaultFontSize);
-      //min-height: 100px;
+      margin-bottom: 0 !important;
+      height: 100px;
     }
 
     .timer {
+      display: inline-block;
       text-align: right;
       color: var(--accent);
+      text-align: center;
     }
   }
 
@@ -641,17 +645,17 @@ h2 {
   }
 
   .totalValueWrapper p {
-    font-size: calc(var(--defaultFontSize) * 1.15);
-    line-height: calc(var(--defaultFontSize) * 1.15 + 7px);
+    font-size: calc(var(--defaultFontSize) * 1);
+    line-height: calc(var(--defaultFontSize) * 1 + 7px);
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 9px;
     color: var(--white);
   }
 
   .totalValueWrapper span {
     color: var(--accent);
     margin: 0 auto;
-    font-size: calc(var(--defaultFontSize) * 1.17);
+    font-size: calc(var(--defaultFontSize) * 1);
   }
 }
 

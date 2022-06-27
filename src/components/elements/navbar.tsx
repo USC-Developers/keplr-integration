@@ -93,7 +93,7 @@ export const Navbar = withServices(({ container }: NavbarProps) => {
           </button>
         </nav>
 
-        <div className="totalValueWrapper" style={{ display: "none" }}>
+        <div className="totalValueWrapper">
           <p>USC Total Value Deposited</p>
           <span>$ 221,201,33</span>
         </div>
