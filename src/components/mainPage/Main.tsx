@@ -55,8 +55,8 @@ export default function MainPage() {
         </div>
 
         <div className="div div3" id="Challenge">
-          <div className="flexColoumn casadia divContainer alignLeft">
-            <div>
+          <div className="flexColoumn casadia divContainer gap">
+            <div className="titleDiv">
               <label>The </label>
               <label className="green">Challenge</label>
             </div>
