@@ -24,13 +24,20 @@ $navbarWidth: 290px;
   width: 200px;
   background: linear-gradient(180deg, #49e0b3 0%, #017ccc 100%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 3px;
+  border-radius: 10px;
   border: none;
   color: rgba(255, 255, 255, 1);
   font-size: 15px;
-  padding: 12px 0;
+  padding: 5px 0;
   cursor: pointer;
   font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+}
+.separator {
+  height: 1px;
+  width: 100%;
+  background-color: var(--white);
+  margin-bottom: 40px;
 }
 
 html {
@@ -106,7 +113,7 @@ main {
   }
 }
 
-.modal {
+.custom_modal {
   position: fixed;
   top: 45%;
   left: calc(50% + $navbarWidth/2);
@@ -118,7 +125,7 @@ main {
   border-radius: 20px;
 }
 
-.overlay {
+.custom_overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -135,6 +142,7 @@ main {
   cursor: pointer;
   padding: 10px;
   font-family: "Roboto", sans-serif;
+  color: var(--white);
 
   span {
     padding-top: 3px;
@@ -255,7 +263,7 @@ h2 {
   top: 15px;
 }
 
-.modal {
+.custom_modal {
   h2 {
     margin-bottom: 10px;
   }
@@ -271,6 +279,13 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  span,
+  h2 {
+    font-size: 20px;
+    color: var(--white);
+    font-family: Roboto, sans-serif;
+  }
 
   .backBtn {
     position: absolute;
@@ -296,6 +311,8 @@ h2 {
       margin-top: 7px;
       font-size: 15px;
       line-height: 20px;
+      color: var(--white);
+      font-family: Roboto, sans-serif;
     }
   }
 }
@@ -314,6 +331,12 @@ h2 {
   background-color: rgba(0, 0, 0, 0.85);
   padding: 10px 0;
   border: 1px solid var(--white);
+  font-family: Roboto, sans-serif;
+
+  h2 {
+    font-size: 18px;
+    color: white;
+  }
 
   .closeIcon {
     top: 10px;
@@ -447,7 +470,7 @@ h2 {
     p {
       line-height: 25px;
       font-size: var(--defaultFontSize);
-      min-height: 100px;
+      //min-height: 100px;
     }
 
     .timer {
@@ -501,6 +524,10 @@ h2 {
   }
 }
 
+.header .AccountModal .timerWrapper p {
+  min-height: unset;
+}
+
 .pageWrapper {
   height: 100vh;
   width: 100%;
@@ -539,6 +566,9 @@ h2 {
   .connectBtn {
     width: 100%;
     margin-bottom: 40px;
+    border-radius: 3px;
+    text-transform: unset;
+    padding: 12px 0;
   }
 
   .navContainer {
@@ -578,13 +608,6 @@ h2 {
     width: 100%;
   }
 
-  .separator {
-    height: 1px;
-    width: 100%;
-    background-color: var(--white);
-    margin-bottom: 40px;
-  }
-
   .navButton {
     background-color: transparent;
     border: 1px solid var(--white);
@@ -622,6 +645,7 @@ h2 {
     line-height: calc(var(--defaultFontSize) * 1.15 + 7px);
     text-align: center;
     margin-bottom: 16px;
+    color: var(--white);
   }
 
   .totalValueWrapper span {
