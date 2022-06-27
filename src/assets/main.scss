@@ -32,6 +32,11 @@ $navbarWidth: 290px;
   cursor: pointer;
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
+  transition: "opacity" 0.4s ease;
+
+  &:hover {
+    opacity: 0.95;
+  }
 }
 .separator {
   height: 1px;
@@ -43,10 +48,30 @@ $navbarWidth: 290px;
 html {
   overflow-x: hidden;
   --accent: rgba(73, 224, 179, 1);
+  --accentD: rgb(73, 212, 171);
   --blue: rgba(4, 74, 184, 1);
   --white: rgba(255, 255, 255, 1);
   --defaultFontSize: 24px;
   --defaultMobFontSize: 20px;
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #5c5555;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent);
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accentD);
+  }
 }
 
 body {
@@ -775,4 +800,9 @@ h2 {
   cursor: pointer;
   font-size: 18px;
   font-family: "Roboto", sans-serif;
+  transition: all 0.4s ease;
+
+  &:hover {
+    background-color: var(--accentD);
+  }
 }

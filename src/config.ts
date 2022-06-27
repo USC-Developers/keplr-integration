@@ -10,7 +10,7 @@ export const CONFIG = {
   rpcPort: "26857", //"26657",
   restPort: "1337", //"1317",
   ibcChannel: "channel-299",
-  defaultFee: 120000,
+  defaultFee: 140000,
   feesDenom: "stake",
   proxyUrl: "https://usc-proxy.herokuapp.com", //http://localhost:8080",
   osmosisUrl: "rpc-test.osmosis.zone",

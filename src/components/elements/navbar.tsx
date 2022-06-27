@@ -15,6 +15,11 @@ import msomth from "../../assets/img/new/social/msomth.svg";
 
 import ConnectButton from "./connectWalletBtn";
 
+import { Global, toggleAccount } from "../../state";
+import { useSelector } from "react-redux";
+import { CONFIG } from "../../config";
+import bignumber from "bignumber.js";
+
 interface NavbarProps extends withServiceContainer {
   onClose: () => void;
 }
@@ -23,6 +28,21 @@ export const Navbar = withServices(({ container }: NavbarProps) => {
   const [menu, toggleMenu] = React.useState(false);
 
   const loc = useLocation();
+
+  const { balancesList } = useSelector(({ global }: { global: Global }) => ({
+    balancesList: global.balancesList,
+  }));
+
+  const uscAmount = balancesList.find(
+    (b) => b.denom === CONFIG.uscToken.denom
+  )?.amount;
+
+  const uscBalance =
+    balancesList.length && uscAmount
+      ? new bignumber(String(uscAmount))
+          .shiftedBy(0 - CONFIG.uscToken.decimals)
+          .toString()
+      : "0";
 
   return (
     <div className="navWrapper">
@@ -95,7 +115,7 @@ export const Navbar = withServices(({ container }: NavbarProps) => {
 
         <div className="totalValueWrapper">
           <p>USC Total Value Deposited</p>
-          <span>$ 221,201,33</span>
+          <span>{uscBalance}</span>
         </div>
 
         <img src={cubes} alt="" className="cubes" />
