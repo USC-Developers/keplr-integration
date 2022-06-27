@@ -20,6 +20,19 @@ $navbarWidth: 290px;
 
 //var(--defaultFontSize): 24px;
 
+.connectBtn {
+  width: 200px;
+  background: linear-gradient(180deg, #49e0b3 0%, #017ccc 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  border: none;
+  color: rgba(255, 255, 255, 1);
+  font-size: 15px;
+  padding: 12px 0;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+}
+
 html {
   overflow-x: hidden;
   --accent: rgba(73, 224, 179, 1);
@@ -525,15 +538,7 @@ h2 {
 
   .connectBtn {
     width: 100%;
-    background: linear-gradient(180deg, #49e0b3 0%, #017ccc 100%);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-    border: none;
-    color: rgba(255, 255, 255, 1);
-    padding: 12px 0;
-    cursor: pointer;
     margin-bottom: 40px;
-    font-family: "Roboto", sans-serif;
   }
 
   .navContainer {
@@ -740,5 +745,6 @@ h2 {
   width: 100%;
   font-size: var(--defaultFontSize);
   cursor: pointer;
+  font-size: 18px;
   font-family: "Roboto", sans-serif;
 }

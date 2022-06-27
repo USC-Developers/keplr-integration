@@ -2,6 +2,8 @@ import React from "react";
 import "./Header.css";
 import logoNav from "./AssetsImgMain/Logo.png";
 
+import ConnectWallet from "../elements/connectWalletBtn";
+
 export default function MainHeader() {
   return (
     <div className="header">
@@ -36,7 +38,9 @@ export default function MainHeader() {
             <a href="/">Launch App</a>
           </li>
         </ul>
-        <button className="walletConnectBtn">CONNECT WALLET</button>
+        <div style={{ position: "relative", width: "200px" }}>
+          <ConnectWallet />
+        </div>
       </div>
     </div>
   );

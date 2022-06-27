@@ -30,7 +30,7 @@ export default function App() {
   const { cosmos } = container;
 
   useEffect(() => {
-    /* (async () => {
+    /*(async () => {
       const connector = new WalletConnect({
         bridge: "https://bridge.walletconnect.org", // Required
         signingMethods: [
