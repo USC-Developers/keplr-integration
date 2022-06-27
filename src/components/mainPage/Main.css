@@ -221,7 +221,7 @@
     display: flex;
     flex-direction: column;
     /* justify-content: space-evenly; */
-    gap: 30px;
+    gap: 35px;
     align-items: flex-start;
     padding: 40px;
     font-size: 30px;
@@ -326,6 +326,10 @@
 
 .marginMobile{
     margin-top: 50px;
+}
+.chainImg{
+    height: 95px !important;
+    width: 95px !important;
 }
 
 @media only screen and (max-width: 768px) {
@@ -529,8 +533,8 @@
     }
 
     .chainImg{
-        height: 92px;
-        width: 92px;
+        height: 92px !important;
+        width: 92px !important;
     }
     .mvpLabelGreen{
         align-self: flex-start;
@@ -576,4 +580,7 @@
 
 label{
     display: unset !important;
+    font-family: 'Cascadia Code';
+    font-style: normal;
+    font-weight: 400;
 }

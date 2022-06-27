@@ -141,10 +141,13 @@ export default function MainPage() {
             <div className="flexRow flexMobile gapChain">
               <div className="chainBox">
                 <img src={partial} className="chainImg" />
-                <label className="chainTitle">
-                  Partial <br />
-                  Recompensation
-                </label>
+                <div style={{ height: "75px" }}>
+                  <label className="chainTitle">
+                    Partial <br />
+                    Recompensation
+                  </label>
+                </div>
+
                 <p className="chainText">
                   Every <span className="green">UST</span> holder will receive
                   an airdrop of <span className="green">xUSC</span>, a six-
@@ -155,7 +158,9 @@ export default function MainPage() {
               </div>
               <div className="chainBox">
                 <img src={collateral} className="chainImg" />
-                <label className="chainTitle">Collateralization</label>
+                <div style={{ height: "75px"}}>
+                  <label className="chainTitle">Collateralization</label>
+                </div>
                 <p className="chainText">
                   Redeemable collateral with 1:1 backing with{" "}
                   <span className="green">ISTR</span> being dripped over a
@@ -165,7 +170,9 @@ export default function MainPage() {
               </div>
               <div className="chainBox">
                 <img src={amm} className="chainImg" />
-                <label className="chainTitle">AMM</label>
+                <div style={{ height: "75px" }}>
+                  <label className="chainTitle">AMM</label>
+                </div>
                 <p className="chainText">
                   Integration into all major{" "}
                   <span className="green"> Cosmos AMMs </span>, collaborating
