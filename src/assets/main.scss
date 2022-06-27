@@ -441,7 +441,7 @@ h2 {
 
 .AccountModal {
   position: absolute;
-  top: 10px;
+  top: 0px;
   left: 0px;
   background-color: $black;
   padding: 10px;
@@ -453,7 +453,7 @@ h2 {
   border: 1px solid white;
   border-radius: 9px;
   justify-content: flex-end;
-  height: 250px;
+  min-height: 280px;
 
   > p {
     font-size: 35px;
@@ -472,7 +472,7 @@ h2 {
       line-height: 25px;
       font-size: var(--defaultFontSize);
       margin-bottom: 0 !important;
-      min-height: 100px;
+      height: 100px;
     }
 
     .timer {
