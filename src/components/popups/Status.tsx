@@ -49,8 +49,8 @@ export const Status = ({ status }: StatusProps) => {
 
   return (
     <>
-      <div className="overlay" />
-      <div className="modal">
+      <div className="custom_overlay" />
+      <div className="custom_modal">
         <div className={`statusModal ${status?.type}`}>
           <img
             src={close}

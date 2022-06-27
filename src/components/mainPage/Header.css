@@ -1,108 +1,105 @@
-
-.header{
-    position: relative;
-    height: 87px;
-    left: 0%;
-    right: 0%;
-    top: 0px;
-    background: #21151F;
-    border-radius: 0px;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+.header {
+  position: relative;
+  height: 87px;
+  left: 0%;
+  right: 0%;
+  top: 0px;
+  background: #21151f;
+  border-radius: 0px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
-.headerFlexRow{
+.headerFlexRow {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 80vw;
+  margin: 0 auto;
+  height: 87px;
+}
+
+.logoNavBar {
+  width: 156px;
+  height: 47px;
+}
+
+.navBarTitles {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 0;
+}
+
+.navTitleBlue {
+  color: #017ccc;
+}
+
+.walletConnectBtn {
+  height: 32px;
+  background: linear-gradient(180deg, #49e0b3 0%, #017ccc 100%);
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+  border: none;
+  border-radius: 10px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center;
+  color: #ffffff;
+  padding: 10px;
+}
+
+a {
+  text-decoration: none !important;
+  color: #f0f0f0 !important;
+}
+
+li a:hover {
+  color: #017ccc !important;
+}
+
+li a:focus {
+  color: #017ccc !important;
+}
+
+.headerDesk {
+  display: flex;
+}
+
+.headerMobile {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    height: 150px;
+  }
+  .headerDesk {
+    display: none;
+  }
+  .headerMobile {
+    display: flex;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1500px) {
+  .headerFlexRow {
     align-items: center;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    flex-wrap: wrap;
-    width: 80vw;
+    width: 90vw;
     margin: 0 auto;
     height: 87px;
-}
-
-.logoNavBar{
-    width: 156px;
-    height: 47px;
-}
-
-.navBarTitles{
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-}
-
-.navTitleBlue{
-    color: #017CCC;
-}
-
-.walletConnectBtn{
-    height: 32px;
-    background: linear-gradient(180deg, #49E0B3 0%, #017CCC 100%);
-    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
-    border: none;
-    border-radius: 10px;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 15px;
-    text-align: center;
-    color: #FFFFFF;
-    padding: 10px;
-}
-
-a{
-    text-decoration: none !important;
-    color: #F0F0F0 !important;
-}
-
-li a:hover{
-    color: #017CCC !important;
-}
-
-li a:focus{
-    color: #017CCC !important;
-}
-
-.headerDesk{
-    display: flex;
-}
-
-.headerMobile{
-    display: none;
-}
-
-@media only screen and (max-width: 768px) {
-.header{
-    height: 150px;
-}
-.headerDesk{
-    display: none;
-}
-.headerMobile{
-    display: flex;
-}
-}
-
-
-@media only screen and (min-width: 768px) and (max-width: 1500px)  {
-
-    .headerFlexRow{
-        align-items: center;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 90vw;
-        margin: 0 auto;
-        height: 87px;
-    }
-    
+  }
 }
