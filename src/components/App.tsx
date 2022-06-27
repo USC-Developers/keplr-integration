@@ -6,6 +6,9 @@ import Header from "../components/Header";
 import Main from "../components/Main";
 import { Status } from "./popups/Status";
 import ConnectWallet from "./modals/connectWallet";
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+import Modal from "./cosmostation/index";
 import { ServiceProvider } from "./hocs/ServcieProvder";
 import { ServiceContainer } from "../global";
 
@@ -25,6 +28,49 @@ export default function App() {
   const [container, setContainer] = useState<ServiceContainer>({});
 
   const { cosmos } = container;
+
+  useEffect(() => {
+    /* (async () => {
+      const connector = new WalletConnect({
+        bridge: "https://bridge.walletconnect.org", // Required
+        signingMethods: [
+          "cosmostation_wc_accounts_v1",
+          "cosmostation_wc_sign_tx_v1",
+        ],
+
+        qrcodeModal: Modal,
+      });
+
+      //connector.killSession();
+
+      if (!connector.connected) {
+        // create new session
+        connector.createSession();
+      }
+
+      // Subscribe to connection events
+      connector.on("connect", (error, payload) => {
+        if (error) {
+          throw error;
+        }
+
+        // Get provided accounts and chainId
+        const { accounts, chainId } = payload.params[0];
+        console.log(accounts, chainId);
+      });
+
+      connector.on("session_update", (error, payload) => {
+        if (error) {
+          throw error;
+        }
+
+        // Get updated accounts and chainId
+        const { accounts, chainId } = payload.params[0];
+
+        console.log(accounts, "update");
+      });
+    })();*/
+  }, []);
 
   const BodyWrapper = ({ children }: { children: React.ReactChild }) => {
     const dispatch = useDispatch();
