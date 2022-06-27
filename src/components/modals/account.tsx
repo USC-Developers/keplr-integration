@@ -35,20 +35,19 @@ export const AccountModal = ({
 }: AccountModalProps) => {
   const [selectedTab, setTab] = useState(tabs[0]);
 
-  const uscAmount = balancesList.find(
-    (b) => b.denom === CONFIG.uscToken.denom
-  )?.amount;
+  const usdc = CONFIG.gaiaTokens.find((t) => t.name === "USDC");
+  const usdcAmount = balancesList.find((b) => b.denom === usdc?.denom)?.amount;
 
   const uscBalance =
-    balancesList.length && uscAmount
-      ? new bignumber(String(uscAmount))
-          .shiftedBy(0 - CONFIG.uscToken.decimals)
+    usdc && balancesList.length && usdcAmount
+      ? new bignumber(String(usdcAmount))
+          .shiftedBy(0 - usdc?.decimals)
           .toString()
       : "0";
 
   return (
     <div className="AccountModal">
-      <p>{uscBalance} USC</p>
+      <p>{uscBalance} USDC</p>
       <div className="separator"></div>
       <div className="timerWrapper">
         {!redeemsList.length ? (
@@ -59,7 +58,7 @@ export const AccountModal = ({
             {
               <RedeemTimer
                 time={moment(
-                  redeemsList[0]?.completionTime?.seconds * 1000 + 5
+                  (redeemsList[0]?.completionTime?.seconds + 15) * 1000
                 )}
               />
             }
