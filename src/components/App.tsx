@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
-import keplrClient from "../services/keplrClient";
 
-import Header from "../components/Header";
-import Main from "../components/Main";
-import { Status } from "./popups/Status";
-import ConnectWallet from "./modals/connectWallet";
-import WalletConnect from "@walletconnect/client";
-import QRCodeModal from "@walletconnect/qrcode-modal";
-import Modal from "./cosmostation/index";
 import { ServiceProvider } from "./hocs/ServcieProvder";
 import { ServiceContainer } from "../global";
 
