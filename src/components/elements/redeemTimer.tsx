@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from "react";
 import moment, { Moment } from "moment";
 
-export const RedeemTimer = ({ time }: { time: Moment }) => {
+import { withServices } from "../hocs/withServices";
+
+import { withServiceContainer } from "../../global";
+
+import { useDispatch } from "react-redux";
+
+import { setBalances } from "../../state";
+
+interface TimerProps extends withServiceContainer {
+  time: Moment;
+}
+
+export const RedeemTimer = withServices(({ time, container }: TimerProps) => {
   const [tick, setTick] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const int = setInterval(() => {
+    const int = setInterval(async () => {
       var timeDiff = time.toDate().getTime() - moment().toDate().getTime();
 
       if (timeDiff <= 0) {
         clearInterval(int);
+        const res = await container?.cosmos?.getBalance();
+        res?.balancesList && dispatch(setBalances(res?.balancesList));
         return setTick("Completed");
       }
 
@@ -31,4 +46,4 @@ export const RedeemTimer = ({ time }: { time: Moment }) => {
       {tick}
     </span>
   );
-};
+});
