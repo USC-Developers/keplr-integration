@@ -84,14 +84,15 @@
 }
 @media only screen and (max-width: 768px) {
     .footer{
-        height: 498px;
+        height: auto;
+        padding-bottom: 20px;
     }
     .footerContainer{
         width: 90vw;
         flex-direction: column;
         padding: 0;
         padding-top: 50px;
-        align-items: flex-start;
+        align-items: center;
         gap: 20px;
     }
     .deskOnly{
@@ -102,7 +103,8 @@
         display: block;
     }
     .pagesRow{
-        gap: 80px;
+        margin-top: 10px;
+        gap: 100px;
     }
     .footerLogo{
         align-self: center;
@@ -111,6 +113,11 @@
     .USCLogo{
         align-self: center;
     }
+    .footerTitle{
+        margin-top: 20px;
+        align-self: center;
+    }
+    
 }
 
 
