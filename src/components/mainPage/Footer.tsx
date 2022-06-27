@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import "./Footer.css";
 import logoUSC from "./AssetsImgMain/Logo.png";
 import twitter from "./AssetsImgMain/Twitter icon.png";
@@ -38,7 +40,16 @@ export default function MainFooter() {
           </div>
         </div>
 
-        <div className="flexColoumnFooter casadiaFooter">
+        <div className="flexColoumn casadia casadiaLinksFooter">
+          <label className="footerTitle"></label>
+          <a href="#">Roadmap</a>
+          <a href="#">Team</a>
+          <Link to="/mint">
+            <a href="#">Launch App</a>
+          </Link>
+        </div>
+
+        <div className="flexColoumn casadia deskOnly">
           <label className="footerTitle">Socials</label>
           <div className="flexRowFooter socials">
             <a href="#">

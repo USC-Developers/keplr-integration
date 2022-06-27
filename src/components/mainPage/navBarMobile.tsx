@@ -29,7 +29,7 @@ export default function NavBarMobile() {
           <Container fluid>
             <Navbar.Brand href="#"></Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <button className="connectBtn">CONNECT WALLET</button>
+            <button className="connectBtnNav">CONNECT WALLET</button>
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}

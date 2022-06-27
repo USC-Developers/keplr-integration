@@ -100,11 +100,16 @@ export const AccountModal = ({
     ),
   };
 
-  const uscBalance = new bignumber(
-    String(balancesList.find((b) => b.denom === CONFIG.uscToken.denom)?.amount)
-  )
-    .shiftedBy(0 - CONFIG.uscToken.decimals)
-    .toString();
+  const uscAmount = balancesList.find(
+    (b) => b.denom === CONFIG.uscToken.denom
+  )?.amount;
+
+  const uscBalance =
+    balancesList.length && uscAmount
+      ? new bignumber(String(uscAmount))
+          .shiftedBy(0 - CONFIG.uscToken.decimals)
+          .toString()
+      : "0";
 
   return (
     <div className="AccountModal">
