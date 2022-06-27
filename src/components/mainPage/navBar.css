@@ -1,0 +1,53 @@
+.navbar{
+    margin: 0px !important;
+    background-color: #21151F !important;
+
+}
+
+.navbar-light .navbar-toggler-icon{
+    background-image: url("./uscMobile/Hamburger\ menu.png")
+}
+
+.offcanvas-body{
+    background-color:#21151F !important;
+}
+
+.offcanvas-header{
+    background-color:#21151F !important;
+}
+
+.btn-close{
+    background-image: url("./uscMobile/icons8-close-120.svg")
+}
+
+.navbar-light .navbar-brand {
+    content: url("./uscMobile/logoHeader.png");
+    width: 170px;
+}
+
+.navbar-nav .nav-link{
+    color: #49E0B3;
+}
+
+.navbar-nav .nav-link{
+    color: #49E0B3;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: #017BCB;
+}
+
+.navbar-light .navbar-toggler {
+    color: #21151F;
+    border: none;
+}
+
+.connectBtn{
+    height: 40px;
+    background: #49E0B3;
+    border-radius: 10px;  
+    width: 90vw;
+    color: #1A1A1A;  
+    border: none !important;
+    margin-top: 10px;
+}

@@ -1,6 +1,6 @@
 
 .header{
-    position: absolute;
+    position: relative;
     height: 87px;
     left: 0%;
     right: 0%;
@@ -17,6 +17,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
     width: 80vw;
     margin: 0 auto;
     height: 87px;
@@ -59,19 +60,35 @@
 }
 
 a{
-    text-decoration: none;
-    color: #F0F0F0;
+    text-decoration: none !important;
+    color: #F0F0F0 !important;
 }
 
 li a:hover{
-    color: #017CCC;
+    color: #017CCC !important;
 }
 
+li a:focus{
+    color: #017CCC !important;
+}
+
+.headerDesk{
+    display: flex;
+}
+
+.headerMobile{
+    display: none;
+}
 
 @media only screen and (max-width: 768px) {
-
 .header{
+    height: 150px;
+}
+.headerDesk{
     display: none;
+}
+.headerMobile{
+    display: flex;
 }
 }
 

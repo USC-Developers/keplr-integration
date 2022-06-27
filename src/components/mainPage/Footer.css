@@ -10,24 +10,24 @@
 }
 
 .footerContainer{
-    width: 80vw;
+    width: 60vw;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     padding-top: 50px;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 
-.flexColoumn{
+.flexColoumnFooter{
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
 
-.casadia{
+.casadiaFooter{
     font-family: 'Cascadia';
     font-style: normal;
     font-weight: 400;
@@ -36,8 +36,9 @@
 }
 
 .USCLogo{
-    height: 50px;
-    width: 164px;
+    /* height: 58px; */
+    height: auto;
+    width: 190px;
 }
 
 .footerTitle{
@@ -46,7 +47,7 @@
 }
 
 
-.flexRow{
+.flexRowFooter{
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -63,7 +64,6 @@
 
 }
 
-
 .deskOnly{
     display: inline-flex;
 }
@@ -77,14 +77,21 @@
     font-size: 15px;
     line-height: 24px;
 }
-
+.pagesRow{
+    display: flex;
+    flex-direction: row;
+    gap: 200px;
+}
 @media only screen and (max-width: 768px) {
     .footer{
         height: 498px;
     }
     .footerContainer{
+        width: 90vw;
         flex-direction: column;
         padding: 0;
+        padding-top: 50px;
+        align-items: flex-start;
         gap: 20px;
     }
     .deskOnly{
@@ -94,4 +101,23 @@
     .mobileOnly{
         display: block;
     }
+    .pagesRow{
+        gap: 80px;
+    }
+    .footerLogo{
+        align-self: center;
+        text-align: center;
+    }
+    .USCLogo{
+        align-self: center;
+    }
+}
+
+
+label{
+    display: unset !important;
+    color: #F0F0F0;
+    font-family: 'Cascadia Code';
+    font-style: normal;
+    font-weight: 400;
 }

@@ -9,32 +9,38 @@ export default function MainFooter() {
   return (
     <div className="footer">
       <div className="footerContainer">
-        <div className="flexColoumn casadia">
-          <img className="USCLogo" src={logoUSC}></img>
-          <label>
-            A New Fully <span className="green">Collateralized</span>
-            <br />
-            <span className="blue">Stablecoin</span> For Cosmos
-          </label>
+        <div className="footerLogo">
+          <div className="flexColoumnFooter casadiaFooter">
+            <img className="USCLogo" src={logoUSC}></img>
+            <label>
+              A New Fully <span className="green">Collateralized</span>
+              <br />
+              <span className="blue">Stablecoin</span> For Cosmos
+            </label>
+          </div>
         </div>
-        <div className="flexColoumn casadia casadiaLinksFooter">
+
+        <div className="flexColoumnFooter casadiaFooter casadiaLinksFooter">
           <label className="footerTitle">Pages</label>
-          <a href="#">Home</a>
-          <a href="#">Challenge</a>
-          <a href="#">Solution</a>
-          <a href="#">MVP</a>
+
+          <div className="pagesRow">
+            <div className="flexColoumnFooter">
+              <a href="#Home">Home</a>
+              <a href="#Challenge">Challenge</a>
+              <a href="#Solution">Solution</a>
+              <a href="#MVP">MVP</a>
+            </div>
+            <div className="flexColoumnFooter">
+              <a href="#Roadmap">Roadmap</a>
+              <a href="#Team">Team</a>
+              <a href="#">Launch App</a>
+            </div>
+          </div>
         </div>
 
-        <div className="flexColoumn casadia casadiaLinksFooter">
-        <label className="footerTitle"></label>
-          <a href="#">Roadmap</a>
-          <a href="#">Team</a>
-          <a href="#">Launch App</a>
-        </div>
-
-        <div className="flexColoumn casadia deskOnly">
+        <div className="flexColoumnFooter casadiaFooter">
           <label className="footerTitle">Socials</label>
-          <div className="flexRow socials">
+          <div className="flexRowFooter socials">
             <a href="#">
               <img src={twitter} className="socialIcon" />
             </a>

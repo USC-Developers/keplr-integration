@@ -20,6 +20,8 @@ import MainHeader from "./mainPage/Header";
 import MainPage from "./mainPage/Main";
 import { MintPage } from "../components/pages/mint";
 import MainFooter from "./mainPage/Footer";
+import NavBarMobile from "./mainPage/navBarMobile";
+import { isMobile } from "react-device-detect";
 
 export default function App() {
   const [container, setContainer] = useState<ServiceContainer>({});
@@ -45,7 +47,7 @@ export default function App() {
               path="/"
               element={
                 <>
-                  <MainHeader />
+                  {isMobile ? <NavBarMobile /> : <MainHeader />}
                   <MainPage />
                   <MainFooter />
                 </>

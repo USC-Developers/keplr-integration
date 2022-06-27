@@ -17,20 +17,21 @@ import userImg from "./AssetsImgMain/avatar.png";
 import uscLogoMobile from "./uscMobile/logo.png";
 import frame from "./uscMobile/Frame.png";
 import cubesImgMobile from "./uscMobile/cubes2.png";
+import { User } from "./User";
 
 export default function MainPage() {
   return (
-    <div>
+    <>
       <div className="mainDiv">
         <div className="div div1">
-          <img className="mainLogo deskOnly" src={uscLogo}></img>
-          <img className="mainLogo mobileOnly" src={uscLogo}></img>
+          <img className="mainLogo deskOnly" src={uscLogo} alt="uscLogo2" />
+          <img className="mainLogo mobileOnly" src={uscLogo} alt="uscLogo3" />
         </div>
 
-        <div className="div div2">
+        <div className="div div2" id="Home">
           <div className="divContainer deskOnly">
             <div className="flexColoumn casadia ">
-              <img className="USCLogo" src={logoUSC}></img>
+              <img className="USCLogo" src={logoUSC} alt="logoUSC" />
               <label>A New Fully</label>
               <div>
                 <label className="green">Collateralized </label>
@@ -38,13 +39,13 @@ export default function MainPage() {
               </div>
               <label>For Cosmos</label>
             </div>
-            <img className="cubeImg" src={cubeImg}></img>
+            <img className="cubeImg" src={cubeImg} alt="cubeImg" />
           </div>
 
           <div className="divContainer mobileOnly">
             <div className="flexColoumn casadia ">
-              <img className="cubeImg" src={cubeImg}></img>
-              <img className="USCLogo" src={logoUSC}></img>
+              <img className="cubeImg" src={cubeImg} alt="cubeImg" />
+              <img className="USCLogo" src={logoUSC} alt="logoUSC1" />
               <label className="textWhite">
                 A New Fully <span className="green">Collateralized</span>
                 <br /> <span className="blue">Stablecoin</span> For Cosmos
@@ -53,7 +54,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className="div div3">
+        <div className="div div3" id="Challenge">
           <div className="flexColoumn casadia divContainer alignLeft">
             <div>
               <label>The </label>
@@ -65,8 +66,8 @@ export default function MainPage() {
               of projects operating billions of dollars in value are currently
               seeking for an alternative, as they require a highly liquid
               solution moving forward.
-            </p>
-            <p className="pDiv3">
+              <br />
+              <br />
               Other solutions are either not native to the ecosystem and
               therefore fragment liquidity and increase the attack surface
               (e.g., bridged USDC), or are not ready for market nor have a plan
@@ -75,7 +76,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className="div div4">
+        <div className="div div4" id="Solution">
           <div className="flexColoumn casadia divContainer gap">
             <div className="titleDiv">
               <label>The </label>
@@ -98,8 +99,8 @@ export default function MainPage() {
               for every 1 xUSC), provided that you supply collateral to the
               project (and mint USC in return). The option would slowly expire,
               each month giving less value to xUSC holders.
-            </p>
-            <p className="pDiv3">
+              <br />
+              <br />
               To give a simple example, imagine a person holding 10 UST. They’ll
               receive 10 xUSC, which they can turn into 10 USC + $3 worth of
               ISTR, assuming they lock $10 worth of collateral in the protocol.
@@ -119,8 +120,8 @@ export default function MainPage() {
               The collateral is always redeeemable with a 1:1 backing, but ISTR
               is dripped over a vesting period, so redeeming your collateral
               means giving up your future ISTR allocation.
-            </p>
-            <p className="pDiv3">
+              <br />
+              <br />
               Alongside the bootstraping phase for UST holders, anyone would be
               able to supply collateral in return for USC at a 1:1 ratio with
               some additional ISTR tokens allocated to them over time, but at a
@@ -131,13 +132,13 @@ export default function MainPage() {
           <img src={generator} className="generatorImg deskOnly" />
         </div>
 
-        <div className="div div6">
+        <div className="div div6" id="Chain">
           <div className="flexColoumn casadia divContainer gap">
             <div>
               <label>The </label>
               <label className="green">Chain</label>
             </div>
-            <div className="flexRow flexMobile">
+            <div className="flexRow flexMobile gapChain">
               <div className="chainBox">
                 <img src={partial} className="chainImg" />
                 <label className="chainTitle">
@@ -177,7 +178,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className="div div7">
+        <div className="div div7" id="MVP">
           <div className="flexColoumn casadia divContainer gap">
             <div>
               <label>The </label>
@@ -236,7 +237,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className="div div8">
+        <div className="div div8" id="Roadmap">
           <div
             className="flexColoumn casadia divContainer"
             style={{ gap: "50px" }}
@@ -249,7 +250,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className="div div9">
+        <div className="div div9" id="Tokenomics">
           <div className="flexColoumn casadia divContainer">
             <div>
               <label>USC </label>
@@ -262,7 +263,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className="div div10">
+        <div className="div div10" id="Team">
           <div className="flexColoumn casadia divContainer alignLeft">
             <div style={{ alignSelf: "center" }}>
               <label>The </label>
@@ -272,8 +273,8 @@ export default function MainPage() {
               The team behind the project are long-time crypto vaterans (many of
               us started our journey in 2011- 2013) who care deeply about the
               space.
-            </p>
-            <p className="pDiv3">
+              <br />
+              <br />
               We developed top projects that have raised dozens of millions of
               dollars and have been used by hundreds of thousands of users. In
               addition, we are going to launch our stablecoin as a module on
@@ -281,117 +282,19 @@ export default function MainPage() {
             </p>
             <div>
               <div className="teamBoxes">
-                <div className="TeamBox">
-                  <img src={userImg} className="userImg" />
-                  <label className="chainTitle">User 1</label>
-                  <p className="userText">
-                    Lorem Ipsum is simply dummy <br />
-                    text of the printing and
-                    <br />
-                    typesetting industry.
-                  </p>
-                  <a href="#" className="userLinkedin">
-                    https://www.linkedin.com/
-                  </a>
-                </div>
-                <div className="TeamBox">
-                  <img src={userImg} className="userImg" />
-                  <label className="chainTitle">User 2</label>
-                  <p className="userText">
-                    Lorem Ipsum is simply dummy <br />
-                    text of the printing and
-                    <br />
-                    typesetting industry.
-                  </p>
-                  <a href="#" className="userLinkedin">
-                    https://www.linkedin.com/
-                  </a>
-                </div>
-                <div className="TeamBox">
-                  <img src={userImg} className="userImg" />
-                  <label className="chainTitle">User 3</label>
-                  <p className="userText">
-                    Lorem Ipsum is simply dummy <br />
-                    text of the printing and
-                    <br />
-                    typesetting industry.
-                  </p>
-                  <a href="#" className="userLinkedin">
-                    https://www.linkedin.com/
-                  </a>
-                </div>
-                <div className="TeamBox">
-                  <img src={userImg} className="userImg" />
-                  <label className="chainTitle">User 4</label>
-                  <p className="userText">
-                    Lorem Ipsum is simply dummy <br />
-                    text of the printing and
-                    <br />
-                    typesetting industry.
-                  </p>
-                  <a href="#" className="userLinkedin">
-                    https://www.linkedin.com/
-                  </a>
-                </div>
-                {/* </div>
-              <div className="teamBoxes marginMobile"> */}
-                <div className="TeamBox">
-                  <img src={userImg} className="userImg" />
-                  <label className="chainTitle">User 5</label>
-                  <p className="userText">
-                    Lorem Ipsum is simply dummy <br />
-                    text of the printing and
-                    <br />
-                    typesetting industry.
-                  </p>
-                  <a href="#" className="userLinkedin">
-                    https://www.linkedin.com/
-                  </a>
-                </div>
-                <div className="TeamBox">
-                  <img src={userImg} className="userImg" />
-                  <label className="chainTitle">User 6</label>
-                  <p className="userText">
-                    Lorem Ipsum is simply dummy <br />
-                    text of the printing and
-                    <br />
-                    typesetting industry.
-                  </p>
-                  <a href="#" className="userLinkedin">
-                    https://www.linkedin.com/
-                  </a>
-                </div>
-                <div className="TeamBox">
-                  <img src={userImg} className="userImg" />
-                  <label className="chainTitle">User 7</label>
-                  <p className="userText">
-                    Lorem Ipsum is simply dummy <br />
-                    text of the printing and
-                    <br />
-                    typesetting industry.
-                  </p>
-                  <a href="#" className="userLinkedin">
-                    https://www.linkedin.com/
-                  </a>
-                </div>
-                <div className="TeamBox">
-                  <img src={userImg} className="userImg" />
-                  <label className="chainTitle">User 8</label>
-                  <p className="userText">
-                    Lorem Ipsum is simply dummy <br />
-                    text of the printing and
-                    <br />
-                    typesetting industry.
-                  </p>
-                  <a href="#" className="userLinkedin">
-                    https://www.linkedin.com/
-                  </a>
-                </div>
+                <User name={"1"} />
+                <User name={"2"} />
+                <User name={"3"} />
+                <User name={"4"} />
+                <User name={"5"} />
+                <User name={"6"} />
+                <User name={"7"} />
+                <User name={"8"} />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

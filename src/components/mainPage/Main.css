@@ -32,6 +32,7 @@
     background-position: 50% 50%;
     justify-content: space-evenly;
     align-items: center;
+    border: none;
 }
 
 .div1 {
@@ -165,11 +166,12 @@
 }
 
 .casadia{
-    font-family: 'Cascadia';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 42px;
-    line-height: 47px;
+    font-family: 'Cascadia' !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 42px !important;
+    line-height: 47px !important;
+    color: #F0F0F0;
 }
 
 .green{
@@ -227,20 +229,14 @@
 }
 
 .teamBoxes {
-    width: 80vw;
+    width: 90vw;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 50px;
+    gap: 30px;
     margin: 0 auto;
-    
 }
 
-.teamBoxes::after{
-    content: '';
-    width: 313px;
-}
 
 .TeamBox{
     display: flex;
@@ -275,7 +271,7 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 20px;    
-    color: #49E0B3;
+    color: #49E0B3 !important;
     width: inherit;
 }
 
@@ -563,8 +559,11 @@
 
     .TeamBox{
         height: 299px;
+        width: inherit;
     }
-
+    .gapChain{
+        gap: 20px;
+    }
 }
 
 
@@ -573,4 +572,8 @@
     .divContainer{
         width: 90vw;
     }
+}
+
+label{
+    display: unset !important;
 }
