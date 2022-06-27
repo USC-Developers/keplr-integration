@@ -2,96 +2,31 @@
 <html lang="en">
   <head>
     <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-    crossorigin="anonymous"
-  /> 
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-   
 
-    <meta
-    name="description"
-    content="View, search & export transactions going through the XP.network bridge across 10+ blockchains"
-  />
-  <meta
-    name="twitter:image:src"
-    content="%PUBLIC_URL%/favicon.png"
-  />
-  <meta content="summary_large_image" name="twitter:card" />
-  <meta
-    content="XP.NETWORK NFT Bridge Explorer"
-    property="twitter:title"
-  />
-  <meta
-    content="View, search & export transactions going through the XP.network bridge across 10+ blockchains"
-    property="twitter:description"
-  />
-  <meta
-    name="twitter:image"
-    content="%PUBLIC_URL%/Meta.png"
-  />
-  <meta
-  property="og:image"
-  content="%PUBLIC_URL%/Meta.png"
-/>
+    <meta name="description" content="" />
+    <meta name="twitter:image:src" />
+    <meta content="summary_large_image" name="twitter:card" />
+    <meta content="USC | COSMOS USD" property="twitter:title" />
+    <meta content="" property="twitter:description" />
+    <meta name="twitter:image" content="%PUBLIC_URL%/Meta.png" />
+    <meta property="og:image" content="%PUBLIC_URL%/Meta.png" />
 
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.png" />
 
-   <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.png" />
-
-    <script>
-           
- 
-      window.SITE_KEY_CAPTCHA = "6LeZLsseAAAAAL1P7An5_2GkIy-BZvd-kK3duuWa";
-      window.SITE_KEY_INV_CAPTCHA = "6LfQOTEgAAAAAL07CQVjXTx8ixN1koilgCPRnzd4";
-      window.NEWS_EMAIL = ''
-     
-      function sendNewsletter(token) {
-     
-       document.getElementById('newsLetterWrap')?.remove();
-     
-       document.querySelector('.newsLetterWrapper .quick_links p').innerHTML = 'Stay tuned for future updates.';
-      
-     
-        return;
-     
-        fetch('https://xpnetwork-staging.herokuapp.com/subscriber', {
-            method: 'post',
-            headers: {
-                  Accept: "*",
-                  "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: window.NEWS_EMAIL,
-              token
-            })
-        }).then(res => {
-         document.getElementById('newsLetterWrap')?.remove();
-     
-         document.querySelector('.newsLetterWrapper .quick_links p').innerHTML = 'Stay tuned for future updates.'
-        })
-      }
-
-
-      window.sendNewsletter = sendNewsletter;
-      
-      </script>
- 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-    <title>XP.NETWORK | Bridge Explorer</title>
+    <title>USC | COSMOS USD</title>
   </head>
   <body>
-
- 
-
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <div id="portal"></div>
-
-    
   </body>
 </html>
