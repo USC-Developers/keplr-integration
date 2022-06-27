@@ -330,8 +330,8 @@
 
 @media only screen and (max-width: 768px) {
     .casadia{
-        font-size: 28px;
-        line-height: 45px;
+        font-size: 28px !important;
+        line-height: 45px !important;
     }
     .textWhite{
         font-family: 'Cascadia';

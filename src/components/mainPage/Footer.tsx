@@ -35,21 +35,16 @@ export default function MainFooter() {
             <div className="flexColoumnFooter">
               <a href="#Roadmap">Roadmap</a>
               <a href="#Team">Team</a>
+              <Link to="/mint">
               <a href="#">Launch App</a>
+            </Link>
             </div>
           </div>
         </div>
 
-        <div className="flexColoumn casadia casadiaLinksFooter">
-          <label className="footerTitle"></label>
-          <a href="#">Roadmap</a>
-          <a href="#">Team</a>
-          <Link to="/mint">
-            <a href="#">Launch App</a>
-          </Link>
-        </div>
+       
 
-        <div className="flexColoumn casadia deskOnly">
+        <div className="flexColoumn casadia">
           <label className="footerTitle">Socials</label>
           <div className="flexRowFooter socials">
             <a href="#">
