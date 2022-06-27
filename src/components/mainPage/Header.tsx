@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 import logoNav from "./AssetsImgMain/Logo.png";
-
+import { Link } from "react-router-dom";
 import ConnectWallet from "../elements/connectWalletBtn";
 
 export default function MainHeader() {
@@ -34,9 +34,11 @@ export default function MainHeader() {
           <li>
             <a href="/">Team</a>
           </li>
-          <li>
-            <a href="/">Launch App</a>
-          </li>
+          <Link to="/mint">
+            <li>
+              <a href="/">Launch App</a>
+            </li>
+          </Link>
         </ul>
         <div style={{ position: "relative", width: "200px" }}>
           <ConnectWallet />
