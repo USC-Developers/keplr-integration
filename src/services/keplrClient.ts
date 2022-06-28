@@ -130,7 +130,7 @@ class KeplrClient {
 
       this.account.address = (await this.signer?.getAccounts())[0].address;
 
-      this.stargate = await this.getStargate(
+      /* this.stargate = await this.getStargate(
         CONFIG.osmosisUrl,
         CONFIG.osmosisChain
       );

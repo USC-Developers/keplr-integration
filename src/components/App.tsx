@@ -54,17 +54,3 @@ export default function App() {
     </ServiceProvider>
   );
 }
-
-/*false && await client.sendWithCosmo(
-        [
-          {
-            typeUrl: "/cosmos.bank.v1beta1.MsgSend",
-            value: {
-              amount: [coin(1, "stake")],
-              fromAddress: "cosmos1sfdhe0yx7vhlx00hvws3pxwct8snzw6d8md98d",
-              toAddress: "cosmos15zwjg6q62lcejtz4fauq5ltm0zlrwam8003lyz",
-            },
-          },
-        ],
-        "test"
-      );*/
